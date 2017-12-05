@@ -1,0 +1,14 @@
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Web.dll
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Data.dll
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Web.deps.json
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Web.runtimeconfig.json
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Web.runtimeconfig.dev.json
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Web.pdb
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Data.pdb
+C:\Users\karab\source\repos\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.csprojResolveAssemblyReference.cache
+C:\Users\karab\source\repos\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.csproj.CoreCompileInputs.cache
+C:\Users\karab\source\repos\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\karab\source\repos\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.AssemblyInfoInputs.cache
+C:\Users\karab\source\repos\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.AssemblyInfo.cs
+C:\Users\karab\source\repos\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.dll
+C:\Users\karab\source\repos\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.pdb
