@@ -1,9 +1,0 @@
-C:\Users\karab\source\repos\BookStore\BookStore.Common\bin\Debug\netstandard2.0\BookStore.Common.deps.json
-C:\Users\karab\source\repos\BookStore\BookStore.Common\bin\Debug\netstandard2.0\BookStore.Common.dll
-C:\Users\karab\source\repos\BookStore\BookStore.Common\obj\Debug\netstandard2.0\BookStore.Common.csproj.CoreCompileInputs.cache
-C:\Users\karab\source\repos\BookStore\BookStore.Common\obj\Debug\netstandard2.0\BookStore.Common.AssemblyInfoInputs.cache
-C:\Users\karab\source\repos\BookStore\BookStore.Common\obj\Debug\netstandard2.0\BookStore.Common.AssemblyInfo.cs
-C:\Users\karab\source\repos\BookStore\BookStore.Common\bin\Debug\netstandard2.0\BookStore.Common.pdb
-C:\Users\karab\source\repos\BookStore\BookStore.Common\obj\Debug\netstandard2.0\BookStore.Common.csprojResolveAssemblyReference.cache
-C:\Users\karab\source\repos\BookStore\BookStore.Common\obj\Debug\netstandard2.0\BookStore.Common.dll
-C:\Users\karab\source\repos\BookStore\BookStore.Common\obj\Debug\netstandard2.0\BookStore.Common.pdb
