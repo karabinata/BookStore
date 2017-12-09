@@ -26,3 +26,7 @@ C:\Users\User\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.Asse
 C:\Users\User\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.AssemblyInfo.cs
 C:\Users\User\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.dll
 C:\Users\User\BookStore\BookStore.Web\obj\Debug\netcoreapp2.0\BookStore.Web.pdb
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Services.dll
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Services.pdb
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Common.dll
+C:\Users\karab\source\repos\BookStore\BookStore.Web\bin\Debug\netcoreapp2.0\BookStore.Common.pdb

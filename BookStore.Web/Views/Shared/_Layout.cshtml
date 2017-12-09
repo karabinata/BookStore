@@ -15,8 +15,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/style.min.css" asp-append-version="true" />
     </environment>
-    <title>Grocery Store a Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
-    <!-- for-mobile-apps -->
+    <title>Книжен пазар</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Grocery Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -28,7 +27,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- header -->
     <div class="agileits_header">
         <div class="w3l_offers">
-            <a href="products.html">Today's special Offers !</a>
+            <a href="products.html">Today's special Offers!</a>
         </div>
         <div class="w3l_search">
             <form action="#" method="post">
@@ -45,39 +44,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </fieldset>
             </form>
         </div>
-        <div class="w3l_header_right">
-            <ul>
-                <li class="dropdown profile_details_drop">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
-                    <div class="mega-dropdown-menu">
-                        <div class="w3ls_vegetables">
-                            <ul class="dropdown-menu drp-mnu">
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="login.html">Sign Up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+        <div class="login_partial">
+            @await Html.PartialAsync("_LoginPartial")
         </div>
-
-        <div class="w3l_header_right1">
-            <h2><a href="mail.html">Contact Us</a></h2>
-        </div>
-        <div class="clearfix"> </div>
     </div>
+    <div class="clearfix"></div>
 
     <div class="logo_products">
         <div class="container">
             <div class="w3ls_logo_products_left">
-                <h1><a href="index.html"><span>Grocery</span> Store</a></h1>
+                <h1><a asp-area="" asp-controller="Home" asp-action="Index"><span>Книжен</span> Пазар</a></h1>
             </div>
             <div class="w3ls_logo_products_left1">
                 <ul class="special_items">
-                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Вход</a><i>/</i></li>
+                    @if (User.IsInRole(WebConstants.AdministratorRole))
+                    {
+                        <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Потребители</a><i>/</i></li>
+                    }
                     <li><a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a><i>/</i></li>
-                    <li><a href="products.html">Best Deals</a><i>/</i></li>
-                    <li><a href="services.html">Services</a></li>
+                    <li><a asp-area="Books" asp-controller="BooksTrader" asp-action="Create">Добави за продажба</a><i>/</i></li>
                 </ul>
             </div>
             <div class="w3ls_logo_products_left1">
@@ -160,8 +145,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div><!-- /.navbar-collapse -->
             </nav>
         </div>
+        @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+        {
+            <div class="alert alert-success text-center">@TempData[WebConstants.TempDataSuccessMessageKey]</div>
+        }
+
+        @if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
+        {
+            <div class="alert alert-danger text-center">@TempData[WebConstants.TempDataErrorMessageKey]</div>
+        }
+
         @RenderBody()
     </div>
+
     <div class="clearfix"></div>
     <!-- //banner -->
     <!-- newsletter-top-serv-btm -->

@@ -10,14 +10,9 @@ namespace BookStore.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MinLength(AuthorFirstNameMinLength)]
-        [MaxLength(AuthorFirstNameMaxLength)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [MinLength(AuthorLastNameMinLength)]
-        [MaxLength(AuthorLastNameMaxLength)]
-        public string LastName { get; set; }
+        [MinLength(FirstNameMinLength)]
+        [MaxLength(NamesMaxLength)]
+        public string Name { get; set; }
 
         public List<BookAuthor> Books { get; set; } = new List<BookAuthor>();
     }

@@ -53,6 +53,7 @@ namespace BookStore.Web.Infrastructure.Extensions
                                 FirstName = adminName,
                                 LastName = "Boss",
                                 UserName = adminName,
+                                RegistrationDate = DateTime.UtcNow
                             };
 
                             await userManager.CreateAsync(adminUser, "admin12");

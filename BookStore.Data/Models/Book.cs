@@ -9,12 +9,16 @@ namespace BookStore.Data.Models
     {
         public int Id { get; set; }
 
+        public string TraderId { get; set; }
+
+        public User Trader { get; set; }
+
         [Required]
         [MinLength(BookTitleMinLength)]
         [MaxLength(BookTitleMaxLength)]
         public string Title { get; set; }
 
-        public bool OneOrMoreBookUnits { get; set; }
+        public int BooksAvailable { get; set; }
 
         [MaxLength(ISBNMaxLength)]
         public string ISBN { get; set; }
@@ -67,13 +71,13 @@ namespace BookStore.Data.Models
 
         public string Format { get; set; }
 
-        public double Width { get; set; }
+        public double? Width { get; set; }
 
-        public double Heigth { get; set; }
+        public double? Heigth { get; set; }
 
-        public double Тhickness { get; set; }
+        public double? Тhickness { get; set; }
 
-        public int Weigth { get; set; }
+        public int? Weigth { get; set; }
 
         public string Information { get; set; }
 
@@ -81,8 +85,10 @@ namespace BookStore.Data.Models
 
         public List<BookAuthor> Authors { get; set; } = new List<BookAuthor>();
 
-        public int PublisherId { get; set; }
+        public int? PublisherId { get; set; }
 
         public Publisher Publisher { get; set; }
+
+        public List<OrderBook> Orders { get; set; } = new List<OrderBook>();
     }
 }

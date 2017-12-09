@@ -1,4 +1,4 @@
-﻿namespace BookStore.Web.Infrastructure.Mapping
+﻿namespace BookStore.Common.Mapping
 {
     public interface IMapFrom<TModel>
     {

@@ -1,0 +1,207 @@
+﻿@model BookCreateServiceModel
+
+@{
+    ViewData["Title"] = "Добави нова книга";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="w3l_banner_nav_right">
+    <h3>Добавяне на книга</h3>
+    <div class="w3_login_module">
+        <div class="module form-module">
+            <div class="toggle">
+                <i class="fa fa-times fa-pencil"></i>
+                <div class="tooltip">Click Me</div>
+            </div>
+            <div class="form">
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="BooksAvailable"></label>
+                        <input asp-for="BooksAvailable" />
+                        <span asp-validation-for="BooksAvailable" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AuthorNames"></label>
+                        <input asp-for="AuthorNames" class="form-control" />
+                        <span asp-validation-for="AuthorNames" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PublisherName"></label>
+                        <input asp-for="PublisherName" class="form-control" />
+                        <span asp-validation-for="PublisherName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Category"></label>
+                        <input asp-for="Category" class="form-control" />
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PublicationYear"></label>
+                        <input asp-for="PublicationYear" class="form-control" />
+                        <span asp-validation-for="PublicationYear" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ISBN"></label>
+                        <input asp-for="ISBN" class="form-control" />
+                        <span asp-validation-for="ISBN" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="IsNew"></label>
+                        <input asp-for="IsNew" />
+                        <span asp-validation-for="IsNew" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Condition"></label>
+                        <input asp-for="Condition" class="form-control" />
+                        <span asp-validation-for="Condition" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConditionNote"></label>
+                        <input asp-for="ConditionNote" class="form-control" />
+                        <span asp-validation-for="ConditionNote" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Language"></label>
+                        <input asp-for="Language" class="form-control" />
+                        <span asp-validation-for="Language" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Subtitle"></label>
+                        <input asp-for="Subtitle" class="form-control" />
+                        <span asp-validation-for="Subtitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SeriesAndLibraries"></label>
+                        <input asp-for="SeriesAndLibraries" class="form-control" />
+                        <span asp-validation-for="SeriesAndLibraries" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TranslatorName"></label>
+                        <input asp-for="TranslatorName" class="form-control" />
+                        <span asp-validation-for="TranslatorName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PaintorName"></label>
+                        <input asp-for="PaintorName" class="form-control" />
+                        <span asp-validation-for="PaintorName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CoverPicture"></label>
+                        <input asp-for="CoverPicture" class="form-control" />
+                        <span asp-validation-for="CoverPicture" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstPicture"></label>
+                        <input asp-for="FirstPicture" class="form-control" />
+                        <span asp-validation-for="FirstPicture" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SecondPicture"></label>
+                        <input asp-for="SecondPicture" class="form-control" />
+                        <span asp-validation-for="SecondPicture" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThirdPicture"></label>
+                        <input asp-for="ThirdPicture" class="form-control" />
+                        <span asp-validation-for="ThirdPicture" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Coverage"></label>
+                        <input asp-for="Coverage" class="form-control" />
+                        <span asp-validation-for="Coverage" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KeyWords"></label>
+                        <input asp-for="KeyWords" class="form-control" />
+                        <span asp-validation-for="KeyWords" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Format"></label>
+                        <input asp-for="Format" class="form-control" />
+                        <span asp-validation-for="Format" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Width"></label>
+                        <input asp-for="Width" class="form-control" />
+                        <span asp-validation-for="Width" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Heigth"></label>
+                        <input asp-for="Heigth" class="form-control" />
+                        <span asp-validation-for="Heigth" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Тhickness"></label>
+                        <input asp-for="Тhickness" class="form-control" />
+                        <span asp-validation-for="Тhickness" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Weigth"></label>
+                        <input asp-for="Weigth" class="form-control" />
+                        <span asp-validation-for="Weigth" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Information"></label>
+                        <input asp-for="Information" class="form-control" />
+                        <span asp-validation-for="Information" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NotesForTraider"></label>
+                        <input asp-for="NotesForTraider" class="form-control" />
+                        <span asp-validation-for="NotesForTraider" class="text-danger"></span>
+                    </div>
+                    <input type="submit" value="Регистрирай" />
+                </form>
+            </div>
+            <div class="form">
+                <h2>Create an account</h2>
+                <form action="#" method="post">
+                    <input type="text" name="Username" placeholder="Username" required=" ">
+                    <input type="password" name="Password" placeholder="Password" required=" ">
+                    <input type="email" name="Email" placeholder="Email Address" required=" ">
+                    <input type="text" name="Phone" placeholder="Phone Number" required=" ">
+                    <input type="submit" value="Register">
+                </form>
+            </div>
+            <div class="cta"><a href="#">Forgot your password?</a></div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        $('.toggle').click(function () {
+            // Switches the Icon
+            $(this).children('i').toggleClass('fa-pencil');
+            // Switches the forms
+            $('.form').animate({
+                height: "toggle",
+                'padding-top': 'toggle',
+                'padding-bottom': 'toggle',
+                opacity: "toggle"
+            }, "slow");
+        });
+    </script>
+}
+
+
+
+

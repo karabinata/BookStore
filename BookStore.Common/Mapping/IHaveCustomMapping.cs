@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace BookStore.Web.Infrastructure.Mapping
+namespace BookStore.Common.Mapping
 {
     public interface IHaveCustomMapping
     {

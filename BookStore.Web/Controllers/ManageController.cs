@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BookStore.Web.Models.Manage;
-using BookStore.Web.Services;
+using BookStore.Services;
 using BookStore.Data.Models;
 using BookStore.Web.Infrastructure.Extentions;
 

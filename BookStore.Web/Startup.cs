@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BookStore.Web.Data;
-using BookStore.Web.Models;
-using BookStore.Web.Services;
 using BookStore.Data.Models;
 using BookStore.Data;
 using BookStore.Web.Infrastructure.Extensions;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Web
 {
@@ -39,10 +34,17 @@ namespace BookStore.Web
                 })
                 .AddEntityFrameworkStores<BookStoreDbContext>()
                 .AddDefaultTokenProviders();
-            
-            services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+            services.AddAutoMapper();
+
+            services.AddDomainServices();
+
+            services.AddRouting(routing => routing.LowercaseUrls = true);
+
+            services.AddMvc(options => 
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); 
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -66,6 +68,10 @@ namespace BookStore.Web
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookStore.Common.Mapping;
 using System;
 using System.Linq;
 

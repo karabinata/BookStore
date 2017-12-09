@@ -26,11 +26,7 @@ namespace BookStore.Web.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200);
 
@@ -43,6 +39,8 @@ namespace BookStore.Web.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BooksAvailable");
 
                     b.Property<int>("Category");
 
@@ -61,7 +59,7 @@ namespace BookStore.Web.Data.Migrations
 
                     b.Property<string>("Format");
 
-                    b.Property<double>("Heigth");
+                    b.Property<double?>("Heigth");
 
                     b.Property<string>("ISBN")
                         .HasMaxLength(20);
@@ -78,8 +76,6 @@ namespace BookStore.Web.Data.Migrations
 
                     b.Property<string>("NotesForTraider");
 
-                    b.Property<bool>("OneOrMoreBookUnits");
-
                     b.Property<string>("PaintorName")
                         .HasMaxLength(200);
 
@@ -87,7 +83,7 @@ namespace BookStore.Web.Data.Migrations
 
                     b.Property<int>("PublicationYear");
 
-                    b.Property<int>("PublisherId");
+                    b.Property<int?>("PublisherId");
 
                     b.Property<byte[]>("SecondPicture")
                         .HasMaxLength(50);
@@ -104,18 +100,22 @@ namespace BookStore.Web.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<string>("TraderId");
+
                     b.Property<string>("TranslatorName")
                         .HasMaxLength(200);
 
-                    b.Property<int>("Weigth");
+                    b.Property<int?>("Weigth");
 
-                    b.Property<double>("Width");
+                    b.Property<double?>("Width");
 
-                    b.Property<double>("Тhickness");
+                    b.Property<double?>("Тhickness");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PublisherId");
+
+                    b.HasIndex("TraderId");
 
                     b.ToTable("Books");
                 });
@@ -133,12 +133,45 @@ namespace BookStore.Web.Data.Migrations
                     b.ToTable("BooksWithAuthors");
                 });
 
-            modelBuilder.Entity("BookStore.Data.Models.Publisher", b =>
+            modelBuilder.Entity("BookStore.Data.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Country");
+                    b.Property<string>("CustomerId");
+
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<decimal>("Shipping");
+
+                    b.Property<decimal>("Subtotal");
+
+                    b.Property<decimal>("Total");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BookStore.Data.Models.OrderBook", b =>
+                {
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("BookId");
+
+                    b.HasKey("OrderId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("OrderBooks");
+                });
+
+            modelBuilder.Entity("BookStore.Data.Models.Publisher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -156,8 +189,6 @@ namespace BookStore.Web.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("Birthdate");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -167,10 +198,12 @@ namespace BookStore.Web.Data.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<string>("LastName")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -189,6 +222,8 @@ namespace BookStore.Web.Data.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<DateTime>("RegistrationDate");
 
                     b.Property<string>("SecurityStamp");
 
@@ -322,8 +357,11 @@ namespace BookStore.Web.Data.Migrations
                 {
                     b.HasOne("BookStore.Data.Models.Publisher", "Publisher")
                         .WithMany("Books")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PublisherId");
+
+                    b.HasOne("BookStore.Data.Models.User", "Trader")
+                        .WithMany()
+                        .HasForeignKey("TraderId");
                 });
 
             modelBuilder.Entity("BookStore.Data.Models.BookAuthor", b =>
@@ -336,6 +374,26 @@ namespace BookStore.Web.Data.Migrations
                     b.HasOne("BookStore.Data.Models.Book", "Book")
                         .WithMany("Authors")
                         .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BookStore.Data.Models.Order", b =>
+                {
+                    b.HasOne("BookStore.Data.Models.User", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId");
+                });
+
+            modelBuilder.Entity("BookStore.Data.Models.OrderBook", b =>
+                {
+                    b.HasOne("BookStore.Data.Models.Book", "Book")
+                        .WithMany("Orders")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BookStore.Data.Models.Order", "Order")
+                        .WithMany("Books")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
