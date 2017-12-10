@@ -29,6 +29,8 @@ namespace BookStore.Services.Books.Models
 
         public Coverage Coverage { get; set; }
 
+        public byte[] CoverPicture { get; set; }
+
         public void ConfigureMapping(Profile mapper)
         {
             mapper

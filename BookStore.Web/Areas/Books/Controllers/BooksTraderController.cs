@@ -2,9 +2,13 @@
 using BookStore.Services.Books;
 using BookStore.Services.Books.Models;
 using BookStore.Web.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 using System.Threading.Tasks;
+
+using static BookStore.Data.DataConstants;
 
 namespace BookStore.Web.Areas.Books.Controllers
 {
@@ -25,8 +29,19 @@ namespace BookStore.Web.Areas.Books.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BookCreateServiceModel model)
+        public async Task<IActionResult> Create(BookCreateServiceModel model, IFormFile coverPicture)
         {
+            if (!(coverPicture.FileName.EndsWith(".jpg")
+                || coverPicture.FileName.EndsWith(".png")
+                || coverPicture.FileName.EndsWith(".gif"))
+                || coverPicture.Length > PictureSize)
+            {
+                ModelState.AddModelError(string.Empty, "Снимката трябва да е с разширение: \".zip\", \".png\" или \".gif\", как и да е с размер до 2 MB.");
+                return View(model);
+            }
+
+            var pictureContents = await coverPicture.ToByteArrayAsync();
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -52,7 +67,7 @@ namespace BookStore.Web.Areas.Books.Controllers
                     model.SeriesAndLibraries,
                     model.TranslatorName,
                     model.PaintorName,
-                    model.CoverPicture,
+                    pictureContents,
                     model.FirstPicture,
                     model.SecondPicture,
                     model.ThirdPicture,

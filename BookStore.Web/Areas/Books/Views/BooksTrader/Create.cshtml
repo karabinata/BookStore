@@ -101,8 +101,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="CoverPicture"></label>
-                        <input type="file" asp-for="CoverPicture" name="CoverPicture" style="display: none" accept=".gif,.png,.jpg"/>
-                        <button type="button" class="btn btn-default form-control" onclick="document.getElementsByName('CoverPicture')[0].click()">Избери снимка за качване</button>
+                        <input type="file" asp-for="CoverPicture" name="coverPicture" style="display: none" accept=".gif,.png,.jpg"/>
+                        <button type="button" class="btn btn-default form-control" onclick="document.getElementsByName('coverPicture')[0].click()">Избери снимка за качване</button>
                         Файлът трябва да е gif, jpg или png, с обем до 50KB.
                         <span asp-validation-for="CoverPicture" class="text-danger"></span>
                     </div>

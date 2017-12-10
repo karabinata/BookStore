@@ -50,12 +50,12 @@ namespace BookStore.Web.Data.Migrations
                         .HasMaxLength(200);
 
                     b.Property<byte[]>("CoverPicture")
-                        .HasMaxLength(3072);
+                        .HasMaxLength(3145728);
 
                     b.Property<int>("Coverage");
 
                     b.Property<byte[]>("FirstPicture")
-                        .HasMaxLength(3072);
+                        .HasMaxLength(3145728);
 
                     b.Property<string>("Format");
 
@@ -86,7 +86,7 @@ namespace BookStore.Web.Data.Migrations
                     b.Property<int?>("PublisherId");
 
                     b.Property<byte[]>("SecondPicture")
-                        .HasMaxLength(3072);
+                        .HasMaxLength(3145728);
 
                     b.Property<string>("SeriesAndLibraries");
 
@@ -94,7 +94,7 @@ namespace BookStore.Web.Data.Migrations
                         .HasMaxLength(100);
 
                     b.Property<byte[]>("ThirdPicture")
-                        .HasMaxLength(3072);
+                        .HasMaxLength(3145728);
 
                     b.Property<string>("Title")
                         .IsRequired()
