@@ -25,15 +25,16 @@ namespace BookStore.Web.Areas.Books.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> All(int page = 1)
+        public async Task<IActionResult> All(int page = 1, int pageSize = 5)
         {
-            var books = await this.books.AllAsync();
+            var books = await this.books.AllAsync(page, pageSize);
 
             var allBooks = new BookListingViewModel
             {
                 Books = books,
+                TotalBooks = await this.books.TotalAsync(),
                 CurrentPage = page,
-                TotalBooks = await this.books.TotalAsync()
+                PageSize = pageSize
             };
 
             return View(allBooks);
@@ -45,7 +46,7 @@ namespace BookStore.Web.Areas.Books.Controllers
         {
             var userId = this.userManager.GetUserId(User);
 
-            var orderResult = await this.orders.OrderItemAsync(userId, id);
+            var orderResult = await this.orders.OrderBookAsync(userId, id);
 
             if (!orderResult)
             {
@@ -57,7 +58,45 @@ namespace BookStore.Web.Areas.Books.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Unorder(int id)
+        {
+            var userId = this.userManager.GetUserId(User);
+
+            var orderResult = await this.orders.UnorderBookAsync(userId, id);
+
+            if (!orderResult)
+            {
+                TempData.AddErrorMessage("За съжаление поръчката не може да се отмени, възникнала е някаква грешка, моля свържете се с продавача.");
+            }
+
+            TempData.AddSuccessMessage("Поръчката е отменена успешно.");
+
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
         public async Task<IActionResult> Details(int id)
-            => View(await this.books.DetailsAsync(id));
+        {
+            var model = new BookDetailsViewModel
+            {
+                Book = await this.books.DetailsAsync(id)
+            };
+
+            if (model.Book == null)
+            {
+                return NotFound();
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = this.userManager.GetUserId(User);
+
+                model.IsOrderedByUser = await this.orders
+                    .IsOrdered(userId, id);
+            }
+
+            return View(model);
+        }
     }
 }

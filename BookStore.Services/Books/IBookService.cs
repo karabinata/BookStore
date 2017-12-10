@@ -39,7 +39,7 @@ namespace BookStore.Services.Books
              string notesForTraider,
              string traderId);
 
-        Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 10);
+        Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 5);
 
         Task<BookDetailsServiceModel> DetailsAsync(int id);
 

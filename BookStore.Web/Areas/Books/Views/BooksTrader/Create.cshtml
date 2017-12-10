@@ -15,7 +15,7 @@
                 <div class="tooltip">Click Me</div>
             </div>
             <div class="form">
-                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="BooksAvailable"></label>
@@ -101,22 +101,24 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="CoverPicture"></label>
-                        <input asp-for="CoverPicture" class="form-control" />
+                        <input type="file" asp-for="CoverPicture" name="CoverPicture" style="display: none" accept=".gif,.png,.jpg"/>
+                        <button type="button" class="btn btn-default form-control" onclick="document.getElementsByName('CoverPicture')[0].click()">Избери снимка за качване</button>
+                        Файлът трябва да е gif, jpg или png, с обем до 50KB.
                         <span asp-validation-for="CoverPicture" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="FirstPicture"></label>
-                        <input asp-for="FirstPicture" class="form-control" />
+                        <input type="file" asp-for="FirstPicture" />Файлът трябва да е gif, jpg или png, с обем до 50KB.
                         <span asp-validation-for="FirstPicture" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="SecondPicture"></label>
-                        <input asp-for="SecondPicture" class="form-control" />
+                        <input type="file" asp-for="SecondPicture" />Файлът трябва да е gif, jpg или png, с обем до 50KB.
                         <span asp-validation-for="SecondPicture" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="ThirdPicture"></label>
-                        <input asp-for="ThirdPicture" class="form-control" />
+                        <input type="file" asp-for="ThirdPicture" />Файлът трябва да е .gif, .jpg или .png, с обем до 2MB.
                         <span asp-validation-for="ThirdPicture" class="text-danger"></span>
                     </div>
                     <div class="form-group">

@@ -13,7 +13,7 @@
 
         public const int NamesMaxLength = 200;
 
-        public const int PictureSize = 50;
+        public const int PictureSize = 3 * 1024;
 
         public const int FirstNameMinLength = 1;
 

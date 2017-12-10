@@ -13249,7 +13249,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Users\\karab\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13258,17 +13258,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\BookStore\\BookStore.Web\\BookStore.Web.csproj",
+      "projectUniqueName": "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Web\\BookStore.Web.csproj",
       "projectName": "BookStore.Web",
-      "projectPath": "C:\\Users\\User\\BookStore\\BookStore.Web\\BookStore.Web.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\BookStore\\BookStore.Web\\obj\\",
+      "projectPath": "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Web\\BookStore.Web.csproj",
+      "packagesPath": "C:\\Users\\karab\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\karab\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13281,14 +13281,14 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\User\\BookStore\\BookStore.Services\\BookStore.Services.csproj": {
-              "projectPath": "C:\\Users\\User\\BookStore\\BookStore.Services\\BookStore.Services.csproj"
+            "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Services\\BookStore.Services.csproj": {
+              "projectPath": "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Services\\BookStore.Services.csproj"
             },
-            "C:\\Users\\User\\BookStore\\BookStore.Data\\BookStore.Data.csproj": {
-              "projectPath": "C:\\Users\\User\\BookStore\\BookStore.Data\\BookStore.Data.csproj"
+            "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Data\\BookStore.Data.csproj": {
+              "projectPath": "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Data\\BookStore.Data.csproj"
             },
-            "C:\\Users\\User\\BookStore\\BookStore.Common\\BookStore.Common.csproj": {
-              "projectPath": "C:\\Users\\User\\BookStore\\BookStore.Common\\BookStore.Common.csproj"
+            "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Common\\BookStore.Common.csproj": {
+              "projectPath": "C:\\Users\\karab\\source\\repos\\BookStore\\BookStore.Common\\BookStore.Common.csproj"
             }
           }
         }
@@ -13318,7 +13318,7 @@
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "2.0",
+            "version": "2.0.0",
             "autoReferenced": true
           },
           "Microsoft.AspNetCore.All": {

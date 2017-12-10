@@ -23,7 +23,7 @@ namespace BookStore.Web.Areas.Orders.Controllers
         {
             var userId = this.userManager.GetUserId(User);
 
-            var orderResult = await this.orders.OrderItemAsync(userId, id);
+            var orderResult = await this.orders.OrderBookAsync(userId, id);
 
             if (!orderResult)
             {

@@ -25,12 +25,12 @@ namespace BookStore.Services.Books.Implementations
             this.publishers = publishers;
         }
 
-        public async Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 2)
+        public async Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 5)
             => await this.db
                 .Books
                 .OrderByDescending(b => b.Id)
-                .Skip((page - 1) * 5)
-                .Take(5)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ProjectTo<BookListingServiceModel>()
                 .ToListAsync();
 
