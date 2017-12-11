@@ -12,9 +12,10 @@ using System;
 namespace BookStore.Web.Data.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171211135513_DescriptionColumnAdded")]
+    partial class DescriptionColumnAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

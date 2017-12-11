@@ -51,6 +51,7 @@ namespace BookStore.Web.Areas.Books.Controllers
             if (!orderResult)
             {
                 TempData.AddErrorMessage("За съжаление поръчката не може да се осъществи, артикулът е изчерпан.");
+                return RedirectToAction(nameof(Details), new { id });
             }
 
             TempData.AddSuccessMessage("Поръчката е успешна.");
@@ -69,6 +70,7 @@ namespace BookStore.Web.Areas.Books.Controllers
             if (!orderResult)
             {
                 TempData.AddErrorMessage("За съжаление поръчката не може да се отмени, възникнала е някаква грешка, моля свържете се с продавача.");
+                return RedirectToAction(nameof(Details), new { id });
             }
 
             TempData.AddSuccessMessage("Поръчката е отменена успешно.");

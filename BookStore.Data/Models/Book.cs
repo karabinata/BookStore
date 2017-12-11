@@ -83,6 +83,8 @@ namespace BookStore.Data.Models
 
         public string NotesForTraider { get; set; }
 
+        public string Description { get; set; }
+
         public List<BookAuthor> Authors { get; set; } = new List<BookAuthor>();
 
         public int? PublisherId { get; set; }

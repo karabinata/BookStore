@@ -5,53 +5,55 @@
 }
 
 @{
-    var base64 = Convert.ToBase64String(Model.Book.CoverPicture);
-    var imgSrc = String.Format("data:image;base64,{0}", base64);
+    var imgSrc = string.Empty;
+    if (Model.Book.CoverPicture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Book.CoverPicture);
+        imgSrc = String.Format("data:image;base64,{0}", base64);
+    }
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-7">
-            <div class="col-md-4">
-                <img style="max-width: 100%" src="@imgSrc" class="image-responsive" />
+<div class="w3l_banner_nav_right">
+    <div class="agileinfo_single">
+        @if (!string.IsNullOrEmpty(imgSrc))
+        {
+            <div class="col-md-4 agileinfo_single_left">
+                <img id="example" src="@imgSrc" alt=" " class="img-responsive" />
             </div>
-            <div class="col-md-4">
-                <div class="col-md-12">
-                    <h1>@Model.Book.Title</h1>
+        }
+        <div class="col-md-8 agileinfo_single_right">
+            <div class="w3agile_description">
+                <h3>@Model.Book.Title</h3>
+                <h4>@Model.Book.AuthorNames</h4>
+                <p>Категория: @Model.Book.Category</p>
+                <p>Състояние: @Model.Book.Condition</p>
+                <p>Издателство: @(string.IsNullOrEmpty(Model.Book.Publisher) ? "Не е попълнено" : Model.Book.Publisher)</p>
+                <p>Година: @Model.Book.YearOfPublishing</p>
+                <p>Страници: @(string.IsNullOrEmpty(Model.Book.NumberOfPages.ToString()) ? "Не е въведен" : Model.Book.NumberOfPages.ToString())</p>
+                <p>Забележка: @(string.IsNullOrEmpty(Model.Book.ConditionNote) ? "Няма" : Model.Book.ConditionNote)</p>
+                <p>Налични бройки: @Model.Book.BooksAvailable</p>
+                <p>Език: @Model.Book.Language</p>
+                <p>Корици: @Model.Book.Coverage</p>
+            </div>
+            <div class="snipcart-item block">
+                <div class="snipcart-thumb agileinfo_single_right_snipcart">
+                    <h4>@Model.Book.Price.ToBgnPrice() <span>$25.00</span></h4>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <h5>Автор(и): <a href="#">@Model.Book.AuthorNames</a></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2">Цена</div>
-                    <div class="col-md-4">@Model.Book.Price.ToBgnPrice()</div>
-                </div>
-
-                <div class="section" style="padding-bottom:5px;">
-                    <div>
-                        <div class="attr2">16 GB</div>
-                        <div class="attr2">32 GB</div>
-                    </div>
-                </div>
-                <div class="section" style="padding-bottom:20px;">
-                    <h6 class="title-attr"><small>CANTIDAD</small></h6>
-                    <div>
-                        <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                        <input value="1" />
-                        <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
-                    </div>
-                </div>
-
-                <div class="section" style="padding-bottom:20px;">
-
+                <div class="snipcart-details agileinfo_single_right_details">
                     @if (!Model.IsOrderedByUser)
                     {
-                        <form asp-action="Order" asp-route-id="@Model.Book.Id" method="post">
-                            <input type="submit" class="btn btn-sm btn-success" value="Поръчай" />
-                        </form>
+                        if (Model.Book.BooksAvailable > 0)
+                        {
+                            <form asp-action="Order" asp-route-id="@Model.Book.Id" method="post">
+                                <input type="submit" class="btn btn-sm btn-success" value="Поръчай" />
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-action="Order" asp-route-id="@Model.Book.Id" method="post">
+                                <input type="submit" class="btn btn-sm btn-success" disabled value="Няма налични бройки в момента" />
+                            </form>
+                        }
                     }
                     else
                     {
@@ -62,26 +64,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-xs-9">
-            <ul class="menu-items">
-                <li class="active">Detalle del producto</li>
-                <li>Garantía</li>
-                <li>Vendedor</li>
-                <li>Envío</li>
-            </ul>
-            <div style="width:100%;border-top:1px solid silver">
-                <p style="padding:15px;">
-                    <small>
-                        Stay connected either on the phone or the Web with the Galaxy S4 I337 from Samsung. With 16 GB of memory and a 4G connection, this phone stores precious photos and video and lets you upload them to a cloud or social network at blinding-fast speed. With a 17-hour operating life from one charge, this phone allows you keep in touch even on the go.
-
-                        With its built-in photo editor, the Galaxy S4 allows you to edit photos with the touch of a finger, eliminating extraneous background items. Usable with most carriers, this smartphone is the perfect companion for work or entertainment.
-                    </small>
-                </p>
-                <small>
-
-                </small>
-            </div>
-        </div>
+        <div class="clearfix"> </div>
     </div>
-</div>
+</div>         
+
+

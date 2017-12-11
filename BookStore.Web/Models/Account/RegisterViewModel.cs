@@ -4,7 +4,7 @@ using static BookStore.Data.DataConstants;
 
 namespace BookStore.Web.Models.Account
 {
-    public class RegisterUserViewModel
+    public class RegisterViewModel
     {
         [Required(ErrorMessage = "Името е задължително.")]
         [Display(Name = "Име")]

@@ -23,11 +23,15 @@ namespace BookStore.Services.Books.Models
 
         public int YearOfPublishing { get; set; }
 
-        public int NumberOfPages { get; set; }
+        public int? NumberOfPages { get; set; }
 
         public int BooksAvailable { get; set; }
 
         public Coverage Coverage { get; set; }
+
+        public string Language { get; set; }
+
+        public string ConditionNote { get; set; }
 
         public byte[] CoverPicture { get; set; }
 

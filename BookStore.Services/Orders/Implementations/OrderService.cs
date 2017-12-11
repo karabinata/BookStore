@@ -25,6 +25,11 @@ namespace BookStore.Services.Orders.Implementations
                 return false;
             }
 
+            if (!await this.CheckIsBookAvailableForOrder(bookId))
+            {
+                return false;
+            }
+
             var order = new Order
             {
                 CustomerId = userId,
@@ -44,8 +49,10 @@ namespace BookStore.Services.Orders.Implementations
 
             this.db.Add(bookOrder);
 
-            await this.db.SaveChangesAsync();
+            this.BooksAvailableCount(bookId, -1);
 
+            await this.db.SaveChangesAsync();
+            
             return true;
         }
 
@@ -71,13 +78,15 @@ namespace BookStore.Services.Orders.Implementations
                 return false;
             }
 
-            if (order.OrderDate.AddDays(3) > DateTime.UtcNow)
+            if (order.OrderDate.AddDays(3) < DateTime.UtcNow)
             {
                 return false;
             }
 
             this.db.Orders.Remove(order);
             this.db.OrderBooks.Remove(orderBook);
+
+            this.BooksAvailableCount(orderBook.BookId, 1);
 
             await this.db.SaveChangesAsync();
 
@@ -88,5 +97,23 @@ namespace BookStore.Services.Orders.Implementations
             => await this.db
                 .Orders
                 .AnyAsync(o => o.CustomerId == userId && o.Books.Any(b => b.BookId == bookId));
+
+        private void BooksAvailableCount(int bookId, int count)
+        {
+            var booksAvailable = this.db
+                .Books
+                .Find(bookId);
+
+            booksAvailable.BooksAvailable += count;
+        }
+
+        private async Task<bool> CheckIsBookAvailableForOrder(int bookId)
+        {
+            var booksAvailable = this.db
+                .Books
+                .Find(bookId);
+
+            return booksAvailable.BooksAvailable > 0;
+        }
     }
 }

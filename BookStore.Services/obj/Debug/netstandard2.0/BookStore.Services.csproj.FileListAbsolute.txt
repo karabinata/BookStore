@@ -24,3 +24,16 @@ C:\Users\User\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Se
 C:\Users\User\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.AssemblyInfo.cs
 C:\Users\User\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.dll
 C:\Users\User\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.pdb
+C:\Users\karab\BookStore\BookStore.Services\bin\Debug\netstandard2.0\BookStore.Services.deps.json
+C:\Users\karab\BookStore\BookStore.Services\bin\Debug\netstandard2.0\BookStore.Services.dll
+C:\Users\karab\BookStore\BookStore.Services\bin\Debug\netstandard2.0\BookStore.Services.pdb
+C:\Users\karab\BookStore\BookStore.Services\bin\Debug\netstandard2.0\BookStore.Common.dll
+C:\Users\karab\BookStore\BookStore.Services\bin\Debug\netstandard2.0\BookStore.Data.dll
+C:\Users\karab\BookStore\BookStore.Services\bin\Debug\netstandard2.0\BookStore.Common.pdb
+C:\Users\karab\BookStore\BookStore.Services\bin\Debug\netstandard2.0\BookStore.Data.pdb
+C:\Users\karab\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.csprojResolveAssemblyReference.cache
+C:\Users\karab\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.csproj.CoreCompileInputs.cache
+C:\Users\karab\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.AssemblyInfoInputs.cache
+C:\Users\karab\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.AssemblyInfo.cs
+C:\Users\karab\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.dll
+C:\Users\karab\BookStore\BookStore.Services\obj\Debug\netstandard2.0\BookStore.Services.pdb

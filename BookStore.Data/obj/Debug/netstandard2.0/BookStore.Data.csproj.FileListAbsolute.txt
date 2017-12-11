@@ -16,3 +16,12 @@ C:\Users\User\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.A
 C:\Users\User\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.AssemblyInfo.cs
 C:\Users\User\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.dll
 C:\Users\User\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.pdb
+C:\Users\karab\BookStore\BookStore.Data\bin\Debug\netstandard2.0\BookStore.Data.deps.json
+C:\Users\karab\BookStore\BookStore.Data\bin\Debug\netstandard2.0\BookStore.Data.dll
+C:\Users\karab\BookStore\BookStore.Data\bin\Debug\netstandard2.0\BookStore.Data.pdb
+C:\Users\karab\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.csprojResolveAssemblyReference.cache
+C:\Users\karab\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.csproj.CoreCompileInputs.cache
+C:\Users\karab\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.AssemblyInfoInputs.cache
+C:\Users\karab\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.AssemblyInfo.cs
+C:\Users\karab\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.dll
+C:\Users\karab\BookStore\BookStore.Data\obj\Debug\netstandard2.0\BookStore.Data.pdb
