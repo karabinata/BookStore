@@ -106,32 +106,42 @@ input[type="submit"], #PPMiniCart .minicart-submit, .w3ls_vegetables ul li a, in
 
 .w3l_search {
     float: left;
-    width: 27%;
+    width: 39%;
     margin: .1em 0 0em 10em;
 }
 
     .w3l_search input[type="text"] {
         outline: none;
         padding: 10px;
+        margin-right: 5px;
         color: #212121;
         font-size: 14px;
-        width: 85%;
+        width: 45%;
         background: #fff;
         border: 1px solid #999;
         float: left;
     }
 
+    .w3l_search label {
+        width: 14%;
+        color: #fff;
+    }
+
+    .w3l_search .author-label{
+        margin-right: -4%;
+    } 
+    
     .w3l_search input[type="submit"] {
         outline: none;
         padding: 10px 0 9px;
-        width: 15%;
+        width: 6%;
         border: 1px solid;
         position: relative;
-        background: url(../images/img-sp.png) no-repeat 14px 5px #FA1818;
+        background: url(../images/img-sp.png) no-repeat 4px 5px #FA1818;
     }
 
         .w3l_search input[type="submit"]:hover {
-            background: url(../images/img-sp.png) no-repeat 14px 5px #84C639;
+            background: url(../images/img-sp.png) no-repeat 4px 5px #84C639;
         }
 
 .w3l_header_right {
@@ -1024,6 +1034,7 @@ button.submit.check_out {
 .column div.agile_top_brand_left_grid {
     position: relative;
     margin: 0;
+    margin-bottom:4% !important;
 }
 
 .agile_top_brand_left_grid figure {
@@ -1837,6 +1848,15 @@ button.submit.check_out {
 .well {
     font-weight: 300;
     font-size: 14px;
+}
+
+#listing-items-container{
+    text-align: center !important;
+}
+
+#listing-items {
+    width: 15% !important;
+    height: 100% !important;
 }
 
 .list-group-item {

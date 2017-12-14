@@ -9,5 +9,7 @@ namespace BookStore.Web.Areas.Books.Models
         public bool IsOrderedByUser { get; set; }
 
         public bool CanCustomerUnorderBook { get; set; }
+
+        public bool IsThisBookBelongsToTheCurrentUser { get; set; }
     }
 }

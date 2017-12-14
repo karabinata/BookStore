@@ -21,17 +21,16 @@
     <meta name="keywords" content="Grocery Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
-    <!-- start-smoth-scrolling -->
 </head>
 <body>
-    <!-- header -->
-    <div class="agileits_header">
-        <div class="w3l_offers">
-            <a href="products.html">Today's special Offers!</a>
-        </div>
+    <div class="agileits_header row">
         <div class="w3l_search">
-            <form action="#" method="post">
-                <input type="text" name="Product" value="Search a product..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
+            <form asp-area="Books" asp-controller="Items" asp-action="Search" method="get">
+                <input type="text" name="SearchText" placeholder="Търси книга..." />
+                <input type="radio" name="SearchIn" id="title" value="Title" />
+                <label for="title">Заглавие</label>
+                <input type="radio" name="SearchIn" id="author" value="Author" />
+                <label class="author-label" for="author">Автор</label>
                 <input type="submit" value=" ">
             </form>
         </div>
@@ -134,7 +133,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li><a href="bread.html">Bread & Bakery</a></li>
                     </ul>
-                </div><!-- /.navbar-collapse -->
+                </div>
             </nav>
         </div>
         @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
@@ -147,8 +146,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="alert alert-danger text-center">@TempData[WebConstants.TempDataErrorMessageKey]</div>
         }
 
-        @RenderBody()
     </div>
+    @RenderBody()
 
     <div class="clearfix"></div>
     <!-- //banner -->

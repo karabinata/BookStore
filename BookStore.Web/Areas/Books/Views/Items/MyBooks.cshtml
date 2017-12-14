@@ -1,0 +1,116 @@
+﻿@model BookListingViewModel
+
+@{
+    ViewData["Title"] = "Моите обяви";
+}
+
+@if (Model.Books.Count() != 0)
+{
+        var previousDisabled = Model.CurrentPage == 1 ? "disabled" : string.Empty;
+        var nextDisabled = Model.CurrentPage == Model.TotalPages ? "disabled" : string.Empty;    
+
+        <div class="banner">
+            <div class="text-center">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item @previousDisabled">
+                        <a class="page-link" asp-controller="Items" asp-action="All" asp-route-page="@Model.PreviousPage" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                            <span class="sr-only">  </span>
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : string.Empty)"><a class="page-link" href="/books/items/all?page=@i">@i</a></li>
+                    }
+                    <li class="page-item @nextDisabled">
+                        <a class="page-link" asp-controller="Items" asp-action="All" asp-route-page="@Model.PreviousPage" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Брой книги на страница<span class="caret"></span></a>
+                        <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+                            <div class="w3ls_vegetables">
+                                <ul>
+                                    <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=4">4</a></li>
+                                    <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">8</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="w3l_banner_nav_right">
+                <div class="w3ls_w3l_banner_nav_right_grid">
+                    <h3>@ViewData["Title"]</h3>
+                    @foreach (var book in Model.Books)
+                    {
+                        <a asp-action="Details" asp-route-id="@book.Id">
+                            <div class="w3ls_w3l_banner_nav_right_grid1">
+                                <div class="col-md-3 w3ls_w3l_banner_left">
+                                    <div class="hover14 column">
+                                        <div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
+                                            <div class="agile_top_brand_left_grid1">
+                                                <figure>
+                                                    <div class="snipcart-item block">
+                                                        <div class="snipcart-thumb">
+                                                            @{
+                                                                var imgSrc = string.Empty;
+                                                                if (book.CoverPicture != null)
+                                                                {
+                                                                    var base64 = Convert.ToBase64String(book.CoverPicture);
+                                                                    imgSrc = String.Format("data:image;base64,{0}", base64);
+                                                                }
+                                                                else
+                                                                {
+                                                                    imgSrc = "/images/no-image.png";
+                                                                }
+                                                                <img src="@imgSrc" alt="@book.Title" class="img-responsive" style="width:150px;height:150px;" />
+                                                                <h4 class="text-center">@book.Title</h4>
+                                                                <p class="text-center">@book.AuthorNames</p>
+                                                                <h4 class="text-center">@book.Price.ToBgnPrice()</h4>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                     }
+                </div>
+                <div class="text-center">
+                    <ul class="pagination pagination-lg">
+                        <li class="page-item @previousDisabled">
+                            <a class="page-link @previousDisabled" href="/books/items/all?page=@Model.PreviousPage" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                            <li class="page-item @(i == Model.CurrentPage ? "active" : string.Empty)"><a class="page-link" href="/books/items/all?page=@i">@i</a></li>
+                        }
+                        <li class="page-item @nextDisabled">
+                            <a class="page-link @nextDisabled" href="/books/items/all?page=@Model.NextPage" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+ }
+ else
+ {
+     <div class="text-center">
+         <h3>@ViewData["Title"]</h3>
+         <p>Няма налични обяви.</p>
+     </div>
+ }

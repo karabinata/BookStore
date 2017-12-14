@@ -18,6 +18,9 @@ namespace BookStore.Services.Books.Implementations
         private readonly IAuthorService authors;
         private readonly IPublisherService publishers;
 
+        const string SearchInAuthors = "Author";
+        const string SearchInTitles = "Title";
+
         public BookService(BookStoreDbContext db, IAuthorService authors, IPublisherService publishers)
         {
             this.db = db;
@@ -25,7 +28,7 @@ namespace BookStore.Services.Books.Implementations
             this.publishers = publishers;
         }
 
-        public async Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 5)
+        public async Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 4)
             => await this.db
                 .Books
                 .OrderByDescending(b => b.Id)
@@ -33,6 +36,53 @@ namespace BookStore.Services.Books.Implementations
                 .Take(pageSize)
                 .ProjectTo<BookListingServiceModel>()
                 .ToListAsync();
+
+
+
+        public async Task<IEnumerable<BookListingServiceModel>> BooksByCurrentUserAsync(string userId, int page = 1, int pageSize = 4)
+            => await this.db
+                .Books
+                .Where(b => b.TraderId == userId)
+                .OrderByDescending(b => b.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<BookListingServiceModel>()
+                .ToListAsync();
+
+        public async Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, int page = 1, int pageSize = 5, string searchText = "")
+        {
+            if (searchIn == SearchInAuthors)
+            {
+                return await this.db
+                    .Books
+                    .Where(b => b.Authors.Where(
+                            a => a.Author.Name.ToLower().Contains(searchText.ToLower())) != null)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ProjectTo<BookListingServiceModel>()
+                    .ToListAsync();
+            }
+
+            if (searchIn == SearchInTitles)
+            {
+                return await this.db
+                .Books
+                .OrderByDescending(b => b.Id)
+                .Where(b => b.Title.ToLower().Contains(searchText.ToLower()))
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<BookListingServiceModel>()
+                .ToListAsync();
+            }
+
+            return await this.db
+                .Books
+                .OrderByDescending(b => b.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<BookListingServiceModel>()
+                .ToListAsync();
+        }
 
         public async Task<int> CreateAsync(
             string title,
@@ -141,7 +191,127 @@ namespace BookStore.Services.Books.Implementations
                 .ProjectTo<BookDetailsServiceModel>()
                 .FirstOrDefaultAsync();
 
+
+        public async Task<bool> EditAsync(
+            string userId, 
+            int bookId, 
+            string title, 
+            int booksAvailable, 
+            string authorNames, 
+            string publisherName, 
+            string iSBN, 
+            Category category, 
+            bool isNew, 
+            int publicationYear, 
+            decimal price, 
+            Condition condition, 
+            string conditionNote, 
+            string language, 
+            string subtitle, 
+            string seriesAndLibraries, 
+            string translatorName, 
+            string paintorName, 
+            byte[] coverPicture, 
+            byte[] firstPicture, 
+            byte[] secondPicture, 
+            byte[] thirdPicture, 
+            Coverage coverage, 
+            string keyWords, 
+            string format, 
+            double width, 
+            double heigth, 
+            double thickness, 
+            int weigth, 
+            string information, 
+            string notesForTraider)
+        {
+            var book = await this.db
+                .Books
+                .Where(b => b.TraderId == userId && b.Id == bookId)
+                .FirstOrDefaultAsync();
+
+            if (book == null)
+            {
+                return false;
+            }
+
+            if (book.Publisher.Name != publisherName)
+            {
+                int? publisherId = null;
+
+                if (!string.IsNullOrEmpty(publisherName))
+                {
+                    publisherId = await this.publishers.CreateAsync(publisherName);
+                }
+
+                if (publisherId != null)
+                {
+                    var publisher = await this.db
+                        .Publishers.FindAsync(publisherId);
+
+                    publisher.Books.Add(book);
+                }
+
+                book.PublisherId = publisherId;
+            }
+
+            book.Title = title;
+            book.BooksAvailable = booksAvailable;
+            book.ISBN = iSBN;
+            book.Category = category;
+            book.IsNew = isNew;
+            book.PublicationYear = publicationYear;
+            book.Price = price;
+            book.Condition = condition;
+            book.ConditionNote = conditionNote;
+            book.Language = language;
+            book.Subtitle = subtitle;
+            book.SeriesAndLibraries = seriesAndLibraries;
+            book.TranslatorName = translatorName;
+            book.PaintorName = paintorName;
+            book.CoverPicture = coverPicture;
+            book.FirstPicture = firstPicture;
+            book.SecondPicture = secondPicture;
+            book.ThirdPicture = thirdPicture;
+            book.Coverage = coverage;
+            book.KeyWords = keyWords;
+            book.Format = format;
+            book.Width = width;
+            book.Heigth = heigth;
+            book.Тhickness = thickness;
+            book.Weigth = weigth;
+            book.Information = information;
+            book.NotesForTraider = notesForTraider;
+
+            await this.db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeteleteAsync(string userId, int bookId)
+        {
+            var book = await this.db
+                .Books
+                .Where(b => b.TraderId == userId && b.Id == bookId)
+                .FirstOrDefaultAsync();
+
+            if (book == null)
+            {
+                return false;
+            }
+
+            this.db.Books.Remove(book);
+            await this.db.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<int> TotalAsync()
             => await this.db.Books.CountAsync();
+
+        public async Task<bool> ExistsAsync(string userId, int bookId)
+            => await this.db
+                .Books
+                .AnyAsync(b => b.TraderId == userId && b.Id == bookId);
     }
 }

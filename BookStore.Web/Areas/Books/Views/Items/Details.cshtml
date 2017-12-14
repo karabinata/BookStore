@@ -64,8 +64,15 @@
                 </div>
             </div>
         </div>
-        <div class="clearfix"> </div>
+        @if (Model.IsThisBookBelongsToTheCurrentUser)
+        {
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Book.Id" class="btn btn-sm btn-info">Редактирай</a>
+                <a asp-action="Delete" asp-route-id="@Model.Book.Id" class="btn btn-sm btn-danger">Изтрий</a>
+            </div>
+        }
+        <div class="clearfix"></div>
     </div>
-</div>         
+</div>
 
 
