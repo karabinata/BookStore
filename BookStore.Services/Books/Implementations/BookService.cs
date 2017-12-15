@@ -49,7 +49,7 @@ namespace BookStore.Services.Books.Implementations
                 .ProjectTo<BookListingServiceModel>()
                 .ToListAsync();
 
-        public async Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, int page = 1, int pageSize = 5, string searchText = "")
+        public async Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, int page = 1, int pageSize = 4, string searchText = "")
         {
             if (searchIn == SearchInAuthors)
             {
@@ -75,13 +75,7 @@ namespace BookStore.Services.Books.Implementations
                 .ToListAsync();
             }
 
-            return await this.db
-                .Books
-                .OrderByDescending(b => b.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ProjectTo<BookListingServiceModel>()
-                .ToListAsync();
+            return await this.AllAsync(page, pageSize);
         }
 
         public async Task<int> CreateAsync(
@@ -89,31 +83,15 @@ namespace BookStore.Services.Books.Implementations
             int booksAvailable,
             string authorNames,
             string publisherName,
-            string iSBN,
             Category category,
             bool isNew,
             int publicationYear,
             decimal price,
             Condition condition,
-            string conditionNote,
             string language,
-            string subtitle,
-            string seriesAndLibraries,
-            string translatorName,
-            string paintorName,
             byte[] coverPicture,
-            byte[] firstPicture,
-            byte[] secondPicture,
-            byte[] thirdPicture,
             Coverage coverage,
-            string keyWords,
-            string format,
-            double width,
-            double heigth,
-            double thickness,
-            int weigth,
-            string information,
-            string notesForTraider,
+            string description,
             string traderId)
         {
             var authors = authorNames.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -133,39 +111,28 @@ namespace BookStore.Services.Books.Implementations
                 TraderId = traderId,
                 PublisherId = publisherId,
                 BooksAvailable = booksAvailable,
-                ISBN = iSBN,
                 Category = category,
                 IsNew = isNew,
                 PublicationYear = publicationYear,
                 Price = price,
                 Condition = condition,
-                ConditionNote = conditionNote,
                 Language = language,
-                Subtitle = subtitle,
-                SeriesAndLibraries = seriesAndLibraries,
-                TranslatorName = translatorName,
-                PaintorName = paintorName,
                 CoverPicture = coverPicture,
-                FirstPicture = firstPicture,
-                SecondPicture = secondPicture,
-                ThirdPicture = thirdPicture,
                 Coverage = coverage,
-                KeyWords = keyWords,
-                Format = format,
-                Width = width,
-                Heigth = heigth,
-                Тhickness = thickness,
-                Weigth = weigth,
-                Information = information,
-                NotesForTraider = notesForTraider
+                Description = description
             };
 
             if (publisherId != null)
             {
                 var publisher = await this.db
-                    .Publishers.FindAsync(publisherId);
+                    .Publishers
+                    .FindAsync(publisherId);
 
                 publisher.Books.Add(book);
+
+                book.Publisher = await this.db
+                .Publishers
+                .FindAsync(publisherId);
             }
 
             foreach (var authorId in bookAuthorIds)
@@ -196,34 +163,18 @@ namespace BookStore.Services.Books.Implementations
             string userId, 
             int bookId, 
             string title, 
-            int booksAvailable, 
-            string authorNames, 
+            int booksAvailable,
+            string authorNames,
             string publisherName, 
-            string iSBN, 
             Category category, 
             bool isNew, 
             int publicationYear, 
             decimal price, 
             Condition condition, 
-            string conditionNote, 
             string language, 
-            string subtitle, 
-            string seriesAndLibraries, 
-            string translatorName, 
-            string paintorName, 
             byte[] coverPicture, 
-            byte[] firstPicture, 
-            byte[] secondPicture, 
-            byte[] thirdPicture, 
             Coverage coverage, 
-            string keyWords, 
-            string format, 
-            double width, 
-            double heigth, 
-            double thickness, 
-            int weigth, 
-            string information, 
-            string notesForTraider)
+            string description)
         {
             var book = await this.db
                 .Books
@@ -235,7 +186,7 @@ namespace BookStore.Services.Books.Implementations
                 return false;
             }
 
-            if (book.Publisher.Name != publisherName)
+            if (book.Publisher != null && book.Publisher.Name != publisherName)
             {
                 int? publisherId = null;
 
@@ -257,31 +208,15 @@ namespace BookStore.Services.Books.Implementations
 
             book.Title = title;
             book.BooksAvailable = booksAvailable;
-            book.ISBN = iSBN;
             book.Category = category;
             book.IsNew = isNew;
             book.PublicationYear = publicationYear;
             book.Price = price;
             book.Condition = condition;
-            book.ConditionNote = conditionNote;
             book.Language = language;
-            book.Subtitle = subtitle;
-            book.SeriesAndLibraries = seriesAndLibraries;
-            book.TranslatorName = translatorName;
-            book.PaintorName = paintorName;
             book.CoverPicture = coverPicture;
-            book.FirstPicture = firstPicture;
-            book.SecondPicture = secondPicture;
-            book.ThirdPicture = thirdPicture;
             book.Coverage = coverage;
-            book.KeyWords = keyWords;
-            book.Format = format;
-            book.Width = width;
-            book.Heigth = heigth;
-            book.Тhickness = thickness;
-            book.Weigth = weigth;
-            book.Information = information;
-            book.NotesForTraider = notesForTraider;
+            book.Description = description;
 
             await this.db.SaveChangesAsync();
 
@@ -313,5 +248,17 @@ namespace BookStore.Services.Books.Implementations
             => await this.db
                 .Books
                 .AnyAsync(b => b.TraderId == userId && b.Id == bookId);
+
+        public async Task<byte[]> GetCoverPicture(int bookId)
+        {
+            var book = await this.db.Books.FindAsync(bookId);
+
+            if (book == null)
+            {
+                return null;
+            }
+
+            return book.CoverPicture;
+        }
     }
 }

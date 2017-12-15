@@ -2,7 +2,7 @@
 {
     public enum Coverage
     {
-        Softcover = 0,
-        Hardcover = 1
+        Меки = 0,
+        Твърди = 1
     }
 }

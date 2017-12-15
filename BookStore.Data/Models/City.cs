@@ -1,5 +1,8 @@
-﻿namespace BookStore.Data.Models
+﻿using System;
+
+namespace BookStore.Data.Models
 {
+    [Flags]
     public enum City
     {
         Всички = 0,

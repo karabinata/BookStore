@@ -71,17 +71,22 @@ namespace BookStore.Web.Areas.Books.Controllers
 
             var book = await this.books.DetailsAsync(id);
 
-            return View();
+            return View(new BookDetailsViewModel
+            {
+                Book = book
+            });
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, BookEditViewModel model, IFormFile coverPicture)
+        public async Task<IActionResult> Edit(int id, BookDetailsViewModel model, IFormFile coverPicture)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+
+            byte[] pictureContents = null;
 
             if (coverPicture != null)
             {
@@ -93,9 +98,14 @@ namespace BookStore.Web.Areas.Books.Controllers
                     ModelState.AddModelError(string.Empty, "Снимката трябва да е с разширение: \".zip\", \".png\" или \".gif\", как и да е с размер до 2 MB.");
                     return View(model);
                 }
+
+                pictureContents = await coverPicture.ToByteArrayAsync();
             }
 
-            var pictureContents = await coverPicture.ToByteArrayAsync();
+            else
+            {
+                pictureContents = await this.books.GetCoverPicture(id);
+            }
 
             var updated = await this.books
                 .EditAsync(
@@ -104,32 +114,16 @@ namespace BookStore.Web.Areas.Books.Controllers
                 model.Book.Title,
                 model.Book.BooksAvailable,
                 model.Book.AuthorNames,
-                model.PublisherName,
-                model.ISBN,
+                model.Book.Publisher,
                 model.Book.Category,
-                model.IsNew,
-                model.PublicationYear,
+                model.Book.IsNew,
+                model.Book.PublicationYear,
                 model.Book.Price,
                 model.Book.Condition,
-                model.Book.ConditionNote,
                 model.Book.Language,
-                model.Subtitle,
-                model.SeriesAndLibraries,
-                model.TranslatorName,
-                model.PaintorName,
                 pictureContents,
-                model.FirstPicture,
-                model.SecondPicture,
-                model.ThirdPicture,
                 model.Book.Coverage,
-                model.KeyWords,
-                model.Format,
-                model.Width,
-                model.Heigth,
-                model.Тhickness,
-                model.Weigth,
-                model.Information,
-                model.NotesForTraider);
+                model.Book.Description);
 
             if (!updated)
             {

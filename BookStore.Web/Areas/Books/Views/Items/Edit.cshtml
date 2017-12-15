@@ -1,10 +1,19 @@
-﻿@model BookEditViewModel
+﻿@model BookDetailsViewModel
 
 @{
     ViewData["Title"] = "Редактирай книга";
 }
 
 <h2>@ViewData["Title"]</h2>
+
+@{
+    var imgSrc = string.Empty;
+    if (Model.Book.CoverPicture != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Book.CoverPicture);
+        imgSrc = String.Format("data:image;base64,{0}", base64);
+    }
+}
 
 <div class="w3l_banner_nav_right">
     <h3>Редактиране на книга</h3>
@@ -17,6 +26,19 @@
             <div class="form">
                 <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="All" class="text-danger"></div>
+                    @if (!string.IsNullOrEmpty(imgSrc))
+                    {
+                        <div class="col-md-4 agileinfo_single_left">
+                            <img id="example" src="@imgSrc" alt=" " class="img-responsive" />
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label asp-for="Book.CoverPicture"></label>
+                        <input type="file" asp-for="Book.CoverPicture" name="coverPicture" style="display: none" accept=".gif,.png,.jpg" />
+                        <button type="button" class="btn btn-default form-control" onclick="document.getElementsByName('coverPicture')[0].click()">Избери снимка за качване</button>
+                        Файлът трябва да е gif, jpg или png, с обем до 50KB.
+                        <span asp-validation-for="Book.CoverPicture" class="text-danger"></span>
+                    </div>
                     <div class="form-group">
                         <label asp-for="Book.BooksAvailable"></label>
                         <input asp-for="Book.BooksAvailable" />
@@ -33,9 +55,9 @@
                         <span asp-validation-for="Book.AuthorNames" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="PublisherName"></label>
-                        <input asp-for="PublisherName" class="form-control" />
-                        <span asp-validation-for="PublisherName" class="text-danger"></span>
+                        <label asp-for="Book.Publisher"></label>
+                        <input asp-for="Book.Publisher" class="form-control" />
+                        <span asp-validation-for="Book.Publisher" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Book.Category"></label>
@@ -43,20 +65,9 @@
                         <span asp-validation-for="Book.Category" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="PublicationYear"></label>
-                        <input asp-for="PublicationYear" class="form-control" />
-                        <span asp-validation-for="PublicationYear" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ISBN"></label>
-                        <input asp-for="ISBN" class="form-control" />
-                        <span asp-validation-for="ISBN" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="IsNew"></label>
-                        <input asp-for="IsNew" />
-                        <span asp-validation-for="IsNew" class="text-danger"></span>
+                        <label asp-for="Book.PublicationYear"></label>
+                        <input asp-for="Book.PublicationYear" class="form-control" />
+                        <span asp-validation-for="Book.PublicationYear" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
@@ -70,56 +81,9 @@
                         <span asp-validation-for="Book.Condition" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Book.ConditionNote"></label>
-                        <input asp-for="Book.ConditionNote" class="form-control" />
-                        <span asp-validation-for="Book.ConditionNote" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="Book.Language"></label>
                         <input asp-for="Book.Language" class="form-control" />
                         <span asp-validation-for="Book.Language" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Subtitle"></label>
-                        <input asp-for="Subtitle" class="form-control" />
-                        <span asp-validation-for="Subtitle" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SeriesAndLibraries"></label>
-                        <input asp-for="SeriesAndLibraries" class="form-control" />
-                        <span asp-validation-for="SeriesAndLibraries" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="TranslatorName"></label>
-                        <input asp-for="TranslatorName" class="form-control" />
-                        <span asp-validation-for="TranslatorName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="PaintorName"></label>
-                        <input asp-for="PaintorName" class="form-control" />
-                        <span asp-validation-for="PaintorName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Book.CoverPicture"></label>
-                        <input type="file" asp-for="Book.CoverPicture" name="coverPicture" style="display: none" accept=".gif,.png,.jpg" />
-                        <button type="button" class="btn btn-default form-control" onclick="document.getElementsByName('coverPicture')[0].click()">Избери снимка за качване</button>
-                        Файлът трябва да е gif, jpg или png, с обем до 50KB.
-                        <span asp-validation-for="Book.CoverPicture" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="FirstPicture"></label>
-                        <input type="file" asp-for="FirstPicture" />Файлът трябва да е gif, jpg или png, с обем до 50KB.
-                        <span asp-validation-for="FirstPicture" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SecondPicture"></label>
-                        <input type="file" asp-for="SecondPicture" />Файлът трябва да е gif, jpg или png, с обем до 50KB.
-                        <span asp-validation-for="SecondPicture" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ThirdPicture"></label>
-                        <input type="file" asp-for="ThirdPicture" />Файлът трябва да е .gif, .jpg или .png, с обем до 2MB.
-                        <span asp-validation-for="ThirdPicture" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Book.Coverage"></label>
@@ -127,44 +91,9 @@
                         <span asp-validation-for="Book.Coverage" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="KeyWords"></label>
-                        <input asp-for="KeyWords" class="form-control" />
-                        <span asp-validation-for="KeyWords" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Format"></label>
-                        <input asp-for="Format" class="form-control" />
-                        <span asp-validation-for="Format" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Width"></label>
-                        <input asp-for="Width" class="form-control" />
-                        <span asp-validation-for="Width" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Heigth"></label>
-                        <input asp-for="Heigth" class="form-control" />
-                        <span asp-validation-for="Heigth" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Тhickness"></label>
-                        <input asp-for="Тhickness" class="form-control" />
-                        <span asp-validation-for="Тhickness" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Weigth"></label>
-                        <input asp-for="Weigth" class="form-control" />
-                        <span asp-validation-for="Weigth" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Information"></label>
-                        <input asp-for="Information" class="form-control" />
-                        <span asp-validation-for="Information" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="NotesForTraider"></label>
-                        <input asp-for="NotesForTraider" class="form-control" />
-                        <span asp-validation-for="NotesForTraider" class="text-danger"></span>
+                        <label asp-for="Book.Description"></label>
+                        <input asp-for="Book.Description" class="form-control" />
+                        <span asp-validation-for="Book.Description" class="text-danger"></span>
                     </div>
                     <input type="submit" value="Редактирай" />
                 </form>

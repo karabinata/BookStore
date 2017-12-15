@@ -2,9 +2,9 @@
 {
     public enum Condition
     {
-        Bad = 0,
-        Good = 1,
-        VeryGood = 2,
-        Excellent = 3
+        Зле = 0,
+        Добро = 1,
+        МногоДобро = 2,
+        Отлично = 3
     }
 }

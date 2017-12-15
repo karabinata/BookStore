@@ -23,7 +23,7 @@ namespace BookStore.Services.Books.Models
 
         public string Publisher { get; set; }
 
-        public int YearOfPublishing { get; set; }
+        public int PublicationYear { get; set; }
 
         public int? NumberOfPages { get; set; }
 
@@ -33,7 +33,9 @@ namespace BookStore.Services.Books.Models
 
         public string Language { get; set; }
 
-        public string ConditionNote { get; set; }
+        public bool IsNew { get; set; }
+
+        public string Description { get; set; }
 
         public byte[] CoverPicture { get; set; }
 

@@ -2,6 +2,7 @@
 using BookStore.Services.Books;
 using BookStore.Services.Books.Models;
 using BookStore.Web.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using static BookStore.Data.DataConstants;
 
 namespace BookStore.Web.Areas.Books.Controllers
 {
+    [Authorize]
     public class BooksTraderController : BooksBaseController
     {
         private readonly IBookService books;
@@ -57,31 +59,15 @@ namespace BookStore.Web.Areas.Books.Controllers
                     model.BooksAvailable,
                     model.AuthorNames,
                     model.PublisherName,
-                    model.ISBN,
                     model.Category,
                     model.IsNew,
                     model.PublicationYear,
                     model.Price,
                     model.Condition,
-                    model.ConditionNote,
                     model.Language,
-                    model.Subtitle,
-                    model.SeriesAndLibraries,
-                    model.TranslatorName,
-                    model.PaintorName,
                     pictureContents,
-                    model.FirstPicture,
-                    model.SecondPicture,
-                    model.ThirdPicture,
                     model.Coverage,
-                    model.KeyWords,
-                    model.Format,
-                    model.Width,
-                    model.Heigth,
-                    model.Тhickness,
-                    model.Weigth,
-                    model.Information,
-                    model.NotesForTraider,
+                    model.Description,
                     traderId
                 );
 

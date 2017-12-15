@@ -48,12 +48,6 @@
                         <span asp-validation-for="PublicationYear" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ISBN"></label>
-                        <input asp-for="ISBN" class="form-control" />
-                        <span asp-validation-for="ISBN" class="text-danger"></span>
-                    </div>
-                    
-                    <div class="form-group">
                         <label asp-for="IsNew"></label>
                         <input asp-for="IsNew" />
                         <span asp-validation-for="IsNew" class="text-danger"></span>
@@ -70,34 +64,9 @@
                         <span asp-validation-for="Condition" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ConditionNote"></label>
-                        <input asp-for="ConditionNote" class="form-control" />
-                        <span asp-validation-for="ConditionNote" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="Language"></label>
                         <input asp-for="Language" class="form-control" />
                         <span asp-validation-for="Language" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Subtitle"></label>
-                        <input asp-for="Subtitle" class="form-control" />
-                        <span asp-validation-for="Subtitle" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SeriesAndLibraries"></label>
-                        <input asp-for="SeriesAndLibraries" class="form-control" />
-                        <span asp-validation-for="SeriesAndLibraries" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="TranslatorName"></label>
-                        <input asp-for="TranslatorName" class="form-control" />
-                        <span asp-validation-for="TranslatorName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="PaintorName"></label>
-                        <input asp-for="PaintorName" class="form-control" />
-                        <span asp-validation-for="PaintorName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="CoverPicture"></label>
@@ -107,79 +76,18 @@
                         <span asp-validation-for="CoverPicture" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="FirstPicture"></label>
-                        <input type="file" asp-for="FirstPicture" />Файлът трябва да е gif, jpg или png, с обем до 50KB.
-                        <span asp-validation-for="FirstPicture" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SecondPicture"></label>
-                        <input type="file" asp-for="SecondPicture" />Файлът трябва да е gif, jpg или png, с обем до 50KB.
-                        <span asp-validation-for="SecondPicture" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ThirdPicture"></label>
-                        <input type="file" asp-for="ThirdPicture" />Файлът трябва да е .gif, .jpg или .png, с обем до 2MB.
-                        <span asp-validation-for="ThirdPicture" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="Coverage"></label>
                         <input asp-for="Coverage" class="form-control" />
                         <span asp-validation-for="Coverage" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="KeyWords"></label>
-                        <input asp-for="KeyWords" class="form-control" />
-                        <span asp-validation-for="KeyWords" class="text-danger"></span>
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Format"></label>
-                        <input asp-for="Format" class="form-control" />
-                        <span asp-validation-for="Format" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Width"></label>
-                        <input asp-for="Width" class="form-control" />
-                        <span asp-validation-for="Width" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Heigth"></label>
-                        <input asp-for="Heigth" class="form-control" />
-                        <span asp-validation-for="Heigth" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Тhickness"></label>
-                        <input asp-for="Тhickness" class="form-control" />
-                        <span asp-validation-for="Тhickness" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Weigth"></label>
-                        <input asp-for="Weigth" class="form-control" />
-                        <span asp-validation-for="Weigth" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Information"></label>
-                        <input asp-for="Information" class="form-control" />
-                        <span asp-validation-for="Information" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="NotesForTraider"></label>
-                        <input asp-for="NotesForTraider" class="form-control" />
-                        <span asp-validation-for="NotesForTraider" class="text-danger"></span>
-                    </div>
-                    <input type="submit" value="Регистрирай" />
+                    <input type="submit" value="Добави" />
                 </form>
             </div>
-            <div class="form">
-                <h2>Create an account</h2>
-                <form action="#" method="post">
-                    <input type="text" name="Username" placeholder="Username" required=" ">
-                    <input type="password" name="Password" placeholder="Password" required=" ">
-                    <input type="email" name="Email" placeholder="Email Address" required=" ">
-                    <input type="text" name="Phone" placeholder="Phone Number" required=" ">
-                    <input type="submit" value="Register">
-                </form>
-            </div>
-            <div class="cta"><a href="#">Forgot your password?</a></div>
         </div>
     </div>
 

@@ -11,36 +11,39 @@
 
 <div class="banner">
     <div class="text-center">
-        <ul class="pagination pagination-lg">
-            <li class="page-item @previousDisabled">
-                <a class="page-link" asp-controller="Items" asp-action="All" asp-route-page="@Model.PreviousPage" aria-label="Previous">
-                    <span aria-hidden="true">«</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            @for (int i = 1; i <= Model.TotalPages; i++)
-            {
-                <li class="page-item @(i == Model.CurrentPage ? "active" : string.Empty)"><a class="page-link" href="/books/items/all?page=@i">@i</a></li>
-            }
-            <li class="page-item @nextDisabled">
-                <a class="page-link" asp-controller="Items" asp-action="All" asp-route-page="@Model.PreviousPage" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
+        @if (Model.TotalBooks > Model.PageSize)
+        {
+            <ul class="pagination pagination-lg">
+                <li class="page-item @previousDisabled">
+                    <a class="page-link" asp-controller="Items" asp-action="All" asp-route-page="@Model.PreviousPage" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : string.Empty)"><a class="page-link" href="/books/items/all?page=@i">@i</a></li>
+                }
+                <li class="page-item @nextDisabled">
+                    <a class="page-link" asp-controller="Items" asp-action="All" asp-route-page="@Model.PreviousPage" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
 
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">Брой книги на страница<span class="caret"></span></a>
-                <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                    <div class="w3ls_vegetables">
-                        <ul>
-                            <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=4">4</a></li>
-                            <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">8</a></li>
-                        </ul>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Брой книги на страница<span class="caret"></span></a>
+                    <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+                        <div class="w3ls_vegetables">
+                            <ul>
+                                <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=4">4</a></li>
+                                <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">8</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        }
     </div>
     <div class="w3l_banner_nav_right">
         <div class="w3ls_w3l_banner_nav_right_grid">
@@ -84,26 +87,28 @@
              }
         </div>
         <div class="text-center">
-            <ul class="pagination pagination-lg">
-                <li class="page-item @previousDisabled">
-                    <a class="page-link @previousDisabled" href="/books/items/all?page=@Model.PreviousPage" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                @for (int i = 1; i <= Model.TotalPages; i++)
+            @if (Model.TotalBooks > Model.PageSize)
             {
-                    <li class="page-item @(i == Model.CurrentPage ? "active" : string.Empty)"><a class="page-link" href="/books/items/all?page=@i">@i</a></li>
-                }
-                <li class="page-item @nextDisabled">
-                    <a class="page-link @nextDisabled" href="/books/items/all?page=@Model.NextPage" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
+                <ul class="pagination pagination-lg">
+                    <li class="page-item @previousDisabled">
+                        <a class="page-link @previousDisabled" href="/books/items/all?page=@Model.PreviousPage" aria-label="Previous">
+                            <span aria-hidden="true">«</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : string.Empty)"><a class="page-link" href="/books/items/all?page=@i">@i</a></li>
+                    }
+                    <li class="page-item @nextDisabled">
+                        <a class="page-link @nextDisabled" href="/books/items/all?page=@Model.NextPage" aria-label="Next">
+                            <span aria-hidden="true">»</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            }
         </div>
     </div>
     <div class="clearfix"></div>
 </div>
-

@@ -12,31 +12,15 @@ namespace BookStore.Services.Books
              int booksAvailable,
              string authorNames,
              string publisherName,
-             string iSBN,
              Category category,
              bool isNew,
              int publicationYear,
              decimal price,
              Condition condition,
-             string conditionNote,
              string language,
-             string subtitle,
-             string seriesAndLibraries,
-             string translatorName,
-             string paintorName,
              byte[] coverPicture,
-             byte[] firstPicture,
-             byte[] secondPicture,
-             byte[] thirdPicture,
              Coverage coverage,
-             string keyWords,
-             string format,
-             double width,
-             double heigth,
-             double thickness,
-             int weigth,
-             string information,
-             string notesForTraider,
+             string description,
              string traderId);
 
         Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 5);
@@ -54,36 +38,22 @@ namespace BookStore.Services.Books
              int booksAvailable,
              string authorNames,
              string publisherName,
-             string iSBN,
              Category category,
              bool isNew,
              int publicationYear,
              decimal price,
              Condition condition,
-             string conditionNote,
              string language,
-             string subtitle,
-             string seriesAndLibraries,
-             string translatorName,
-             string paintorName,
              byte[] coverPicture,
-             byte[] firstPicture,
-             byte[] secondPicture,
-             byte[] thirdPicture,
              Coverage coverage,
-             string keyWords,
-             string format,
-             double width,
-             double heigth,
-             double thickness,
-             int weigth,
-             string information,
-             string notesForTraider);
+             string description);
 
         Task<bool> DeteleteAsync(string userId, int bookId);
 
         Task<int> TotalAsync();
 
         Task<bool> ExistsAsync(string userId, int bookId);
+
+        Task<byte[]> GetCoverPicture(int bookId);
     }
 }
