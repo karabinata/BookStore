@@ -9,6 +9,8 @@ using BookStore.Data;
 using BookStore.Web.Infrastructure.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using BookStore.Services;
+using BookStore.Services.Implementations;
 
 namespace BookStore.Web
 {
@@ -39,7 +41,11 @@ namespace BookStore.Web
 
             services.AddDomainServices();
 
+            services.AddSingleton<IShoppingCartManager, ShoppingCartManager>();
+
             services.AddRouting(routing => routing.LowercaseUrls = true);
+
+            services.AddSession();
 
             services.AddMvc(options => 
             {
@@ -65,6 +71,8 @@ namespace BookStore.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
