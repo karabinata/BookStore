@@ -1,0 +1,32 @@
+﻿@model UserProfileServiceModel
+
+@{
+    ViewData["Title"] = $"Профил на {Model.UserName}";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="w3l_banner_nav_right">
+    <div class="agileinfo_single">
+        <div class="col-md-8 agileinfo_single_right">
+            <div class="w3agile_description">
+                <h3>Потребителско име: @Model.UserName</h3>
+                @{ 
+                    var fullName = $"{Model.FirstName} {Model.LastName}";
+                }
+                <h4>Име: @fullName</h4>
+                <p>Телефон за връзка: @(string.IsNullOrEmpty(Model.PhoneNumber) ? "Няма" : Model.PhoneNumber)</p>
+                <p>Дата на регистрация: @Model.RegistrationDate</p>
+                <p>Брой книги за продан: @Model.BooksCount</p>
+                <p>Брой направени поръчки: @Model.OrdersCount</p>
+            </div>
+
+            @if (Model.UserName == User.Identity.Name)
+            {
+                <a asp-controller="Manage" asp-action="Index" class="btn btn-sm btn-info">Редактирай</a>
+            }
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+

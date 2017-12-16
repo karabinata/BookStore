@@ -1,13 +1,23 @@
-﻿using System.Threading.Tasks;
+﻿using BookStore.Services.Orders.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BookStore.Services.Orders
 {
     public interface IOrderService
     {
-        Task<bool> OrderBookAsync(string userId, int bookId);
+        Task<IEnumerable<OrderListingServiceModel>> AllAsync(string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4);
+
+        Task<IEnumerable<OrderListingServiceModel>> MyOrdersAsync(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4);
+
+        Task<OrderDetailsServiceModel> DetailsAsync(int orderId);
+
+        Task<bool> OrderBookAsync(string traderId, string customerId, int bookId);
 
         Task<bool> UnorderBookAsync(string userId, int bookId);
 
         Task<bool> IsOrdered(string userId, int bookId);
+
+        Task<int> TotalAsync();
     }
 }

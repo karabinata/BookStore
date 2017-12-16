@@ -4,6 +4,10 @@ using BookStore.Data.Models;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using BookStore.Services.Orders.Models;
+using BookStore.Common.Extensions;
+using AutoMapper.QueryableExtensions;
+using System.Collections.Generic;
 
 namespace BookStore.Services.Orders.Implementations
 {
@@ -16,7 +20,44 @@ namespace BookStore.Services.Orders.Implementations
             this.db = db;
         }
 
-        public async Task<bool> OrderBookAsync(string userId, int bookId)
+        public async Task<IEnumerable<OrderListingServiceModel>> AllAsync(string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4)
+         => await this.db
+                .Orders
+                .OrderBy<Order>(orderBy, orderDirection)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<OrderListingServiceModel>()
+                .ToListAsync();
+
+
+        public async Task<IEnumerable<OrderListingServiceModel>> MyOrdersAsync(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4)
+            => await this.db
+                .Orders
+                .Where(o => o.Customer.Id == userId)
+                .OrderBy<Order>(orderBy, orderDirection)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<OrderListingServiceModel>()
+                .ToListAsync();
+
+        public async Task<OrderDetailsServiceModel> DetailsAsync(int orderId)
+        {
+            var order = await this.db
+                .Orders
+                .Where(o => o.Id == orderId)
+                .ProjectTo<OrderDetailsServiceModel>()
+                .FirstOrDefaultAsync();
+
+            order.BooksIdsAndTitles = await this.db
+                .Books
+                .Where(b => b.Orders.All(o => o.OrderId == orderId))
+                .ProjectTo<BooksInOrder>()
+                .ToListAsync();
+
+            return order;
+        }
+
+        public async Task<bool> OrderBookAsync(string traderId, string customerId, int bookId)
         {
             var book = await this.db.Books.FindAsync(bookId);
 
@@ -32,11 +73,10 @@ namespace BookStore.Services.Orders.Implementations
 
             var order = new Order
             {
-                CustomerId = userId,
+                TraderId = traderId,
+                CustomerId = customerId,
                 OrderDate = DateTime.UtcNow,
-                Shipping = 0,
-                Subtotal = 0,
-                Total = book.Price
+                Price = book.Price
             };
 
             this.db.Add(order);
@@ -115,5 +155,8 @@ namespace BookStore.Services.Orders.Implementations
 
             return booksAvailable.BooksAvailable > 0;
         }
+
+        public async Task<int> TotalAsync()
+            => await this.db.Orders.CountAsync();
     }
 }

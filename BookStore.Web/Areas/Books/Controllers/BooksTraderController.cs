@@ -32,6 +32,8 @@ namespace BookStore.Web.Areas.Books.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateServiceModel model, IFormFile coverPicture)
         {
+            byte[] pictureContents = null;
+
             if (coverPicture != null)
             {
                 if (!(coverPicture.FileName.EndsWith(".jpg")
@@ -42,9 +44,9 @@ namespace BookStore.Web.Areas.Books.Controllers
                     ModelState.AddModelError(string.Empty, "Снимката трябва да е с разширение: \".zip\", \".png\" или \".gif\", как и да е с размер до 2 MB.");
                     return View(model);
                 }
-            }
 
-            var pictureContents = await coverPicture.ToByteArrayAsync();
+                pictureContents = await coverPicture.ToByteArrayAsync();
+            }
 
             if (!ModelState.IsValid)
             {

@@ -10,11 +10,11 @@ namespace BookStore.Web.Areas.Books.Models
 
         public int TotalBooks { get; set; }
 
-        public int PageSize { get; set; } = 5;
+        public int PageSize { get; set; }
 
         public int TotalPages => (int)Math.Ceiling((double)this.TotalBooks / this.PageSize);
 
-        public int CurrentPage { get; set; } = 1;
+        public int CurrentPage { get; set; }
 
         public int NextPage => this.CurrentPage == this.TotalPages ? this.TotalPages : this.CurrentPage + 1;
 

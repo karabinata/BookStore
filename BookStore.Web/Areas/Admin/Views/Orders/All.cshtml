@@ -1,0 +1,37 @@
+﻿@model OrderListingViewModel
+
+@{
+    ViewData["Title"] = "Всички поръчки";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="row margin-top">
+    <div class="col-md-8 col-sm-8">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Продавач</th>
+                    <th>Поръчител</th>
+                    <th>Дата на поръчката</th>
+                    <th>Цена на поръчката</th>
+                    <th>Детайли</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td>@order.Trader</td>
+                        <td>@order.Customer</td>
+                        <td>@order.OrderDate</td>
+                        <td>@order.Price.ToBgnPrice()</td>
+                        <td>
+                            <a href="/orders/orders/details/@order.Id" class="btn btn-sm btn-info">Разгледай</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using BookStore.Services.Authors;
 using BookStore.Services.Publishers;
+using BookStore.Common.Extensions;
 
 namespace BookStore.Services.Books.Implementations
 {
@@ -18,8 +19,8 @@ namespace BookStore.Services.Books.Implementations
         private readonly IAuthorService authors;
         private readonly IPublisherService publishers;
 
-        const string SearchInAuthors = "Author";
-        const string SearchInTitles = "Title";
+        private const string SearchInAuthors = "Author";
+        private const string SearchInTitles = "Title";
 
         public BookService(BookStoreDbContext db, IAuthorService authors, IPublisherService publishers)
         {
@@ -28,16 +29,18 @@ namespace BookStore.Services.Books.Implementations
             this.publishers = publishers;
         }
 
-        public async Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 4)
-            => await this.db
-                .Books
-                .OrderByDescending(b => b.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ProjectTo<BookListingServiceModel>()
-                .ToListAsync();
-
-
+        public async Task<IEnumerable<BookListingServiceModel>> AllAsync(
+            string orderBy = "Id",
+            string orderDirection = "descending",
+            int page = 1,
+            int pageSize = 4)
+                => await this.db
+                      .Books
+                      .OrderBy<Book>(orderBy, orderDirection)
+                      .Skip((page - 1) * pageSize)
+                      .Take(pageSize)
+                      .ProjectTo<BookListingServiceModel>()
+                      .ToListAsync();
 
         public async Task<IEnumerable<BookListingServiceModel>> BooksByCurrentUserAsync(string userId, int page = 1, int pageSize = 4)
             => await this.db
@@ -75,7 +78,7 @@ namespace BookStore.Services.Books.Implementations
                 .ToListAsync();
             }
 
-            return await this.AllAsync(page, pageSize);
+            return await this.AllAsync("", "", page, pageSize);
         }
 
         public async Task<int> CreateAsync(
@@ -160,20 +163,20 @@ namespace BookStore.Services.Books.Implementations
 
 
         public async Task<bool> EditAsync(
-            string userId, 
-            int bookId, 
-            string title, 
+            string userId,
+            int bookId,
+            string title,
             int booksAvailable,
             string authorNames,
-            string publisherName, 
-            Category category, 
-            bool isNew, 
-            int publicationYear, 
-            decimal price, 
-            Condition condition, 
-            string language, 
-            byte[] coverPicture, 
-            Coverage coverage, 
+            string publisherName,
+            Category category,
+            bool isNew,
+            int publicationYear,
+            decimal price,
+            Condition condition,
+            string language,
+            byte[] coverPicture,
+            Coverage coverage,
             string description)
         {
             var book = await this.db
@@ -260,5 +263,24 @@ namespace BookStore.Services.Books.Implementations
 
             return book.CoverPicture;
         }
+
+        public string FindTitle(int bookId)
+        {
+            var book = this.db.Books.Find(bookId);
+
+            if (book == null)
+            {
+                return null;
+            }
+
+            return book.Title;
+        }
+
+        public async Task<string> FindBookTraderAsync(int bookId)
+            => await this.db
+                .Books
+                .Where(b => b.Id == bookId)
+                .Select(b => b.TraderId)
+                .FirstOrDefaultAsync();
     }
 }

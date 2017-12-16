@@ -28,9 +28,9 @@ namespace BookStore.Web.Areas.Books.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> All(int page = 1, int pageSize = 4)
+        public async Task<IActionResult> All(string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4)
         {
-            var books = await this.books.AllAsync(page, pageSize);
+            var books = await this.books.AllAsync(orderBy, orderDirection, page, pageSize);
 
             var allBooks = new BookListingViewModel
             {
@@ -166,9 +166,15 @@ namespace BookStore.Web.Areas.Books.Controllers
         [HttpPost]
         public async Task<IActionResult> Order(int id)
         {
-            var userId = this.userManager.GetUserId(User);
+            var customerId = this.userManager.GetUserId(User);
+            var traderId = await this.books.FindBookTraderAsync(id);
 
-            var orderResult = await this.orders.OrderBookAsync(userId, id);
+            if (traderId == null)
+            {
+                return NotFound();
+            }
+
+            var orderResult = await this.orders.OrderBookAsync(traderId, customerId, id);
 
             if (!orderResult)
             {

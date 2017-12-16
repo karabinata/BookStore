@@ -71,6 +71,12 @@ namespace BookStore.Data
                 .WithOne(o => o.Customer)
                 .HasForeignKey(o => o.CustomerId);
 
+            builder
+                .Entity<User>()
+                .HasMany(u => u.Books)
+                .WithOne(b => b.Trader)
+                .HasForeignKey(b => b.TraderId);
+
             base.OnModelCreating(builder);
         }
     }

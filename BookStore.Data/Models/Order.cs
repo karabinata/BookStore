@@ -9,11 +9,11 @@ namespace BookStore.Data.Models
 
         public DateTime OrderDate { get; set; }
 
-        public decimal Subtotal { get; set; }
+        public decimal Price { get; set; }
 
-        public decimal Shipping { get; set; }
+        public string TraderId { get; set; }
 
-        public decimal Total { get; set; }
+        public User Trader { get; set; }
 
         public string CustomerId { get; set; }
 

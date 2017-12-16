@@ -1,0 +1,38 @@
+﻿@model OrderDetailsServiceModel
+
+@{
+    ViewData["Title"] = $"Детайли за поръчка номер {Model.Id}";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="row margin-top">
+    <div class="col-md-8 col-sm-8">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td>Продавач</td>
+                    <th>Поръчител</th>
+                    <th>Дата на поръчката</th>
+                    <th>Цена на поръчката</th>
+                    <th>Книги</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Trader</td>
+                    <td>@Model.Customer</td>
+                    <td>@Model.OrderDate</td>
+                    <td>@Model.Price.ToBgnPrice()</td>
+                    <td>
+                        @foreach (var item in Model.BooksIdsAndTitles)
+                        {
+                            <a asp-area="Books" asp-controller="Items" asp-action="Details" asp-route-id="@item.BookId" class="btn btn-sm btn-link">@item.BookTitle</a>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

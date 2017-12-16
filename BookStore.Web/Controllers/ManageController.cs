@@ -56,6 +56,9 @@ namespace BookStore.Web.Controllers
             var model = new IndexViewModel
             {
                 Username = user.UserName,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,

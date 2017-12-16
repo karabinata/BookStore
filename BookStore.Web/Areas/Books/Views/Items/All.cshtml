@@ -11,6 +11,13 @@
 
 <div class="banner">
     <div class="text-center">
+        <div>
+            Подреди по <a asp-action="All" asp-route-orderBy="Price" asp-route-orderDirection="ascending">Най-скъпи</a>
+            <a asp-action="All" asp-route-orderBy="Price" asp-route-orderDirection="descending">Най-евтини</a>
+            <a asp-action="All" asp-route-orderBy="Title" asp-route-orderDirection="descending">Заглавие</a>
+            <a asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="ascending">Най-нови</a>
+            <a asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="descending">Най-стари</a>
+        </div>
         @if (Model.TotalBooks > Model.PageSize)
         {
             <ul class="pagination pagination-lg">
@@ -38,6 +45,10 @@
                             <ul>
                                 <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=4">4</a></li>
                                 <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">8</a></li>
+                                <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">12</a></li>
+                                <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">16</a></li>
+                                <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">32</a></li>
+                                <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">64</a></li>
                             </ul>
                         </div>
                     </div>

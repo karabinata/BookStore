@@ -23,7 +23,7 @@ namespace BookStore.Services.Books
              string description,
              string traderId);
 
-        Task<IEnumerable<BookListingServiceModel>> AllAsync(int page = 1, int pageSize = 5);
+        Task<IEnumerable<BookListingServiceModel>> AllAsync(string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 5);
 
         Task<IEnumerable<BookListingServiceModel>> BooksByCurrentUserAsync(string userId, int page = 1, int pageSize = 4);
 
@@ -47,6 +47,8 @@ namespace BookStore.Services.Books
              byte[] coverPicture,
              Coverage coverage,
              string description);
+
+        Task<string> FindBookTraderAsync(int bookId);
 
         Task<bool> DeteleteAsync(string userId, int bookId);
 

@@ -107,15 +107,15 @@ namespace BookStore.Web.Data.Migrations
 
                     b.Property<DateTime>("OrderDate");
 
-                    b.Property<decimal>("Shipping");
+                    b.Property<decimal>("Price");
 
-                    b.Property<decimal>("Subtotal");
-
-                    b.Property<decimal>("Total");
+                    b.Property<string>("TraderId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("TraderId");
 
                     b.ToTable("Orders");
                 });
@@ -325,7 +325,7 @@ namespace BookStore.Web.Data.Migrations
                         .HasForeignKey("PublisherId");
 
                     b.HasOne("BookStore.Data.Models.User", "Trader")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("TraderId");
                 });
 
@@ -347,6 +347,10 @@ namespace BookStore.Web.Data.Migrations
                     b.HasOne("BookStore.Data.Models.User", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId");
+
+                    b.HasOne("BookStore.Data.Models.User", "Trader")
+                        .WithMany()
+                        .HasForeignKey("TraderId");
                 });
 
             modelBuilder.Entity("BookStore.Data.Models.OrderBook", b =>
