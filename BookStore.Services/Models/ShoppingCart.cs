@@ -12,18 +12,30 @@ namespace BookStore.Services.Models
             this.cartItems = new List<CartItem>();
         }
 
-        public void AddToCart(CartItem item)
+        public void AddToCart(int itemId)
         {
-            if (item != null)
+            var cartItem = this.cartItems.FirstOrDefault(i => i.Id == itemId);
+
+            if (cartItem == null)
             {
-                this.cartItems.Add(item);
+                cartItem = new CartItem
+                {
+                    Id = itemId,
+                    Quantity = 1
+                };
+
+                this.cartItems.Add(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity++;
             }
         }
 
         public void RemoveFromCart(int itemId)
         {
             var cartItem = this.cartItems
-                .Where(i => i.BookId == itemId)
+                .Where(i => i.Id == itemId)
                 .FirstOrDefault();
 
             if (cartItem != null)

@@ -35,14 +35,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </form>
         </div>
         <div class="product_list_header">
-            <form action="#" method="post" class="last">
+            <div class="divCart">
                 <fieldset>
                     <input type="hidden" name="cmd" value="_cart" />
-                    <input type="hidden" name="display" value="1" />
+                    <input type="hidden" name="display" value="1" /><span id="spnCart">@ViewBag.cartCount</span>
                     <input type="submit" name="submit" value="View your cart" class="button" />
                 </fieldset>
-            </form>
-        </div>
+            </div>
+            @*<div class="modal" id="exampleModal" tabindex="1000" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">*@
+            </div>
         <div class="login_partial">
             @await Html.PartialAsync("_LoginPartial")
         </div>
@@ -151,8 +152,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     @RenderBody()
 
     <div class="clearfix"></div>
-    <!-- //banner -->
-    <!-- newsletter-top-serv-btm -->
     <div class="newsletter-top-serv-btm">
         <div class="container">
             <div class="col-md-4 wthree_news_top_serv_btm_grid">
@@ -330,7 +329,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
-    <!-- script-for sticky-nav -->
     <script>
         $(document).ready(function () {
             var navoffeset = $(".agileits_header").offset().top;
@@ -434,6 +432,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 height: 150,
                 border: "1px solid black",
                 shadow: "0 0 5px #000"
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.divAddCart').on('click', function () {
+                var getItemId = parseInt(document.getElementById('item-id').value);
+                var getUserName = $('.divName').html();
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/shoppingcard/addtocart/' + getItemId,
+                    data: getItemId,
+                    success: function (data) {
+                        $('#spnCart').html(data)
+                    },
+                    error: function (data) {
+                        alert(getItemId);
+                    }
+                });
+            });
+
+            $('#spnCart').on('click', function () {
+                var getName = $('.divName').html();
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/Home/GetCartItems',
+
+                    success: function (data) {
+                        $('#exampleModal').html(data);
+                        $('#exampleModal').modal({
+                            backdrop: false
+                        });
+                    },
+                    error: function (data) {
+                        alert(data);
+                    }
+                });
+            });
+
+            $(document).delegate('.cartDel', 'click', function () {
+                var DeleteItem = parseInt($(this).closest('tr').prop('id'));
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/Home/DeleteCart',
+                    data: "{ 'itemId':' " + DeleteItem + "' }",
+                    success: function (data) {
+                        $('#exampleModal').html(data);
+                        $('#spnCart').html($(data).find('#cartList tbody tr').length);
+                        $('#exampleModal').modal({
+                            backdrop: false
+                        });
+                    },
+                    error: function (data) {
+                        alert(data);
+                    }
+                });
             });
         });
     </script>

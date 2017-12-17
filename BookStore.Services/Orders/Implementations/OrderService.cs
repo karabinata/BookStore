@@ -76,7 +76,7 @@ namespace BookStore.Services.Orders.Implementations
                 TraderId = traderId,
                 CustomerId = customerId,
                 OrderDate = DateTime.UtcNow,
-                Price = book.Price
+                TotalPrice = book.Price
             };
 
             this.db.Add(order);

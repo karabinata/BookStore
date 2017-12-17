@@ -43,9 +43,8 @@
                     {
                         if (Model.Book.BooksAvailable > 0)
                         {
-                            <form asp-action="Order" asp-route-id="@Model.Book.Id" method="post">
-                                <input type="submit" class="btn btn-sm btn-success" value="Поръчай" />
-                            </form>
+                            <input type="hidden" value="@Model.Book.Id" id="item-id" />
+                            <input type="submit" class="divAddCart btn btn-sm btn-success" value="Поръчай" />
                         }
                         else
                         {

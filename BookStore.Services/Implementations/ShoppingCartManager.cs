@@ -13,11 +13,11 @@ namespace BookStore.Services.Implementations
             this.carts = new ConcurrentDictionary<string, ShoppingCart>();
         }
 
-        public void AddToCart(string id, CartItem cartItem)
+        public void AddToCart(string id, int itemId)
         {
             var shoppingCart = this.GetShoppingCart(id);
 
-            shoppingCart.AddToCart(cartItem);
+            shoppingCart.AddToCart(itemId);
         }
 
         public IEnumerable<CartItem> GetItems(string id)

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+using static BookStore.Data.DataConstants;
 
 namespace BookStore.Data.Models
 {
@@ -9,7 +12,11 @@ namespace BookStore.Data.Models
 
         public DateTime OrderDate { get; set; }
 
-        public decimal Price { get; set; }
+        [Required]
+        [MaxLength(AddressMaxLength)]
+        public string Address { get; set; }
+
+        public decimal TotalPrice { get; set; }
 
         public string TraderId { get; set; }
 

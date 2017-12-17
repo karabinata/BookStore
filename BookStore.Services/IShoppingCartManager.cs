@@ -5,7 +5,7 @@ namespace BookStore.Services
 {
     public interface IShoppingCartManager
     {
-        void AddToCart(string id, CartItem cartItem);
+        void AddToCart(string id, int itemId);
 
         void RemoveFromCart(string id, int itemId);
 
