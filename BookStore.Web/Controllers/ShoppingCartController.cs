@@ -29,6 +29,8 @@ namespace BookStore.Web.Controllers
             {
                 BookId = id
             });
+
+            return View();
         }
     }
 }

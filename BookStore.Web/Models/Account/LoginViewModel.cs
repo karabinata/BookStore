@@ -4,14 +4,16 @@ namespace BookStore.Web.Models.Account
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Потребителското име е задължително.")]
+        [Display(Name = "Потребителско име")]
         public string Username { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Паролата е задължителна.")]
+        [Display(Name = "Парола")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Запомни ме?")]
         public bool RememberMe { get; set; }
     }
 }

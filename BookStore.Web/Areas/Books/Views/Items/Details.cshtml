@@ -4,23 +4,23 @@
     ViewData["Title"] = $"{Model.Book.Title}";
 }
 
-@{
-    var imgSrc = string.Empty;
-    if (Model.Book.CoverPicture != null)
-    {
-        var base64 = Convert.ToBase64String(Model.Book.CoverPicture);
-        imgSrc = String.Format("data:image;base64,{0}", base64);
-    }
-}
-
 <div class="w3l_banner_nav_right">
     <div class="agileinfo_single">
-        @if (!string.IsNullOrEmpty(imgSrc))
-        {
-            <div class="col-md-4 agileinfo_single_left">
-                <img id="example" src="@imgSrc" alt=" " class="img-responsive" />
-            </div>
-        }
+        <div class="col-md-4 agileinfo_single_left">
+            @{
+                var imgSrc = string.Empty;
+                if (Model.Book.CoverPicture != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Book.CoverPicture);
+                    imgSrc = String.Format("data:image;base64,{0}", base64);
+                }
+                else
+                {
+                    imgSrc = "/images/no-image.png";
+                }
+                <img src="@imgSrc" alt="@Model.Book.Title" class="img-responsive" id="example" />
+            }
+        </div>
         <div class="col-md-8 agileinfo_single_right">
             <div class="w3agile_description">
                 <h3>@Model.Book.Title</h3>

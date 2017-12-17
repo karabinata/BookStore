@@ -6,15 +6,15 @@
 @inject SignInManager<User> SignInManager
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Вход";
 }
 
-<h2>@ViewData["Title"]</h2>
+@*<h2 class="text-center">@ViewData["Title"]</h2>
 <div class="row">
     <div class="col-md-4">
         <section>
             <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                <h4>Use a local account to log in.</h4>
+                <h4>Използвай потребителското си име и парола за този сайт.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -80,8 +80,72 @@
             }
         </section>
     </div>
+</div>*@
+
+<div class="w3l_banner_nav_right">
+    <div class="w3_login">
+        <div class="w3_login_module">
+            <div class="module form-module">
+                <div class="toggle">
+                    <i class="fa fa-times fa-pencil"></i>
+                    <div class="tooltip">Кликни ме!</div>
+                </div>
+                <div class="form">
+                    <h3>Вход</h3>
+                    <div class="form">
+                        <h2>Влез</h2>
+                        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Username"></label>
+                                <input asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label asp-for="RememberMe">
+                                        <input asp-for="RememberMe" />
+                                        @Html.DisplayNameFor(m => m.RememberMe)
+                                    </label>
+                                </div>
+                            </div>
+                            <input type="submit" value="Вход" />
+                            <div class="form-group">
+                                <p>
+                                    <a asp-action="ForgotPassword">Забравена парола?</a>
+                                </p>
+                                <p>
+                                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Нова регистрация?</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="clearfix"></div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        $('.toggle').click(function () {
+            // Switches the Icon
+            $(this).children('i').toggleClass('fa-pencil');
+            // Switches the forms
+            $('.form').animate({
+                height: "toggle",
+                'padding-top': 'toggle',
+                'padding-bottom': 'toggle',
+                opacity: "toggle"
+            }, "slow");
+        });
+    </script>
 }
