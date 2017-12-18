@@ -12,9 +12,10 @@ using System;
 namespace BookStore.Web.Data.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171217231059_ChangingOrdersTable")]
+    partial class ChangingOrdersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,8 +112,6 @@ namespace BookStore.Web.Data.Migrations
 
                     b.Property<DateTime>("OrderDate");
 
-                    b.Property<int>("Quantity");
-
                     b.Property<decimal>("TotalPrice");
 
                     b.Property<string>("TraderId");
@@ -133,8 +132,6 @@ namespace BookStore.Web.Data.Migrations
                     b.Property<int>("BookId");
 
                     b.Property<int>("Id");
-
-                    b.Property<decimal>("Price");
 
                     b.Property<int>("Quantity");
 

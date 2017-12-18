@@ -45,5 +45,7 @@ namespace BookStore.Services.Models
         }
 
         public IEnumerable<CartItem> CartItems => new List<CartItem>(this.cartItems);
+
+        public void Clear() => this.cartItems.Clear();
     }
 }

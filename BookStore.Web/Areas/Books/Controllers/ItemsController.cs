@@ -162,30 +162,30 @@ namespace BookStore.Web.Areas.Books.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Order(int id)
-        {
-            var customerId = this.userManager.GetUserId(User);
-            var traderId = await this.books.FindBookTraderAsync(id);
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<IActionResult> Order(int id)
+        //{
+        //    var customerId = this.userManager.GetUserId(User);
+        //    var traderId = await this.books.FindBookTraderAsync(id);
 
-            if (traderId == null)
-            {
-                return NotFound();
-            }
+        //    if (traderId == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var orderResult = await this.orders.OrderBookAsync(traderId, customerId, id);
+        //    var orderResult = await this.orders.OrderBookAsync(traderId, customerId, id);
 
-            if (!orderResult)
-            {
-                TempData.AddErrorMessage("За съжаление поръчката не може да се осъществи, артикулът е изчерпан.");
-                return RedirectToAction(nameof(Details), new { id });
-            }
+        //    if (!orderResult)
+        //    {
+        //        TempData.AddErrorMessage("За съжаление поръчката не може да се осъществи, артикулът е изчерпан.");
+        //        return RedirectToAction(nameof(Details), new { id });
+        //    }
 
-            TempData.AddSuccessMessage("Поръчката е успешна.");
+        //    TempData.AddSuccessMessage("Поръчката е успешна.");
 
-            return RedirectToAction(nameof(Details), new { id });
-        }
+        //    return RedirectToAction(nameof(Details), new { id });
+        //}
 
         [Authorize]
         [HttpPost]

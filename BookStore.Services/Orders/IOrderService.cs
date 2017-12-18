@@ -12,7 +12,7 @@ namespace BookStore.Services.Orders
 
         Task<OrderDetailsServiceModel> DetailsAsync(int orderId);
 
-        Task<bool> OrderBookAsync(string traderId, string customerId, int bookId);
+        Task<bool> OrderBookAsync(string customerId, IEnumerable<int> bookIds, decimal totalPrice);
 
         Task<bool> UnorderBookAsync(string userId, int bookId);
 

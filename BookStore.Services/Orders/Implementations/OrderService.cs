@@ -14,10 +14,12 @@ namespace BookStore.Services.Orders.Implementations
     public class OrderService : IOrderService
     {
         private readonly BookStoreDbContext db;
+        private readonly IShoppingCartService shoppingCartService;
 
-        public OrderService(BookStoreDbContext db)
+        public OrderService(BookStoreDbContext db, IShoppingCartService shoppingCartService)
         {
             this.db = db;
+            this.shoppingCartService = shoppingCartService;
         }
 
         public async Task<IEnumerable<OrderListingServiceModel>> AllAsync(string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4)
@@ -57,39 +59,39 @@ namespace BookStore.Services.Orders.Implementations
             return order;
         }
 
-        public async Task<bool> OrderBookAsync(string traderId, string customerId, int bookId)
+        public async Task<bool> OrderBookAsync(
+            string customerId, 
+            IEnumerable<int> bookIds, 
+            decimal totalPrice)
         {
-            var book = await this.db.Books.FindAsync(bookId);
-
-            if (book == null)
-            {
-                return false;
-            }
-
-            if (!await this.CheckIsBookAvailableForOrder(bookId))
-            {
-                return false;
-            }
-
             var order = new Order
             {
-                TraderId = traderId,
                 CustomerId = customerId,
-                OrderDate = DateTime.UtcNow,
-                TotalPrice = book.Price
+                TotalPrice = totalPrice,
+                Address = "Some adress"
             };
 
-            this.db.Add(order);
+            var itemsWithDetails = await this.shoppingCartService
+                    .Details(bookIds);
 
-            var bookOrder = new OrderBook
+            foreach (var item in itemsWithDetails)
             {
-                BookId = bookId,
-                OrderId = order.Id
-            };
+                var book = this.db.Books.Find(item.Id);
 
-            this.db.Add(bookOrder);
+                if (book != null)
+                {
+                    order.TraderId = book.TraderId;
 
-            this.BooksAvailableCount(bookId, -1);
+                    order.Books.Add(new OrderBook
+                    {
+                        BookId = item.Id,
+                        Price = item.Price,
+                        Quantity = item.Quantity
+                    });
+                }
+            }
+
+            this.db.Orders.Add(order);
 
             await this.db.SaveChangesAsync();
             

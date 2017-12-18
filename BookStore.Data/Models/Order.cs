@@ -18,6 +18,8 @@ namespace BookStore.Data.Models
 
         public decimal TotalPrice { get; set; }
 
+        public int Quantity { get; set; }
+
         public string TraderId { get; set; }
 
         public User Trader { get; set; }

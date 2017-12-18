@@ -36,5 +36,7 @@ namespace BookStore.Services.Implementations
 
         private ShoppingCart GetShoppingCart(string id)
             => this.carts.GetOrAdd(id, new ShoppingCart());
+
+        public void Clear(string id) => this.GetShoppingCart(id).Clear();
     }
 }

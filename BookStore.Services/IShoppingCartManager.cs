@@ -10,5 +10,7 @@ namespace BookStore.Services
         void RemoveFromCart(string id, int itemId);
 
         IEnumerable<CartItem> GetItems(string id);
+
+        void Clear(string id);
     }
 }

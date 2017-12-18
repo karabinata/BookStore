@@ -12,5 +12,7 @@ namespace BookStore.Services.Models
         public decimal Price { get; set; }
 
         public int Quantity { get; set; }
+
+        public byte[] CoverPicture { get; set; }
     }
 }

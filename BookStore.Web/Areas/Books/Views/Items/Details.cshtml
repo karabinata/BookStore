@@ -43,8 +43,9 @@
                     {
                         if (Model.Book.BooksAvailable > 0)
                         {
-                            <input type="hidden" value="@Model.Book.Id" id="item-id" />
-                            <input type="submit" class="divAddCart btn btn-sm btn-success" value="Поръчай" />
+                            <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Book.Id">
+                                <input type="submit" name="submit" class="button" value="Поръчай" />
+                            </form>
                         }
                         else
                         {

@@ -61,7 +61,6 @@ namespace BookStore.Web.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage
             };
 
@@ -80,7 +79,7 @@ namespace BookStore.Web.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                throw new ApplicationException($"Не може да зареди потребител с ID '{_userManager.GetUserId(User)}'.");
             }
 
             var email = user.Email;
@@ -89,7 +88,7 @@ namespace BookStore.Web.Controllers
                 var setEmailResult = await _userManager.SetEmailAsync(user, model.Email);
                 if (!setEmailResult.Succeeded)
                 {
-                    throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
+                    throw new ApplicationException($"Неочаквана грешка с изпращането на и-мейл до потребител с ID '{user.Id}'.");
                 }
             }
 
@@ -103,7 +102,32 @@ namespace BookStore.Web.Controllers
                 }
             }
 
-            StatusMessage = "Your profile has been updated";
+            var firstNameIsChanged = user.FirstName != model.FirstName;
+            var middleNameIsChanged = user.MiddleName != model.MiddleName;
+            var lastNameIsChanged = user.LastName != model.LastName;
+
+            if (firstNameIsChanged)
+            {
+                user.FirstName = model.FirstName;
+            }
+
+            if (middleNameIsChanged)
+            {
+                user.MiddleName = model.MiddleName;
+            }
+
+            if (lastNameIsChanged)
+            {
+                user.LastName = model.LastName;
+            }
+
+
+            if (firstNameIsChanged || middleNameIsChanged || lastNameIsChanged)
+            {
+                await this._userManager.UpdateAsync(user);
+            }
+
+            StatusMessage = "Профилът Ви беше редактиран успешно";
             return RedirectToAction(nameof(Index));
         }
 

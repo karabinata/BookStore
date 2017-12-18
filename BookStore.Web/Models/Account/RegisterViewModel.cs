@@ -26,6 +26,10 @@ namespace BookStore.Web.Models.Account
         [EmailAddress]
         [Display(Name = "И-мейл")]
         public string Email { get; set; }
+        
+        [Phone]
+        [Display(Name = "Телефон")]
+        public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Паролата е задължителна.")]
         [StringLength(PasswordMaxLength, ErrorMessage = "{0}та трябва да бъде между {2} и {1} символа дълга.", MinimumLength = PasswordMinLength)]
