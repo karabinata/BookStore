@@ -83,7 +83,6 @@ namespace BookStore.Services.Books.Implementations
 
         public async Task<int> CreateAsync(
             string title,
-            int booksAvailable,
             string authorNames,
             string publisherName,
             Category category,
@@ -113,7 +112,6 @@ namespace BookStore.Services.Books.Implementations
                 Title = title,
                 TraderId = traderId,
                 PublisherId = publisherId,
-                BooksAvailable = booksAvailable,
                 Category = category,
                 IsNew = isNew,
                 PublicationYear = publicationYear,
@@ -166,7 +164,6 @@ namespace BookStore.Services.Books.Implementations
             string userId,
             int bookId,
             string title,
-            int booksAvailable,
             string authorNames,
             string publisherName,
             Category category,
@@ -210,7 +207,6 @@ namespace BookStore.Services.Books.Implementations
             }
 
             book.Title = title;
-            book.BooksAvailable = booksAvailable;
             book.Category = category;
             book.IsNew = isNew;
             book.PublicationYear = publicationYear;

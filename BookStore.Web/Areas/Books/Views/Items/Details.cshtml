@@ -30,7 +30,6 @@
                 <p>Издателство: @(string.IsNullOrEmpty(Model.Book.Publisher) ? "Не е попълнено" : Model.Book.Publisher)</p>
                 <p>Година: @Model.Book.PublicationYear</p>
                 <p>Страници: @(string.IsNullOrEmpty(Model.Book.NumberOfPages.ToString()) ? "Не е въведен" : Model.Book.NumberOfPages.ToString())</p>
-                <p>Налични бройки: @Model.Book.BooksAvailable</p>
                 <p>Език: @Model.Book.Language</p>
                 <p>Корици: @Model.Book.Coverage</p>
             </div>
@@ -39,27 +38,9 @@
                     <h4>@Model.Book.Price.ToBgnPrice()</h4>
                 </div>
                 <div class="snipcart-details agileinfo_single_right_details">
-                    @if (!Model.IsOrderedByUser)
-                    {
-                        if (Model.Book.BooksAvailable > 0)
-                        {
-                            <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Book.Id">
-                                <input type="submit" name="submit" class="button" value="Поръчай" />
-                            </form>
-                        }
-                        else
-                        {
-                            <form asp-action="Order" asp-route-id="@Model.Book.Id" method="post">
-                                <input type="submit" class="btn btn-sm btn-success" disabled value="Няма налични бройки в момента" />
-                            </form>
-                        }
-                    }
-                    else
-                    {
-                        <form asp-action="Unorder" asp-route-id="@Model.Book.Id" method="post">
-                            <input type="submit" class="btn btn-sm btn-danger" value="Отмени поръчката" />
-                        </form>
-                    }
+                    <form asp-area="" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Book.Id">
+                        <input type="submit" name="submit" class="btn btn-sm btn-success" value="Добави в кошницата" />
+                    </form>
                 </div>
             </div>
         </div>

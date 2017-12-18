@@ -8,6 +8,7 @@ using BookStore.Services.Orders.Models;
 using BookStore.Common.Extensions;
 using AutoMapper.QueryableExtensions;
 using System.Collections.Generic;
+using System.IO;
 
 namespace BookStore.Services.Orders.Implementations
 {
@@ -56,23 +57,35 @@ namespace BookStore.Services.Orders.Implementations
                 .ProjectTo<BooksInOrder>()
                 .ToListAsync();
 
+            foreach (var item in this.db
+                .Books
+                .Where(b => b.Orders.All(o => o.OrderId == orderId))
+                .ProjectTo<BooksInOrder>()
+                .ToList())
+            {
+                var i = item; 
+            }
+
             return order;
         }
 
         public async Task<bool> OrderBookAsync(
             string customerId, 
             IEnumerable<int> bookIds, 
-            decimal totalPrice)
+            decimal totalPrice,
+            Dictionary<int, int> itemQuantities)
         {
             var order = new Order
             {
                 CustomerId = customerId,
                 TotalPrice = totalPrice,
-                Address = "Some adress"
+                Address = "Some adress",
+                OrderDate = DateTime.UtcNow,
+                Quantity = itemQuantities.Count()
             };
 
             var itemsWithDetails = await this.shoppingCartService
-                    .Details(bookIds);
+                    .Details(bookIds, itemQuantities);
 
             foreach (var item in itemsWithDetails)
             {
@@ -89,6 +102,7 @@ namespace BookStore.Services.Orders.Implementations
                         Quantity = item.Quantity
                     });
                 }
+
             }
 
             this.db.Orders.Add(order);
@@ -128,8 +142,6 @@ namespace BookStore.Services.Orders.Implementations
             this.db.Orders.Remove(order);
             this.db.OrderBooks.Remove(orderBook);
 
-            this.BooksAvailableCount(orderBook.BookId, 1);
-
             await this.db.SaveChangesAsync();
 
             return true;
@@ -139,24 +151,6 @@ namespace BookStore.Services.Orders.Implementations
             => await this.db
                 .Orders
                 .AnyAsync(o => o.CustomerId == userId && o.Books.Any(b => b.BookId == bookId));
-
-        private void BooksAvailableCount(int bookId, int count)
-        {
-            var booksAvailable = this.db
-                .Books
-                .Find(bookId);
-
-            booksAvailable.BooksAvailable += count;
-        }
-
-        private async Task<bool> CheckIsBookAvailableForOrder(int bookId)
-        {
-            var booksAvailable = this.db
-                .Books
-                .Find(bookId);
-
-            return booksAvailable.BooksAvailable > 0;
-        }
 
         public async Task<int> TotalAsync()
             => await this.db.Orders.CountAsync();

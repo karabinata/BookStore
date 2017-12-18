@@ -6,6 +6,6 @@ namespace BookStore.Services
 {
     public interface IShoppingCartService
     {
-        Task<IEnumerable<CartItemDetailsServiceModel>> Details(IEnumerable<int> itemIds);
+        Task<IEnumerable<CartItemDetailsServiceModel>> Details(IEnumerable<int> itemIds, Dictionary<int, int> itemQuantities);
     }
 }

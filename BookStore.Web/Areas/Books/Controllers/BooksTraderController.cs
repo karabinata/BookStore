@@ -58,7 +58,6 @@ namespace BookStore.Web.Areas.Books.Controllers
             var bookId = await this.books
                 .CreateAsync(
                     model.Title,
-                    model.BooksAvailable,
                     model.AuthorNames,
                     model.PublisherName,
                     model.Category,

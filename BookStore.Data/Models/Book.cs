@@ -17,9 +17,7 @@ namespace BookStore.Data.Models
         [MinLength(BookTitleMinLength)]
         [MaxLength(BookTitleMaxLength)]
         public string Title { get; set; }
-
-        public int BooksAvailable { get; set; }
-
+        
         [Required]
         public Category Category { get; set; }
 

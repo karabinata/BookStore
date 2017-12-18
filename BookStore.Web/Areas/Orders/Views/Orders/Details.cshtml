@@ -15,6 +15,7 @@
                     <th>Поръчител</th>
                     <th>Дата на поръчката</th>
                     <th>Цена на поръчката</th>
+                    <th>рой на артукулите</th>
                     <th>Книги</th>
                 </tr>
             </thead>
@@ -23,7 +24,8 @@
                     <td>@Model.Trader</td>
                     <td>@Model.Customer</td>
                     <td>@Model.OrderDate</td>
-                    <td>@Model.Price.ToBgnPrice()</td>
+                    <td>@Model.TotalPrice.ToBgnPrice()</td>
+                    <td>@Model.Quantity</td>
                     <td>
                         @foreach (var item in Model.BooksIdsAndTitles)
                         {

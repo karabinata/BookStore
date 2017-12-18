@@ -19,7 +19,7 @@ namespace BookStore.Web.Controllers
         private readonly UserManager<User> userManager;
 
         public ShoppingCartController(
-            IShoppingCartManager shoppingCartManager, 
+            IShoppingCartManager shoppingCartManager,
             IShoppingCartService shoppingCartService,
             IOrderService orders,
             UserManager<User> userManager)
@@ -41,23 +41,30 @@ namespace BookStore.Web.Controllers
             var itemIds = items.Select(i => i.Id);
 
             var itemsWithDetails = await this.shoppingCartService
-                    .Details(itemIds);
-
-            foreach (var item in itemsWithDetails)
-            {
-                item.Quantity = itemQuantities[item.Id];
-            }
+                    .Details(itemIds, itemQuantities);
 
             return View("_Items", itemsWithDetails);
         }
-        
-        public IActionResult AddToCart(int id)
+
+        public async Task<IActionResult> AddToCart(int id)
         {
             var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
+
+            TempData.AddSuccessMessage("Артикулът е успешно добавен в количката.");
 
             this.shoppingCartManager.AddToCart(shoppingCartId, id);
 
             return RedirectToAction(nameof(ItemsController.All), new { area = "Books", controller = "Items" });
+        }
+
+        public async Task<IActionResult> RemoveFromCart(int id)
+        {
+            var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
+
+            TempData.AddSuccessMessage("Артикулът успешно е премахнат от количката.");
+            this.shoppingCartManager.RemoveFromCart(shoppingCartId, id);
+
+            return RedirectToAction(nameof(Items));
         }
 
         [Authorize]
@@ -70,17 +77,19 @@ namespace BookStore.Web.Controllers
 
             var itemIds = items.Select(i => i.Id);
 
+            var itemQuantities = items.ToDictionary(i => i.Id, i => i.Quantity);
+
             var itemsWithDetails = await this.shoppingCartService
-                    .Details(itemIds);
+                    .Details(itemIds, itemQuantities);
 
             var customerId = this.userManager.GetUserId(User);
             var totalPrice = itemsWithDetails.Sum(i => i.Price * i.Quantity);
 
-            var isOrdered = await this.orders.OrderBookAsync(customerId, itemIds, totalPrice);
+            var isOrdered = await this.orders.OrderBookAsync(customerId, itemIds, totalPrice, itemQuantities);
 
             if (!isOrdered)
             {
-                //return BadRequest();
+                return BadRequest();
             }
 
             this.shoppingCartManager.Clear(shoppingCartId);

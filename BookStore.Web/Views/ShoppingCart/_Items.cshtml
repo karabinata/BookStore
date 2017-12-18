@@ -53,11 +53,13 @@
                             <td class="invert">@((item.Quantity * item.Price).ToBgnPrice())</td>
                             <td class="invert">
                                 <div class="rem text-center">
-                                    <div class="close1"> </div>
+                                    <form asp-action="RemoveFromCart" asp-route-id="@item.Id">
+                                        <input type="submit" class="close1" />
+                                    </form>
                                 </div>
                             </td>
                         </tr>
-                                }
+                     }
                 </tbody>
             </table>
         </div>

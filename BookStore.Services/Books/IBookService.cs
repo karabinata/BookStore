@@ -9,7 +9,6 @@ namespace BookStore.Services.Books
     {
         Task<int> CreateAsync(
              string title,
-             int booksAvailable,
              string authorNames,
              string publisherName,
              Category category,
@@ -35,7 +34,6 @@ namespace BookStore.Services.Books
              string userId,
              int bookId,
              string title,
-             int booksAvailable,
              string authorNames,
              string publisherName,
              Category category,

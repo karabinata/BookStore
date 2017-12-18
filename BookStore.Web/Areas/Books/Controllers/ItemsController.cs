@@ -112,7 +112,6 @@ namespace BookStore.Web.Areas.Books.Controllers
                 this.userManager.GetUserId(User),
                 id,
                 model.Book.Title,
-                model.Book.BooksAvailable,
                 model.Book.AuthorNames,
                 model.Book.Publisher,
                 model.Book.Category,

@@ -17,11 +17,20 @@ namespace BookStore.Services.Implementations
             this.db = db;
         }
 
-        public async Task<IEnumerable<CartItemDetailsServiceModel>> Details(IEnumerable<int> itemIds)
-            => await this.db
-                .Books
-                .Where(b => itemIds.Contains(b.Id))
-                .ProjectTo<CartItemDetailsServiceModel>()
-                .ToListAsync();
+        public async Task<IEnumerable<CartItemDetailsServiceModel>> Details(IEnumerable<int> itemIds, Dictionary<int, int> itemQuantities)
+        {
+            var books = await this.db
+                   .Books
+                   .Where(b => itemIds.Contains(b.Id))
+                   .ProjectTo<CartItemDetailsServiceModel>()
+                   .ToListAsync();
+
+            foreach (var item in books)
+            {
+                item.Quantity = itemQuantities[item.Id];
+            }
+
+            return books;
+        }
     }
 }

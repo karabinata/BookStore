@@ -14,9 +14,6 @@ namespace BookStore.Web.Areas.Books.Models
         [Display(Name = "Заглавие")]
         public string Title { get; set; }
 
-        [Display(Name = "Налични бройки")]
-        public int BooksAvailable { get; set; }
-
         [Required]
         [Display(Name = "Категория")]
         public List<SelectListItem> Category { get; set; } = new List<SelectListItem>();

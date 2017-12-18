@@ -13,7 +13,9 @@ namespace BookStore.Services.Orders.Models
 
         public DateTime OrderDate { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
+
+        public int Quantity { get; set; }
 
         public string Customer { get; set; }
 
