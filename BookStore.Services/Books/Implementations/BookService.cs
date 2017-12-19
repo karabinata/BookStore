@@ -21,6 +21,7 @@ namespace BookStore.Services.Books.Implementations
 
         private const string SearchInAuthors = "Author";
         private const string SearchInTitles = "Title";
+        private const string SearchInCategories = "Category";
 
         public BookService(BookStoreDbContext db, IAuthorService authors, IPublisherService publishers)
         {
@@ -52,33 +53,46 @@ namespace BookStore.Services.Books.Implementations
                 .ProjectTo<BookListingServiceModel>()
                 .ToListAsync();
 
-        public async Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, int page = 1, int pageSize = 4, string searchText = "")
+        public async Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, string searchText = "", string orderBy = "Id",
+            string orderDirection = "descending", int page = 1, int pageSize = 4)
         {
             if (searchIn == SearchInAuthors)
             {
                 return await this.db
                     .Books
-                    .Where(b => b.Authors.Where(
-                            a => a.Author.Name.ToLower().Contains(searchText.ToLower())) != null)
+                    .Where(b => b.Authors.Any(a => a.Author.Name.ToLower().Contains(searchText.ToLower())))
+                    .OrderBy<Book>(orderBy, orderDirection)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ProjectTo<BookListingServiceModel>()
                     .ToListAsync();
             }
 
-            if (searchIn == SearchInTitles)
+            else if (searchIn == SearchInTitles)
             {
                 return await this.db
-                .Books
-                .OrderByDescending(b => b.Id)
-                .Where(b => b.Title.ToLower().Contains(searchText.ToLower()))
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ProjectTo<BookListingServiceModel>()
-                .ToListAsync();
+                    .Books
+                    .Where(b => b.Title.ToLower().Contains(searchText.ToLower()))
+                    .OrderBy<Book>(orderBy, orderDirection)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ProjectTo<BookListingServiceModel>()
+                    .ToListAsync();
             }
 
-            return await this.AllAsync("", "", page, pageSize);
+            else if (searchIn == "Categories")
+            {
+                return await this.db
+                    .Books
+                    .Where(b => b.Category.ToString() == searchText)
+                    .OrderBy<Book>(orderBy, orderDirection)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ProjectTo<BookListingServiceModel>()
+                    .ToListAsync();
+            }
+
+            return await this.AllAsync(orderBy, orderDirection, page, pageSize);
         }
 
         public async Task<int> CreateAsync(

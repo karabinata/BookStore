@@ -43,18 +43,32 @@ namespace BookStore.Web.Controllers
             var itemsWithDetails = await this.shoppingCartService
                     .Details(itemIds, itemQuantities);
 
-            return View("_Items", itemsWithDetails);
+            return View(itemsWithDetails);
         }
 
         public async Task<IActionResult> AddToCart(int id)
         {
-            var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
-
-            TempData.AddSuccessMessage("Артикулът е успешно добавен в количката.");
-
-            this.shoppingCartManager.AddToCart(shoppingCartId, id);
+            this.Add(id);
 
             return RedirectToAction(nameof(ItemsController.All), new { area = "Books", controller = "Items" });
+        }
+
+        public async Task<IActionResult> IncreaseItemQuantity(int id)
+        {
+            this.Add(id);
+
+            return RedirectToAction(nameof(Items));
+        }
+
+        public async Task<IActionResult> DecreaseItemQuantity(int id)
+        {
+            var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
+
+            this.shoppingCartManager.DecreaseItemQuantity(shoppingCartId, id);
+
+            TempData.AddSuccessMessage("Броят на артикулите в количката е променен успешно.");
+
+            return RedirectToAction(nameof(Items));
         }
 
         public async Task<IActionResult> RemoveFromCart(int id)
@@ -62,6 +76,7 @@ namespace BookStore.Web.Controllers
             var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
 
             TempData.AddSuccessMessage("Артикулът успешно е премахнат от количката.");
+
             this.shoppingCartManager.RemoveFromCart(shoppingCartId, id);
 
             return RedirectToAction(nameof(Items));
@@ -97,6 +112,15 @@ namespace BookStore.Web.Controllers
             TempData.AddSuccessMessage("Поръчката е направена успешно.");
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        private void Add(int id)
+        {
+            var shoppingCartId = this.HttpContext.Session.GetShoppingCartId();
+
+            this.shoppingCartManager.AddToCart(shoppingCartId, id);
+
+            TempData.AddSuccessMessage("Артикулът е успешно добавен в количката.");
         }
     }
 }

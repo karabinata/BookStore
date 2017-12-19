@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 using static BookStore.Data.DataConstants;
@@ -146,13 +144,24 @@ namespace BookStore.Web.Areas.Books.Controllers
             return RedirectToAction(nameof(MyBooks));
         }
 
-        public async Task<IActionResult> Search(BookSearchViewModel model)
+        public async Task<IActionResult> Search(BookSearchViewModel model, string orderBy = "Id", string orderDirection = "descending")
         {
             var searchText = string.IsNullOrEmpty(model.SearchText) ? string.Empty : model.SearchText;
 
+            if (model.PageSize < 4)
+            {
+                model.PageSize = 4;
+            }
+
+            if(model.CurrentPage < 1)
+            {
+                model.CurrentPage = 1;
+            }
+
             var viewModel = new BookSearchViewModel
             {
-                Books = await this.books.SearchBookAsync(model.SearchIn, model.CurrentPage, model.PageSize, searchText),
+                Books = await this.books.SearchBookAsync(model.SearchIn, searchText, orderBy, orderDirection, model.CurrentPage, model.PageSize),
+                SearchIn = model.SearchIn,
                 SearchText = searchText,
                 PageSize = model.PageSize,
                 CurrentPage = model.CurrentPage
@@ -160,31 +169,6 @@ namespace BookStore.Web.Areas.Books.Controllers
 
             return View(viewModel);
         }
-
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<IActionResult> Order(int id)
-        //{
-        //    var customerId = this.userManager.GetUserId(User);
-        //    var traderId = await this.books.FindBookTraderAsync(id);
-
-        //    if (traderId == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var orderResult = await this.orders.OrderBookAsync(traderId, customerId, id);
-
-        //    if (!orderResult)
-        //    {
-        //        TempData.AddErrorMessage("За съжаление поръчката не може да се осъществи, артикулът е изчерпан.");
-        //        return RedirectToAction(nameof(Details), new { id });
-        //    }
-
-        //    TempData.AddSuccessMessage("Поръчката е успешна.");
-
-        //    return RedirectToAction(nameof(Details), new { id });
-        //}
 
         [Authorize]
         [HttpPost]

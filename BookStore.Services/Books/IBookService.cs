@@ -26,7 +26,8 @@ namespace BookStore.Services.Books
 
         Task<IEnumerable<BookListingServiceModel>> BooksByCurrentUserAsync(string userId, int page = 1, int pageSize = 4);
 
-        Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, int page = 1, int pageSize = 5, string searchText = "");
+        Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, string searchText = "", string orderBy = "Id",
+            string orderDirection = "descending", int page = 1, int pageSize = 5);
 
         Task<BookDetailsServiceModel> DetailsAsync(int id);
 

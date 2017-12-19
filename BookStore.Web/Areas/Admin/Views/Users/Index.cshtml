@@ -20,7 +20,7 @@
                 @foreach (var user in Model.Users)
                 {
                     <tr>
-                        <td>@user.UserName</td>
+                        <td><a asp-area="" asp-controller="Users" asp-action="Profile" asp-route-username="@user.UserName">@user.UserName</a></td>
                         <td>@user.Email</td>
                         <td>
                             <form asp-controller="Users" asp-action="AddToRole" method="post">

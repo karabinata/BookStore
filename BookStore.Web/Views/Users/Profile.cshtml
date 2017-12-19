@@ -16,7 +16,7 @@
                 }
                 <h4>Име: @fullName</h4>
                 <p>Телефон за връзка: @(string.IsNullOrEmpty(Model.PhoneNumber) ? "Няма" : Model.PhoneNumber)</p>
-                <p>Дата на регистрация: @Model.RegistrationDate</p>
+                <p>Дата на регистрация: @Model.RegistrationDate.ToShortDateString()</p>
                 <p>Брой книги за продан: @Model.BooksCount</p>
                 <p>Брой направени поръчки: @Model.OrdersCount</p>
             </div>

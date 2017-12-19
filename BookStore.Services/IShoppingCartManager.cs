@@ -7,6 +7,10 @@ namespace BookStore.Services
     {
         void AddToCart(string id, int itemId);
 
+        int ShoppingCartItemsQuantity(string id);
+
+        void DecreaseItemQuantity(string id, int itemId);
+
         void RemoveFromCart(string id, int itemId);
 
         IEnumerable<CartItem> GetItems(string id);

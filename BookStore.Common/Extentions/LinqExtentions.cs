@@ -7,6 +7,7 @@ namespace BookStore.Common.Extensions
     public static class LinqExtentions
     {
         private const string OrderDirectionAscending = "ascending";
+        private const string OrderByDefault = "Id";
         private const string OrderByDescending = "OrderByDescending";
         private const string OrderByAccending = "OrderBy";
 
@@ -14,8 +15,9 @@ namespace BookStore.Common.Extensions
                           string desc)
         {
             var command = desc.ToLower() == OrderDirectionAscending ? OrderByDescending : OrderByAccending;
+            var orderDefault = string.IsNullOrEmpty(orderByProperty) ? OrderByDefault : orderByProperty;
             var type = typeof(TEntity);
-            var property = type.GetProperty(orderByProperty);
+            var property = type.GetProperty(orderDefault);
             var parameter = Expression.Parameter(type, "p");
             var propertyAccess = Expression.MakeMemberAccess(parameter, property);
             var orderByExpression = Expression.Lambda(propertyAccess, parameter);

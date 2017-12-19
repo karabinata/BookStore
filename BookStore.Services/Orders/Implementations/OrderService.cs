@@ -52,19 +52,10 @@ namespace BookStore.Services.Orders.Implementations
                 .FirstOrDefaultAsync();
 
             order.BooksIdsAndTitles = await this.db
-                .Books
-                .Where(b => b.Orders.All(o => o.OrderId == orderId))
+                .OrderBooks
+                .Where(b => b.OrderId == orderId)
                 .ProjectTo<BooksInOrder>()
                 .ToListAsync();
-
-            foreach (var item in this.db
-                .Books
-                .Where(b => b.Orders.All(o => o.OrderId == orderId))
-                .ProjectTo<BooksInOrder>()
-                .ToList())
-            {
-                var i = item; 
-            }
 
             return order;
         }
@@ -81,8 +72,11 @@ namespace BookStore.Services.Orders.Implementations
                 TotalPrice = totalPrice,
                 Address = "Some adress",
                 OrderDate = DateTime.UtcNow,
-                Quantity = itemQuantities.Count()
+                Quantity = itemQuantities.Sum(i => i.Value)
             };
+
+            this.db.Add(order);
+            await this.db.SaveChangesAsync();
 
             var itemsWithDetails = await this.shoppingCartService
                     .Details(bookIds, itemQuantities);
@@ -95,17 +89,19 @@ namespace BookStore.Services.Orders.Implementations
                 {
                     order.TraderId = book.TraderId;
 
-                    order.Books.Add(new OrderBook
+                    var orderBook = new OrderBook
                     {
+                        OrderId = order.Id,
                         BookId = item.Id,
                         Price = item.Price,
                         Quantity = item.Quantity
-                    });
+                    };
+
+                    order.Books.Add(orderBook);
+
+                    this.db.Add(orderBook);
                 }
-
             }
-
-            this.db.Orders.Add(order);
 
             await this.db.SaveChangesAsync();
             

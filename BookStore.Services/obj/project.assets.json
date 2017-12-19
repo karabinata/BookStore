@@ -4658,7 +4658,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Users\\karab\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -4667,17 +4667,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\BookStore\\BookStore.Services\\BookStore.Services.csproj",
+      "projectUniqueName": "C:\\Users\\karab\\BookStore\\BookStore.Services\\BookStore.Services.csproj",
       "projectName": "BookStore.Services",
-      "projectPath": "C:\\Users\\User\\BookStore\\BookStore.Services\\BookStore.Services.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\BookStore\\BookStore.Services\\obj\\",
+      "projectPath": "C:\\Users\\karab\\BookStore\\BookStore.Services\\BookStore.Services.csproj",
+      "packagesPath": "C:\\Users\\karab\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\karab\\BookStore\\BookStore.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\karab\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4690,11 +4690,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\User\\BookStore\\BookStore.Data\\BookStore.Data.csproj": {
-              "projectPath": "C:\\Users\\User\\BookStore\\BookStore.Data\\BookStore.Data.csproj"
+            "C:\\Users\\karab\\BookStore\\BookStore.Data\\BookStore.Data.csproj": {
+              "projectPath": "C:\\Users\\karab\\BookStore\\BookStore.Data\\BookStore.Data.csproj"
             },
-            "C:\\Users\\User\\BookStore\\BookStore.Common\\BookStore.Common.csproj": {
-              "projectPath": "C:\\Users\\User\\BookStore\\BookStore.Common\\BookStore.Common.csproj"
+            "C:\\Users\\karab\\BookStore\\BookStore.Common\\BookStore.Common.csproj": {
+              "projectPath": "C:\\Users\\karab\\BookStore\\BookStore.Common\\BookStore.Common.csproj"
             }
           }
         }

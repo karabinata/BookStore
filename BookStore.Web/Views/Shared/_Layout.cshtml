@@ -27,7 +27,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="w3l_search">
             <form asp-area="Books" asp-controller="Items" asp-action="Search" method="get">
                 <input type="text" name="SearchText" placeholder="Търси книга..." />
-                <input type="radio" name="SearchIn" id="title" value="Title" />
+                <input type="radio" name="SearchIn" id="title" value="Title" checked />
                 <label for="title">Заглавие</label>
                 <input type="radio" name="SearchIn" id="author" value="Author" />
                 <label class="author-label" for="author">Автор</label>
@@ -35,13 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </form>
         </div>
         <div class="product_list_header">
-                <form action="#" method="post" class="last">
-                    <fieldset>
-                        <input type="hidden" name="cmd" value="_cart" />
-                        <input type="hidden" name="display" value="1" />
-                        <input type="submit" name="submit" value="View your cart" class="button" />
-                    </fieldset>
-                </form>
+                @await Component.InvokeAsync("ShoppingCartWidget")
             </div>
             <div class="login_partial">
                 @await Html.PartialAsync("_LoginPartial")
@@ -76,67 +70,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </ul>
             </div>
         </div>
-
-        <!-- //products-breadcrumb -->
-        <!-- banner -->
         <div class="banner">
-            <div class="w3l_banner_nav_left">
-                <nav class="navbar nav_bottom">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header nav_2">
-                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-                        <ul class="nav navbar-nav nav_1">
-                            <li><a href="products.html">Branded Foods</a></li>
-                            <li><a href="household.html">Households</a></li>
-                            <li class="dropdown mega-dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Veggies & Fruits<span class="caret"></span></a>
-                                <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                    <div class="w3ls_vegetables">
-                                        <ul>
-                                            <li><a href="vegetables.html">Vegetables</a></li>
-                                            <li><a href="vegetables.html">Fruits</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><a href="kitchen.html">Kitchen</a></li>
-                            <li><a href="short-codes.html">Short Codes</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Beverages<span class="caret"></span></a>
-                                <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                    <div class="w3ls_vegetables">
-                                        <ul>
-                                            <li><a href="drinks.html">Soft Drinks</a></li>
-                                            <li><a href="drinks.html">Juices</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><a href="pet.html">Pet Food</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Frozen Foods<span class="caret"></span></a>
-                                <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-                                    <div class="w3ls_vegetables">
-                                        <ul>
-                                            <li><a href="frozen.html">Frozen Snacks</a></li>
-                                            <li><a href="frozen.html">Frozen Nonveg</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><a href="bread.html">Bread & Bakery</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+            
             @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
             {
                 <div class="alert alert-success text-center">@TempData[WebConstants.TempDataSuccessMessageKey]</div>
@@ -147,6 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="alert alert-danger text-center">@TempData[WebConstants.TempDataErrorMessageKey]</div>
             }
 
+            @await Component.InvokeAsync("NavWidget")
         </div>
         @RenderBody()
 
@@ -186,8 +122,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="clearfix"> </div>
             </div>
         </div>
-        <!-- //newsletter-top-serv-btm -->
-        <!-- newsletter -->
         <div class="newsletter">
             <div class="container">
                 <div class="w3agile_newsletter_left">
@@ -280,8 +214,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
             </div>
         </div>
-        <!-- //footer -->
-        <!-- Bootstrap Core JavaScript -->
 
         <environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -306,18 +238,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <script type="application/x-javascript">
             addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
                    function hideURLbar(){ window.scrollTo(0,1); } </script>
-        <!-- //for-mobile-apps -->
         <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
-        <!-- font-awesome icons -->
         <link href="~/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
-        <!-- //font-awesome icons -->
-        <!-- js -->
-        @*<script src="~/js/jquery-1.11.1.min.js"></script>*@
-        <!-- //js -->
         <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-        <!-- start-smoth-scrolling -->
         <script type="text/javascript" src="~/js/move-top.js"></script>
         <script type="text/javascript" src="~/js/easing.js"></script>
         <script type="text/javascript">
@@ -342,7 +267,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             });
         </script>
-        <!-- //script-for sticky-nav -->
+
         <script src="~/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function () {
@@ -358,42 +283,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 );
             });
         </script>
-        <!-- here stars scrolling icon -->
+
         <script type="text/javascript">
             $(document).ready(function () {
 
-                //var defaults = {
-                //containerID: 'toTop', // fading element id
-                //containerHoverID: 'toTopHover', // fading element hover id
-                //scrollSpeed: 1200,
-                //easingType: 'linear'
-                //};
-
                 $().UItoTop({ easingType: 'easeOutQuart' });
             });
-        </script>
-        <!-- //here ends scrolling icon -->
-        <script src="~/js/minicart.js"></script>
-        <script>
-            paypal.minicart.render();
-
-            paypal.minicart.cart.on('checkout', function (evt) {
-                var items = this.items(),
-                    len = items.length,
-                    total = 0,
-                    i;
-
-                // Count the number of each item in the cart
-                for (i = 0; i < len; i++) {
-                    total += items[i].get('quantity');
-                }
-
-                if (total < 1) {
-                    alert('The minimum order quantity is 1. Please add more to your shopping cart before checking out');
-                    evt.preventDefault();
-                }
-            });
-
         </script>
 
         <script>

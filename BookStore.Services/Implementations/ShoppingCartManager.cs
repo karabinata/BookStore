@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BookStore.Services.Models;
 using System.Collections.Concurrent;
+using System.Linq;
 
 namespace BookStore.Services.Implementations
 {
@@ -20,6 +21,13 @@ namespace BookStore.Services.Implementations
             shoppingCart.AddToCart(itemId);
         }
 
+        public void DecreaseItemQuantity(string id, int itemId)
+        {
+            var shoppingCart = this.GetShoppingCart(id);
+
+            shoppingCart.DecreaseQuantity(itemId);
+        }
+
         public IEnumerable<CartItem> GetItems(string id)
         {
             var shoppingCart = this.GetShoppingCart(id);
@@ -32,6 +40,13 @@ namespace BookStore.Services.Implementations
             var shoppingCart = this.GetShoppingCart(id);
 
             shoppingCart.RemoveFromCart(itemId);
+        }
+
+        public int ShoppingCartItemsQuantity(string id)
+        {
+            var shoppingCart = this.GetShoppingCart(id);
+
+            return shoppingCart.CartItems.Sum(c => c.Quantity);
         }
 
         private ShoppingCart GetShoppingCart(string id)

@@ -32,6 +32,13 @@ namespace BookStore.Services.Models
             }
         }
 
+        public void DecreaseQuantity(int itemId)
+        {
+            var cartItem = this.cartItems.FirstOrDefault(i => i.Id == itemId);
+
+            cartItem.Quantity--;
+        }
+
         public void RemoveFromCart(int itemId)
         {
             var cartItem = this.cartItems
