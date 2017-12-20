@@ -9,7 +9,5 @@
         public const string AdminArea = "Admin";
         public const string BooksArea = "Books";
         public const string OrderArea = "Orders";
-
-        public const string SearchInDefault = "Authors";
     }
 }

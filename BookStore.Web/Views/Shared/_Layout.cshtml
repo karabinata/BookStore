@@ -20,7 +20,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Grocery Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
 </head>
 <body>
     <div class="agileits_header row">
@@ -35,301 +34,302 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </form>
         </div>
         <div class="product_list_header">
-                @await Component.InvokeAsync("ShoppingCartWidget")
-            </div>
-            <div class="login_partial">
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
+            @await Component.InvokeAsync("ShoppingCartWidget")
         </div>
-        <div class="clearfix"></div>
+        <div class="login_partial">
+            @await Html.PartialAsync("_LoginPartial")
+        </div>
+    </div>
+    <div class="clearfix"></div>
 
-        <div class="logo_products">
-            <div class="container">
-                <div class="w3ls_logo_products_left">
-                    <h1><a asp-area="" asp-controller="Home" asp-action="Index"><span>Книжен</span> Пазар</a></h1>
-                </div>
-                <div class="w3ls_logo_products_left1">
-                    <ul class="special_items">
-                        @if (User.IsInRole(WebConstants.AdministratorRole))
-                        {
-                            <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Потребители</a><i>/</i></li>
-                            <li><a asp-area="Admin" asp-controller="Orders" asp-action="All">Всички поръчки</a><i>/</i></li>
-                        }
-                        <li><a asp-area="Books" asp-controller="Items" asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="descending">Всички книги</a><i>/</i></li>
-                        <li><a asp-area="Books" asp-controller="BooksTrader" asp-action="Create">Добави за продажба</a><i>/</i></li>
-                    </ul>
-                </div>
-                <div class="clearfix"> </div>
+    <div class="logo_products">
+        <div class="container">
+            <div class="w3ls_logo_products_left">
+                <h1><a asp-area="" asp-controller="Home" asp-action="Index"><span>Книжен</span> Пазар</a></h1>
             </div>
-        </div>
-        <div class="products-breadcrumb">
-            <div class="container">
-                <ul>
-                    <li><i class="fa fa-home" aria-hidden="true"></i><a href="index.html">Home</a><span>|</span></li>
-                    <li>Sign In & Sign Up</li>
+            <div class="w3ls_logo_products_left1">
+                <ul class="special_items">
+                    @if (User.IsInRole(WebConstants.AdministratorRole))
+                    {
+                        <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Потребители</a><i>/</i></li>
+                        <li><a asp-area="Admin" asp-controller="Orders" asp-action="All">Всички поръчки</a><i>/</i></li>
+                    }
+
+                    <li><a asp-area="Orders" asp-controller="Orders" asp-action="MyOrders" asp-route-orderBy="Id" asp-route-orderDirection="descending">Мой поръчки</a><i>/</i></li>
+                    <li><a asp-area="Orders" asp-controller="Orders" asp-action="OrdersFromMe" asp-route-orderBy="Id" asp-route-orderDirection="descending">Поръчки от мен</a><i>/</i></li>
+                    <li><a asp-area="Books" asp-controller="Items" asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="descending">Всички книги</a><i>/</i></li>
+                    <li><a asp-area="Books" asp-controller="BooksTrader" asp-action="Create">Добави за продажба</a><i>/</i></li>
                 </ul>
             </div>
+            <div class="clearfix"> </div>
         </div>
-        <div class="banner">
-            
-            @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
+    </div>
+    <div class="products-breadcrumb">
+        <div class="container">
+            <ul>
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="index.html">Home</a><span>|</span></li>
+                <li>Sign In & Sign Up</li>
+            </ul>
+        </div>
+    </div>
+    <div class="banner">
+
+        @if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
             {
-                <div class="alert alert-success text-center">@TempData[WebConstants.TempDataSuccessMessageKey]</div>
-            }
+            <div class="alert alert-success text-center">@TempData[WebConstants.TempDataSuccessMessageKey]</div>
+        }
 
-            @if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
+        @if (TempData.ContainsKey(WebConstants.TempDataErrorMessageKey))
             {
-                <div class="alert alert-danger text-center">@TempData[WebConstants.TempDataErrorMessageKey]</div>
-            }
+            <div class="alert alert-danger text-center">@TempData[WebConstants.TempDataErrorMessageKey]</div>
+        }
 
-            @await Component.InvokeAsync("NavWidget")
+        @await Component.InvokeAsync("NavWidget")
+    </div>
+    @RenderBody()
+
+    <div class="clearfix"></div>
+    <div class="newsletter-top-serv-btm">
+        <div class="container">
+            <div class="col-md-4 wthree_news_top_serv_btm_grid">
+                <div class="wthree_news_top_serv_btm_grid_icon">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </div>
+                <h3>Nam libero tempore</h3>
+                <p>
+                    Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
+                    saepe eveniet ut et voluptates repudiandae sint et.
+                </p>
+            </div>
+            <div class="col-md-4 wthree_news_top_serv_btm_grid">
+                <div class="wthree_news_top_serv_btm_grid_icon">
+                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                </div>
+                <h3>officiis debitis aut rerum</h3>
+                <p>
+                    Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
+                    saepe eveniet ut et voluptates repudiandae sint et.
+                </p>
+            </div>
+            <div class="col-md-4 wthree_news_top_serv_btm_grid">
+                <div class="wthree_news_top_serv_btm_grid_icon">
+                    <i class="fa fa-truck" aria-hidden="true"></i>
+                </div>
+                <h3>eveniet ut et voluptates</h3>
+                <p>
+                    Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
+                    saepe eveniet ut et voluptates repudiandae sint et.
+                </p>
+            </div>
+            <div class="clearfix"> </div>
         </div>
-        @RenderBody()
-
-        <div class="clearfix"></div>
-        <div class="newsletter-top-serv-btm">
-            <div class="container">
-                <div class="col-md-4 wthree_news_top_serv_btm_grid">
-                    <div class="wthree_news_top_serv_btm_grid_icon">
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    </div>
+    <div class="newsletter">
+        <div class="container">
+            <div class="w3agile_newsletter_left">
+                <h3>sign up for our newsletter</h3>
+            </div>
+            <div class="w3agile_newsletter_right">
+                <form action="#" method="post">
+                    <input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                    <input type="submit" value="subscribe now">
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-3 w3_footer_grid">
+                <h3>information</h3>
+                <ul class="w3_footer_grid_list">
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">Best Deals</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="short-codes.html">Short Codes</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 w3_footer_grid">
+                <h3>policy info</h3>
+                <ul class="w3_footer_grid_list">
+                    <li><a href="faqs.html">FAQ</a></li>
+                    <li><a href="privacy.html">privacy policy</a></li>
+                    <li><a href="privacy.html">terms of use</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 w3_footer_grid">
+                <h3>what in stores</h3>
+                <ul class="w3_footer_grid_list">
+                    <li><a href="pet.html">Pet Food</a></li>
+                    <li><a href="frozen.html">Frozen Snacks</a></li>
+                    <li><a href="kitchen.html">Kitchen</a></li>
+                    <li><a href="products.html">Branded Foods</a></li>
+                    <li><a href="household.html">Households</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 w3_footer_grid">
+                <h3>twitter posts</h3>
+                <ul class="w3_footer_grid_list1">
+                    <li>
+                        <label class="fa fa-twitter" aria-hidden="true"></label><i>01 day ago</i><span>
+                            Non numquam <a href="#">http://sd.ds/13jklf#</a>
+                            eius modi tempora incidunt ut labore et
+                            <a href="#">http://sd.ds/1389kjklf#</a>quo nulla.
+                        </span>
+                    </li>
+                    <li>
+                        <label class="fa fa-twitter" aria-hidden="true"></label><i>02 day ago</i><span>
+                            Con numquam <a href="#">http://fd.uf/56hfg#</a>
+                            eius modi tempora incidunt ut labore et
+                            <a href="#">http://fd.uf/56hfg#</a>quo nulla.
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="agile_footer_grids">
+                <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
+                    <div class="w3_footer_grid_bottom">
+                        <h4>100% secure payments</h4>
+                        <img src="~/images/card.png" alt=" " class="img-responsive" />
                     </div>
-                    <h3>Nam libero tempore</h3>
-                    <p>
-                        Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
-                        saepe eveniet ut et voluptates repudiandae sint et.
-                    </p>
                 </div>
-                <div class="col-md-4 wthree_news_top_serv_btm_grid">
-                    <div class="wthree_news_top_serv_btm_grid_icon">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
+                    <div class="w3_footer_grid_bottom">
+                        <h5>connect with us</h5>
+                        <ul class="agileits_social_icons">
+                            <li><a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="google"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#" class="dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                        </ul>
                     </div>
-                    <h3>officiis debitis aut rerum</h3>
-                    <p>
-                        Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
-                        saepe eveniet ut et voluptates repudiandae sint et.
-                    </p>
-                </div>
-                <div class="col-md-4 wthree_news_top_serv_btm_grid">
-                    <div class="wthree_news_top_serv_btm_grid_icon">
-                        <i class="fa fa-truck" aria-hidden="true"></i>
-                    </div>
-                    <h3>eveniet ut et voluptates</h3>
-                    <p>
-                        Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
-                        saepe eveniet ut et voluptates repudiandae sint et.
-                    </p>
                 </div>
                 <div class="clearfix"> </div>
             </div>
-        </div>
-        <div class="newsletter">
-            <div class="container">
-                <div class="w3agile_newsletter_left">
-                    <h3>sign up for our newsletter</h3>
-                </div>
-                <div class="w3agile_newsletter_right">
-                    <form action="#" method="post">
-                        <input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                        <input type="submit" value="subscribe now">
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
+            <div class="wthree_footer_copy">
+                <p>© 2016 Grocery Store. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
             </div>
         </div>
-        <!-- //newsletter -->
-        <!-- footer -->
-        <div class="footer">
-            <div class="container">
-                <div class="col-md-3 w3_footer_grid">
-                    <h3>information</h3>
-                    <ul class="w3_footer_grid_list">
-                        <li><a href="events.html">Events</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="products.html">Best Deals</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="short-codes.html">Short Codes</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 w3_footer_grid">
-                    <h3>policy info</h3>
-                    <ul class="w3_footer_grid_list">
-                        <li><a href="faqs.html">FAQ</a></li>
-                        <li><a href="privacy.html">privacy policy</a></li>
-                        <li><a href="privacy.html">terms of use</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 w3_footer_grid">
-                    <h3>what in stores</h3>
-                    <ul class="w3_footer_grid_list">
-                        <li><a href="pet.html">Pet Food</a></li>
-                        <li><a href="frozen.html">Frozen Snacks</a></li>
-                        <li><a href="kitchen.html">Kitchen</a></li>
-                        <li><a href="products.html">Branded Foods</a></li>
-                        <li><a href="household.html">Households</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 w3_footer_grid">
-                    <h3>twitter posts</h3>
-                    <ul class="w3_footer_grid_list1">
-                        <li>
-                            <label class="fa fa-twitter" aria-hidden="true"></label><i>01 day ago</i><span>
-                                Non numquam <a href="#">http://sd.ds/13jklf#</a>
-                                eius modi tempora incidunt ut labore et
-                                <a href="#">http://sd.ds/1389kjklf#</a>quo nulla.
-                            </span>
-                        </li>
-                        <li>
-                            <label class="fa fa-twitter" aria-hidden="true"></label><i>02 day ago</i><span>
-                                Con numquam <a href="#">http://fd.uf/56hfg#</a>
-                                eius modi tempora incidunt ut labore et
-                                <a href="#">http://fd.uf/56hfg#</a>quo nulla.
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"> </div>
-                <div class="agile_footer_grids">
-                    <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
-                        <div class="w3_footer_grid_bottom">
-                            <h4>100% secure payments</h4>
-                            <img src="~/images/card.png" alt=" " class="img-responsive" />
-                        </div>
-                    </div>
-                    <div class="col-md-3 w3_footer_grid agile_footer_grids_w3_footer">
-                        <div class="w3_footer_grid_bottom">
-                            <h5>connect with us</h5>
-                            <ul class="agileits_social_icons">
-                                <li><a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#" class="google"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                <li><a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                <li><a href="#" class="dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="wthree_footer_copy">
-                    <p>© 2016 Grocery Store. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-                </div>
-            </div>
-        </div>
+    </div>
 
-        <environment include="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment exclude="Development">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery"
-                    crossorigin="anonymous"
-                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                    crossorigin="anonymous"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
-        <script type="application/x-javascript">
-            addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-                   function hideURLbar(){ window.scrollTo(0,1); } </script>
-        <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="~/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
-        <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
-        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-        <script type="text/javascript" src="~/js/move-top.js"></script>
-        <script type="text/javascript" src="~/js/easing.js"></script>
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $(".scroll").click(function (event) {
-                    event.preventDefault();
-                    $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-                });
-            });
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
         </script>
-        <script>
-            $(document).ready(function () {
-                var navoffeset = $(".agileits_header").offset().top;
-                $(window).scroll(function () {
-                    var scrollpos = $(window).scrollTop();
-                    if (scrollpos >= navoffeset) {
-                        $(".agileits_header").addClass("fixed");
-                    } else {
-                        $(".agileits_header").removeClass("fixed");
-                    }
-                });
-
-            });
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-
-        <script src="~/js/bootstrap.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".dropdown").hover(
-                    function () {
-                        $('.dropdown-menu', this).stop(true, true).slideDown("fast");
-                        $(this).toggleClass('open');
-                    },
-                    function () {
-                        $('.dropdown-menu', this).stop(true, true).slideUp("fast");
-                        $(this).toggleClass('open');
-                    }
-                );
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+    <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="~/js/move-top.js"></script>
+    <script type="text/javascript" src="~/js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
             });
-        </script>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var navoffeset = $(".agileits_header").offset().top;
+            $(window).scroll(function () {
+                var scrollpos = $(window).scrollTop();
+                if (scrollpos >= navoffeset) {
+                    $(".agileits_header").addClass("fixed");
+                } else {
+                    $(".agileits_header").removeClass("fixed");
+                }
             });
-        </script>
 
-        <script>
-            $(document).ready(function () {
-                var navoffeset = $(".agileits_header").offset().top;
-                $(window).scroll(function () {
-                    var scrollpos = $(window).scrollTop();
-                    if (scrollpos >= navoffeset) {
-                        $(".agileits_header").addClass("fixed");
-                    } else {
-                        $(".agileits_header").removeClass("fixed");
-                    }
-                });
+        });
+    </script>
 
+    <script src="~/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown").hover(
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function () {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var navoffeset = $(".agileits_header").offset().top;
+            $(window).scroll(function () {
+                var scrollpos = $(window).scrollTop();
+                if (scrollpos >= navoffeset) {
+                    $(".agileits_header").addClass("fixed");
+                } else {
+                    $(".agileits_header").removeClass("fixed");
+                }
             });
-        </script>
 
-        <script defer src="~/js/jquery.flexslider.js"></script>
-        <script type="text/javascript">
-            $(window).load(function () {
-                $('.flexslider').flexslider({
-                    animation: "slide",
-                    start: function (slider) {
-                        $('body').removeClass('loading');
-                    }
-                });
+        });
+    </script>
+
+    <script defer src="~/js/jquery.flexslider.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
             });
-        </script>
+        });
+    </script>
 
-        <script src='~/js/okzoom.js'></script>
-        <script>
-            $(function () {
-                $('#example').okzoom({
-                    width: 150,
-                    height: 150,
-                    border: "1px solid black",
-                    shadow: "0 0 5px #000"
-                });
+    <script src='~/js/okzoom.js'></script>
+    <script>
+        $(function () {
+            $('#example').okzoom({
+                width: 150,
+                height: 150,
+                border: "1px solid black",
+                shadow: "0 0 5px #000"
             });
-        </script>
+        });
+    </script>
 
-        @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

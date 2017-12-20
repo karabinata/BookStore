@@ -1,15 +1,15 @@
-﻿using System.Threading.Tasks;
-using BookStore.Data.Models;
+﻿using AutoMapper.QueryableExtensions;
+using BookStore.Common.Extensions;
 using BookStore.Data;
+using BookStore.Data.Models;
+using BookStore.Services.Authors;
 using BookStore.Services.Books.Models;
-using System.Collections.Generic;
-using AutoMapper.QueryableExtensions;
+using BookStore.Services.Publishers;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using BookStore.Services.Authors;
-using BookStore.Services.Publishers;
-using BookStore.Common.Extensions;
+using System.Threading.Tasks;
 
 namespace BookStore.Services.Books.Implementations
 {
@@ -21,7 +21,7 @@ namespace BookStore.Services.Books.Implementations
 
         private const string SearchInAuthors = "Author";
         private const string SearchInTitles = "Title";
-        private const string SearchInCategories = "Category";
+        private const string SearchInCategories = "Categories";
 
         public BookService(BookStoreDbContext db, IAuthorService authors, IPublisherService publishers)
         {
@@ -67,7 +67,6 @@ namespace BookStore.Services.Books.Implementations
                     .ProjectTo<BookListingServiceModel>()
                     .ToListAsync();
             }
-
             else if (searchIn == SearchInTitles)
             {
                 return await this.db
@@ -79,8 +78,7 @@ namespace BookStore.Services.Books.Implementations
                     .ProjectTo<BookListingServiceModel>()
                     .ToListAsync();
             }
-
-            else if (searchIn == "Categories")
+            else if (searchIn == SearchInCategories)
             {
                 return await this.db
                     .Books
@@ -172,7 +170,6 @@ namespace BookStore.Services.Books.Implementations
                 .Where(b => b.Id == id)
                 .ProjectTo<BookDetailsServiceModel>()
                 .FirstOrDefaultAsync();
-
 
         public async Task<bool> EditAsync(
             string userId,

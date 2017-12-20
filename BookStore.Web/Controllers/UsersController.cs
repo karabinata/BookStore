@@ -1,9 +1,14 @@
-﻿using BookStore.Services;
+﻿using BookStore.Data.Models;
+using BookStore.Services;
+using BookStore.Services.Users.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace BookStore.Web.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserService users;

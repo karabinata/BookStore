@@ -25,6 +25,12 @@ namespace BookStore.Web.Models.Manage
         [Display(Name = "И-мейл")]
         public string Email { get; set; }
 
+        [Display(Name = "Адрес")]
+        public string Address { get; set; }
+
+        [Display(Name = "Град")]
+        public string City { get; set; }
+
         [Phone]
         [Display(Name = "Телефон")]
         public string PhoneNumber { get; set; }

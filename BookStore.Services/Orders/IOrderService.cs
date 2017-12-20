@@ -10,6 +10,10 @@ namespace BookStore.Services.Orders
 
         Task<IEnumerable<OrderListingServiceModel>> MyOrdersAsync(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4);
 
+        Task<IEnumerable<OrderListingServiceModel>> OrdersFomMe(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4);
+
+        Task<UserOrderDetailsServiceModel> UserInfoAsync(string userId);
+
         Task<OrderDetailsServiceModel> DetailsAsync(int orderId);
 
         Task<bool> OrderBookAsync(string customerId, IEnumerable<int> bookIds, decimal totalPrice, Dictionary<int, int> itemQuantities);

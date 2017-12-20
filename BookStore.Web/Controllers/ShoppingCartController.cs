@@ -3,6 +3,7 @@ using BookStore.Services;
 using BookStore.Services.Orders;
 using BookStore.Web.Areas.Books.Controllers;
 using BookStore.Web.Infrastructure.Extensions;
+using BookStore.Web.Models.ShoppingCart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +18,20 @@ namespace BookStore.Web.Controllers
         private readonly IShoppingCartService shoppingCartService;
         private readonly IOrderService orders;
         private readonly UserManager<User> userManager;
+        private readonly BookStore.Services.Users.IUserService users;
 
         public ShoppingCartController(
             IShoppingCartManager shoppingCartManager,
             IShoppingCartService shoppingCartService,
             IOrderService orders,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            BookStore.Services.Users.IUserService users)
         {
             this.shoppingCartManager = shoppingCartManager;
             this.shoppingCartService = shoppingCartService;
             this.orders = orders;
             this.userManager = userManager;
+            this.users = users;
         }
 
         public async Task<IActionResult> Items()
@@ -43,7 +47,13 @@ namespace BookStore.Web.Controllers
             var itemsWithDetails = await this.shoppingCartService
                     .Details(itemIds, itemQuantities);
 
-            return View(itemsWithDetails);
+            var userId = this.userManager.GetUserId(User);
+
+            return View(new ShoppingCartDetailsViewModel
+            {
+                Items = itemsWithDetails,
+                Customer = await this.users.Details(userId)
+            });
         }
 
         public async Task<IActionResult> AddToCart(int id)

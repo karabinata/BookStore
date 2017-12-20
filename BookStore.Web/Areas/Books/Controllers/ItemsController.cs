@@ -99,7 +99,6 @@ namespace BookStore.Web.Areas.Books.Controllers
 
                 pictureContents = await coverPicture.ToByteArrayAsync();
             }
-
             else
             {
                 pictureContents = await this.books.GetCoverPicture(id);
@@ -153,7 +152,7 @@ namespace BookStore.Web.Areas.Books.Controllers
                 model.PageSize = 4;
             }
 
-            if(model.CurrentPage < 1)
+            if (model.CurrentPage < 1)
             {
                 model.CurrentPage = 1;
             }

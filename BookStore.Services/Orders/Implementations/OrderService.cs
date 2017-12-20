@@ -8,7 +8,6 @@ using BookStore.Services.Orders.Models;
 using BookStore.Common.Extensions;
 using AutoMapper.QueryableExtensions;
 using System.Collections.Generic;
-using System.IO;
 
 namespace BookStore.Services.Orders.Implementations
 {
@@ -43,6 +42,16 @@ namespace BookStore.Services.Orders.Implementations
                 .ProjectTo<OrderListingServiceModel>()
                 .ToListAsync();
 
+        public async Task<IEnumerable<OrderListingServiceModel>> OrdersFomMe(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4)
+            => await this.db
+                .Orders
+                .Where(o => o.TraderId == userId)
+                .OrderBy<Order>(orderBy, orderDirection)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<OrderListingServiceModel>()
+                .ToListAsync();
+
         public async Task<OrderDetailsServiceModel> DetailsAsync(int orderId)
         {
             var order = await this.db
@@ -59,6 +68,13 @@ namespace BookStore.Services.Orders.Implementations
 
             return order;
         }
+
+        public async Task<UserOrderDetailsServiceModel> UserInfoAsync(string userId)
+            => await this.db
+                .Users
+                .Where(u => u.Id == userId)
+                .ProjectTo<UserOrderDetailsServiceModel>()
+                .FirstOrDefaultAsync();
 
         public async Task<bool> OrderBookAsync(
             string customerId, 

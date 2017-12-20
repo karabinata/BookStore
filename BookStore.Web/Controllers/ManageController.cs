@@ -105,6 +105,8 @@ namespace BookStore.Web.Controllers
             var firstNameIsChanged = user.FirstName != model.FirstName;
             var middleNameIsChanged = user.MiddleName != model.MiddleName;
             var lastNameIsChanged = user.LastName != model.LastName;
+            var addressIsChanged = user.Address != model.Address;
+            var cityIsChanged = user.City != model.City;
 
             if (firstNameIsChanged)
             {
@@ -121,8 +123,17 @@ namespace BookStore.Web.Controllers
                 user.LastName = model.LastName;
             }
 
+            if (addressIsChanged)
+            {
+                user.Address = model.Address;
+            }
 
-            if (firstNameIsChanged || middleNameIsChanged || lastNameIsChanged)
+            if (cityIsChanged)
+            {
+                user.City = model.City;
+            }
+
+            if (firstNameIsChanged || middleNameIsChanged || lastNameIsChanged || addressIsChanged || cityIsChanged)
             {
                 await this._userManager.UpdateAsync(user);
             }
