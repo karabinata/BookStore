@@ -1,7 +1,6 @@
 ﻿using BookStore.Data.Models;
 using BookStore.Services.Books;
 using BookStore.Services.Orders;
-using BookStore.Services;
 using BookStore.Services.Users.Models;
 using BookStore.Web.Areas.Admin.Models.Order;
 using BookStore.Web.Controllers;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using BookStore.Web.Areas.Orders.Models;
+using BookStore.Services.Users;
 
 namespace BookStore.Web.Areas.Orders.Controllers
 {
@@ -45,7 +45,29 @@ namespace BookStore.Web.Areas.Orders.Controllers
                 Orders = orders,
                 CurrentPage = page,
                 PageSize = pageSize,
-                TotalOrders = await this.orders.TotalAsync()
+                TotalOrders = await this.orders.TotalByUserAsync(userId)
+            };
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> OrdersFromMe(string orderBy = "Id", string orderDirection = "Descending", int page = 1, int pageSize = 4)
+        {
+            var userId = this.userManager.GetUserId(User);
+
+            var orders = await this.orders.OrdersFomMeAsync(userId, orderBy, orderDirection, page, pageSize);
+
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
+            var model = new OrderListingViewModel
+            {
+                Orders = orders,
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalOrders = await this.orders.TotalByUserAsync(userId)
             };
 
             return View(model);
@@ -59,28 +81,6 @@ namespace BookStore.Web.Areas.Orders.Controllers
             await this.users.UpdateOrderInfoAsync(userId, model.Address, model.City, model.PhoneNumber);
 
             return RedirectToAction(nameof(ShoppingCartController.Items), new { area = "", controller = "ShoppingCart" });
-        }
-
-        public async Task<IActionResult> OrdersFromMe(string orderBy = "Id", string orderDirection = "Descending", int page = 1, int pageSize = 4)
-        {
-            var userId = this.userManager.GetUserId(User);
-
-            var orders = await this.orders.OrdersFomMe(userId, orderBy, orderDirection, page, pageSize);
-
-            if (orders == null)
-            {
-                return NotFound();
-            }
-
-            var model = new OrderListingViewModel
-            {
-                Orders = orders,
-                CurrentPage = page,
-                PageSize = pageSize,
-                TotalOrders = await this.orders.TotalAsync()
-            };
-
-            return View(model);
         }
 
         public async Task<IActionResult> Details(int id)

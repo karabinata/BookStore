@@ -10,7 +10,7 @@ namespace BookStore.Services.Orders
 
         Task<IEnumerable<OrderListingServiceModel>> MyOrdersAsync(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4);
 
-        Task<IEnumerable<OrderListingServiceModel>> OrdersFomMe(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4);
+        Task<IEnumerable<OrderListingServiceModel>> OrdersFomMeAsync(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4);
 
         Task<UserOrderDetailsServiceModel> UserInfoAsync(string userId);
 
@@ -18,10 +18,10 @@ namespace BookStore.Services.Orders
 
         Task<bool> OrderBookAsync(string customerId, IEnumerable<int> bookIds, decimal totalPrice, Dictionary<int, int> itemQuantities);
 
-        Task<bool> UnorderBookAsync(string userId, int bookId);
-
-        Task<bool> IsOrdered(string userId, int bookId);
+        Task<bool> IsOrderedAsync(string userId, int bookId);
 
         Task<int> TotalAsync();
+
+        Task<int> TotalByUserAsync(string userId);
     }
 }

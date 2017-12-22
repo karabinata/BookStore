@@ -1,7 +1,4 @@
 ﻿using BookStore.Data.Models;
-using System.ComponentModel.DataAnnotations;
-
-using static BookStore.Data.DataConstants;
 
 namespace BookStore.Services.Books.Models
 {
@@ -9,15 +6,11 @@ namespace BookStore.Services.Books.Models
     {
         public string Title { get; set; }
 
-        public int BooksAvailable { get; set; }
-
         public string AuthorNames { get; set; }
         
         public string PublisherName { get; set; }
         
         public Category Category { get; set; }
-
-        public bool IsNew { get; set; }
 
         public int PublicationYear { get; set; }
 

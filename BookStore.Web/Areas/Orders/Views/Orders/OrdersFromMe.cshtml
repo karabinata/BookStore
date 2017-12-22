@@ -12,6 +12,42 @@
 }
 else
 {
+    @if (Model.TotalOrders > Model.PageSize)
+    {
+        var previousDisabled = Model.CurrentPage == 1 ? "disabled" : string.Empty;
+        var nextDisabled = Model.CurrentPage == Model.TotalPages ? "disabled" : string.Empty;
+
+        <ul class="pagination pagination-lg">
+            <li class="page-item @previousDisabled">
+                <a class="page-link" asp-controller="Items" asp-action="MyBooks" asp-route-page="@Model.PreviousPage" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                    <span class="sr-only">  </span>
+                </a>
+            </li>
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : string.Empty)"><a class="page-link" href="/books/items/mybooks?page=@i">@i</a></li>
+            }
+            <li class="page-item @nextDisabled">
+                <a class="page-link" asp-controller="Items" asp-action="MyBooks" asp-route-page="@Model.PreviousPage" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Брой книги на страница<span class="caret"></span></a>
+                <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+                    <div class="w3ls_vegetables">
+                        <ul>
+                            <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=4">4</a></li>
+                            <li><a href="/books/items/all?page=@Model.CurrentPage&pageSize=8">8</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    }
     <div class="row margin-top">
         <div class="col-md-8 col-sm-8">
             <table class="table table-bordered table-hover">

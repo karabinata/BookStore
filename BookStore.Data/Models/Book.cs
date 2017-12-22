@@ -21,8 +21,6 @@ namespace BookStore.Data.Models
         [Required]
         public Category Category { get; set; }
 
-        public bool IsNew { get; set; }
-
         public int PublicationYear { get; set; }
 
         public int? NumberOfPages { get; set; }

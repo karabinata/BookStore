@@ -12,7 +12,6 @@ namespace BookStore.Services.Books
              string authorNames,
              string publisherName,
              Category category,
-             bool isNew,
              int publicationYear,
              decimal price,
              Condition condition,
@@ -23,6 +22,8 @@ namespace BookStore.Services.Books
              string traderId);
 
         Task<IEnumerable<BookListingServiceModel>> AllAsync(string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 5);
+
+        Task<IEnumerable<LastThreeBookServiceModel>> LastThreeBooksAsync();
 
         Task<IEnumerable<BookListingServiceModel>> BooksByCurrentUserAsync(string userId, int page = 1, int pageSize = 4);
 
@@ -52,6 +53,8 @@ namespace BookStore.Services.Books
         Task<bool> DeteleteAsync(string userId, int bookId);
 
         Task<int> TotalAsync();
+
+        Task<int> TotalByUserAsync(string userId);
 
         Task<bool> ExistsAsync(string userId, int bookId);
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 using static BookStore.Data.DataConstants;
@@ -46,10 +47,12 @@ namespace BookStore.Web.Areas.Books.Controllers
         {
             var userId = this.userManager.GetUserId(User);
 
+            var books = await this.books.BooksByCurrentUserAsync(userId, page, pageSize);
+
             var myBooks = new BookListingViewModel
             {
-                Books = await this.books.BooksByCurrentUserAsync(userId, page, pageSize),
-                TotalBooks = await this.books.TotalAsync(),
+                Books = books,
+                TotalBooks = await this.books.TotalByUserAsync(userId),
                 CurrentPage = page,
                 PageSize = pageSize
             };
@@ -169,25 +172,6 @@ namespace BookStore.Web.Areas.Books.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Unorder(int id)
-        {
-            var userId = this.userManager.GetUserId(User);
-
-            var orderResult = await this.orders.UnorderBookAsync(userId, id);
-
-            if (!orderResult)
-            {
-                TempData.AddErrorMessage("За съжаление поръчката не може да се отмени, възникнала е някаква грешка, моля свържете се с продавача.");
-                return RedirectToAction(nameof(Details), new { id });
-            }
-
-            TempData.AddSuccessMessage("Поръчката е отменена успешно.");
-
-            return RedirectToAction(nameof(Details), new { id });
-        }
-
         public async Task<IActionResult> Details(int id)
         {
             var model = new BookDetailsViewModel
@@ -205,7 +189,7 @@ namespace BookStore.Web.Areas.Books.Controllers
                 var userId = this.userManager.GetUserId(User);
 
                 model.IsOrderedByUser = await this.orders
-                    .IsOrdered(userId, id);
+                    .IsOrderedAsync(userId, id);
 
                 model.IsThisBookBelongsToTheCurrentUser = userId == model.Book.TraderId;
             }

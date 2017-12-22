@@ -56,7 +56,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Book.Category"></label>
-                        <input asp-for="Book.Category" class="form-control" />
+                        <select asp-for="Book.Category" asp-items="Html.GetEnumSelectList<Category>()" class="form-control"></select>
                         <span asp-validation-for="Book.Category" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Book.Condition"></label>
-                        <input asp-for="Book.Condition" class="form-control" />
+                        <select asp-for="Book.Condition" asp-items="Html.GetEnumSelectList<Condition>()" class="form-control" ></select>
                         <span asp-validation-for="Book.Condition" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -82,25 +82,15 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Book.Coverage"></label>
-                        <input asp-for="Book.Coverage" class="form-control" />
+                        <select asp-for="Book.Coverage" asp-items="Html.GetEnumSelectList<Coverage>()" class="form-control"></select>
                         <span asp-validation-for="Book.Coverage" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Book.Description"></label>
-                        <input asp-for="Book.Description" class="form-control" />
+                        <textarea asp-for="Book.Description" class="form-control" rows="10" ></textarea>
                         <span asp-validation-for="Book.Description" class="text-danger"></span>
                     </div>
                     <input type="submit" value="Редактирай" />
-                </form>
-            </div>
-            <div class="form">
-                <h2>Create an account</h2>
-                <form action="#" method="post">
-                    <input type="text" name="Username" placeholder="Username" required=" ">
-                    <input type="password" name="Password" placeholder="Password" required=" ">
-                    <input type="email" name="Email" placeholder="Email Address" required=" ">
-                    <input type="text" name="Phone" placeholder="Phone Number" required=" ">
-                    <input type="submit" value="Register">
                 </form>
             </div>
         </div>

@@ -1,8 +1,5 @@
-﻿using BookStore.Data.Models;
-using BookStore.Services;
-using BookStore.Services.Users.Models;
+﻿using BookStore.Services.Users;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

@@ -14,7 +14,7 @@ namespace BookStore.Common.Extensions
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty,
                           string desc)
         {
-            var command = desc.ToLower() == OrderDirectionAscending ? OrderByDescending : OrderByAccending;
+            var command = desc.ToLower() == OrderDirectionAscending ? OrderByAccending : OrderByDescending;
             var orderDefault = string.IsNullOrEmpty(orderByProperty) ? OrderByDefault : orderByProperty;
             var type = typeof(TEntity);
             var property = type.GetProperty(orderDefault);

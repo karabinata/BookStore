@@ -54,8 +54,6 @@ namespace BookStore.Web.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<bool>("IsNew");
-
                     b.Property<string>("Language")
                         .IsRequired()
                         .HasMaxLength(100);

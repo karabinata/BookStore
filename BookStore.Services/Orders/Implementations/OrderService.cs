@@ -42,7 +42,7 @@ namespace BookStore.Services.Orders.Implementations
                 .ProjectTo<OrderListingServiceModel>()
                 .ToListAsync();
 
-        public async Task<IEnumerable<OrderListingServiceModel>> OrdersFomMe(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4)
+        public async Task<IEnumerable<OrderListingServiceModel>> OrdersFomMeAsync(string userId, string orderBy = "Id", string orderDirection = "descending", int page = 1, int pageSize = 4)
             => await this.db
                 .Orders
                 .Where(o => o.TraderId == userId)
@@ -123,48 +123,19 @@ namespace BookStore.Services.Orders.Implementations
             
             return true;
         }
-
-        public async Task<bool> UnorderBookAsync(string userId, int bookId)
-        {
-            var orderBook = await this.db
-                .OrderBooks
-                .Where(ob => ob.BookId == bookId)
-                .FirstOrDefaultAsync();
-
-            if (orderBook == null)
-            {
-                return false;
-            }
-
-            var order = await this.db
-                .Orders
-                .Where(o => o.CustomerId == userId && orderBook.BookId == bookId && orderBook.OrderId == o.Id)
-                .FirstOrDefaultAsync();
-
-            if (order == null)
-            {
-                return false;
-            }
-
-            if (order.OrderDate.AddDays(3) < DateTime.UtcNow)
-            {
-                return false;
-            }
-
-            this.db.Orders.Remove(order);
-            this.db.OrderBooks.Remove(orderBook);
-
-            await this.db.SaveChangesAsync();
-
-            return true;
-        }
-
-        public async Task<bool> IsOrdered(string userId, int bookId)
+        
+        public async Task<bool> IsOrderedAsync(string userId, int bookId)
             => await this.db
                 .Orders
                 .AnyAsync(o => o.CustomerId == userId && o.Books.Any(b => b.BookId == bookId));
 
         public async Task<int> TotalAsync()
             => await this.db.Orders.CountAsync();
+
+        public async Task<int> TotalByUserAsync(string userId)
+            => await this.db
+                .Orders
+                .Where(o => o.CustomerId == userId)
+                .CountAsync();
     }
 }

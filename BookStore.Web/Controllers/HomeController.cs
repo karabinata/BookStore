@@ -1,33 +1,28 @@
 ﻿using System.Diagnostics;
 using BookStore.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using BookStore.Services.Books;
+using System.Threading.Tasks;
 
 namespace BookStore.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private IBookService books;
+
+        public HomeController(IBookService books)
         {
-            return View();
+            this.books = books;
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Index()
         {
-            ViewData["Message"] = "Your application description page.";
+            var lastBooks = await this.books.LastThreeBooksAsync();
 
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return View(lastBooks);
         }
 
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

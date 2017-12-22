@@ -61,7 +61,7 @@ namespace BookStore.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDatabaseMigration();
+            //app.UseDatabaseMigration();
 
             if (env.IsDevelopment())
             {
@@ -71,7 +71,7 @@ namespace BookStore.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/home/error");
             }
 
             app.UseStaticFiles();

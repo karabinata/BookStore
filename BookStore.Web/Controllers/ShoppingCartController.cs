@@ -52,7 +52,7 @@ namespace BookStore.Web.Controllers
             return View(new ShoppingCartDetailsViewModel
             {
                 Items = itemsWithDetails,
-                Customer = await this.users.Details(userId)
+                Customer = await this.users.DetailsAsync(userId)
             });
         }
 

@@ -12,11 +12,11 @@
 <div class="banner">
     <div class="text-center">
         <div>
-            Подреди по <a asp-action="All" asp-route-orderBy="Price" asp-route-orderDirection="ascending">Най-скъпи</a>
-            <a asp-action="All" asp-route-orderBy="Price" asp-route-orderDirection="descending">Най-евтини</a>
+            Подреди по <a asp-action="All" asp-route-orderBy="Price" asp-route-orderDirection="descending">Най-скъпи</a>
+            <a asp-action="All" asp-route-orderBy="Price" asp-route-orderDirection="ascending">Най-евтини</a>
             <a asp-action="All" asp-route-orderBy="Title" asp-route-orderDirection="descending">Заглавие</a>
-            <a asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="ascending">Най-нови</a>
-            <a asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="descending">Най-стари</a>
+            <a asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="descending">Най-нови</a>
+            <a asp-action="All" asp-route-orderBy="Id" asp-route-orderDirection="ascending">Най-стари</a>
         </div>
         @if (Model.TotalBooks > Model.PageSize)
         {

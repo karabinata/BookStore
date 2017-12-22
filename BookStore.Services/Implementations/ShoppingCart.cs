@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using BookStore.Services.Models;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace BookStore.Services.Models
+namespace BookStore.Services.Implementations
 {
     public class ShoppingCart
     {

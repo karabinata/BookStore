@@ -106,8 +106,7 @@ input[type="submit"], #PPMiniCart .minicart-submit, .w3ls_vegetables ul li a, in
 
 .w3l_search {
     float: left;
-    width: 39%;
-    margin: .1em 0 0em 10em;
+    width: 45%;
 }
 
     .w3l_search input[type="text"] {
@@ -333,6 +332,9 @@ ul.dropdown-menu.drp-mnu {
         text-align: center !important;
     }
 
+.login_partial > .navbar-nav > li {
+    float: right !important;
+}
 .nav > li > a:hover, .nav > li > a:focus {
     background-color: #84C639;
     color: #fff;
@@ -388,7 +390,7 @@ ul.dropdown-menu.drp-mnu {
 }
 
 .w3l_banner_nav_right_banner {
-    background: url(../images/1.jpg) no-repeat 0px 0px;
+    background: no-repeat 0px 0px;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -396,22 +398,30 @@ ul.dropdown-menu.drp-mnu {
     -ms-background-size: cover;
 }
 
-.w3l_banner_nav_right_banner1 {
-    background: url(../images/2.jpg) no-repeat 0px 0px;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
+.article {
+    height: 50% !important;
+    padding: 10px;
+    background-color: white;
+    overflow: hidden;
 }
 
-.w3l_banner_nav_right_banner2 {
-    background: url(../images/3.jpg) no-repeat 0px 0px;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
+    .article img {
+        position: center;
+        z-index: 0;
+        height: 30% !important;
+        margin: -10px;
+    }
+
+    .article h1, .article h2 {
+        position: relative;
+        z-index: 1;
+    }
+
+.book-title {
+    margin-top: -100px;
+    position: relative;
+    color: white;
+    font-size: 3em;
 }
 
     .w3l_banner_nav_right_banner h3, .w3l_banner_nav_right_banner1 h3, .w3l_banner_nav_right_banner2 h3 {
@@ -451,7 +461,6 @@ ul.dropdown-menu.drp-mnu {
 .more {
     width: 20%;
     text-align: center;
-    margin-left: 59em;
 }
 /* Saqui */
 .button--saqui {
@@ -3420,7 +3429,8 @@ input.checkbox {
 
 @media (max-width:1366px) {
     .w3l_search {
-        margin: .1em 0 0em 6em;
+        margin-left: 0.3%;
+        width: 55%;
     }
 
     .w3l_banner_nav_right_banner1, .w3l_banner_nav_right_banner, .w3l_banner_nav_right_banner2 {
@@ -3470,6 +3480,11 @@ input.checkbox {
 }
 
 @media (max-width: 1280px) {
+    .w3l_search {
+        margin-left: 0.3%;
+        width: 54%;
+    }
+
     .more {
         margin-left: 47em;
     }
@@ -3555,20 +3570,32 @@ input.checkbox {
     }
 
     .w3l_search {
-        margin: .1em 0 0em 3em;
-        width: 30%;
+        margin-left: 0.3%;
+        width: 100%;
     }
 
+        .w3l_search input[type="text"] {
+            outline: none;
+            padding: 10px;
+            margin-right: 5px;
+            color: #212121;
+            font-size: 14px;
+            background: #fff;
+            border: 1px solid #999;
+            float: left;
+            width: 65%;
+        }
+
         .w3l_search input[type="submit"] {
-            background: url(../images/img-sp.png) no-repeat 6px 5px #FA1818;
+            background: url(../images/img-sp.png) no-repeat 2px 5px #FA1818;
         }
 
             .w3l_search input[type="submit"]:hover {
-                background: url(../images/img-sp.png) no-repeat 6px 5px #84C639;
+                background: url(../images/img-sp.png) no-repeat 2px 5px #84C639;
             }
 
     .product_list_header {
-        margin-left: 2em;
+        margin-left: 0.5em;
     }
 
     #PPMiniCart {
@@ -3771,6 +3798,11 @@ input.checkbox {
 }
 
 @media (max-width: 1024px) {
+    .w3l_search {
+        margin-left: 0.3%;
+        width: 100%;
+    }
+
     .w3l_header_right {
         padding-left: 2em;
     }
@@ -3826,7 +3858,7 @@ input.checkbox {
 
 @media (max-width: 991px) {
     .w3l_search {
-        margin: .1em 0 0em 2em;
+        width: 101%
     }
 
     .w3ls_logo_products_left h1 a {
@@ -4188,8 +4220,20 @@ input.checkbox {
     }
 
     .w3l_search {
-        width: 42%;
+        width: 101%;
     }
+
+        .w3l_search input[type="text"] {
+            outline: none;
+            padding: 10px;
+            margin-right: 5px;
+            color: #212121;
+            font-size: 14px;
+            background: #fff;
+            border: 1px solid #999;
+            float: left;
+            width: 63%;
+        }
 
     .w3l_offers a {
         padding: .6em 1em;
@@ -4197,13 +4241,17 @@ input.checkbox {
     }
 
     .w3l_search {
-        width: 25%;
+        width: 100%;
         margin: .1em 0 0em 1em;
     }
 
+        .w3l_search #search {
+            width: 60%;
+        }
+
         .w3l_search input[type="submit"] {
             background: url(../images/img-sp.png) no-repeat 0px 5px #FA1818;
-            width: 18%;
+            width: 9%;
         }
 
             .w3l_search input[type="submit"]:hover {
@@ -4502,13 +4550,17 @@ input.checkbox {
 
 @media (max-width: 736px) {
     .w3l_search {
-        width: 50%;
-        margin: .1em 0 1em 10em;
+        width: 100%;
+        margin: .1em 0 1em 1em;
     }
 
-    .w3l_header_right {
-        padding-left: 6.5em;
-    }
+        .w3l_search #search{
+            width: 55%;
+        }
+
+        .w3l_header_right {
+            padding-left: 6.5em;
+        }
 
     .w3l_search input[type="submit"] {
         background: url(../images/img-sp.png) no-repeat 10px 5px #FA1818;
@@ -4550,8 +4602,7 @@ input.checkbox {
 
 @media (max-width: 667px) {
     .w3l_search {
-        width: 55%;
-        margin: .1em 0 1em 5.8em;
+        width: 100%;
     }
 
     .container {
@@ -4590,8 +4641,23 @@ input.checkbox {
     }
 
     .w3l_search {
-        margin: .1em 0 1em 5em;
+        width: 111%;
     }
+        .w3l_search #search {
+            width: 45%;
+        }
+
+    .w3l_header_right {
+        padding-left: 6.5em;
+    }
+
+    .w3l_search input[type="submit"] {
+        background: url(../images/img-sp.png) no-repeat 10px 5px #FA1818;
+    }
+
+        .w3l_search input[type="submit"]:hover {
+            background: url(../images/img-sp.png) no-repeat 10px 5px #84C639;
+        }
 
     .w3l_header_right {
         padding-left: 4.5em;
@@ -4729,7 +4795,7 @@ input.checkbox {
 
 @media (max-width: 600px) {
     .w3l_search {
-        margin: .1em 0 1em 3.9em;
+        margin: .1em 0 1em 0.7em;
     }
 
     .w3ls_logo_products_left1 ul.special_items li i {
@@ -4771,7 +4837,7 @@ input.checkbox {
 
 @media (max-width: 568px) {
     .w3l_search {
-        margin: .1em 0 1em 2.9em;
+        margin: .1em 0 1em 0.8em;
     }
 
     .more {
@@ -4819,18 +4885,21 @@ input.checkbox {
     }
 
     .w3l_search {
-        margin: .1em 0 0.5em 1.7em;
-        width: 51%;
+        width: 100%;
     }
 
-        .w3l_search input[type="text"] {
-            font-size: 13px;
-        }
+    .w3l_search #search{
+        width: 97%;
+    }
 
-        .w3l_search input[type="submit"] {
-            background: url(../images/img-sp.png) no-repeat 0px 3px #FA1818;
-            padding: 8px 0 9.9px;
-        }
+    .w3l_search label{
+        width: 36% !important;
+    } 
+    
+    .w3l_search input[type="submit"] {
+        background: url(../images/img-sp.png) no-repeat 0px 3px #FA1818;
+        padding: 6px 0 7.9px;
+    }
 
             .w3l_search input[type="submit"]:hover {
                 background: url(../images/img-sp.png) no-repeat 0px 3px #84C639;
@@ -5393,14 +5462,21 @@ input.checkbox {
     }
 
     .w3l_search {
-        margin: .1em 0;
         float: none;
         width: 100%;
     }
 
+    .w3l_search #search {
+        width: 100%;
+    }
+
+        .w3l_search label {
+            width: 36% !important;
+        }
+
         .w3l_search input[type="submit"] {
             background: url(../images/img-sp.png) no-repeat 17px 3px #FA1818;
-            padding: 8px 0 8.9px;
+            padding: 6px 0 8.9px;
         }
 
     .more {
@@ -5503,6 +5579,20 @@ input.checkbox {
         margin-left: 1em;
     }
 
+    .w3l_search {
+        float: none;
+        width: 100%;
+    }
+
+        .w3l_search #search {
+            width: 99%;
+        }
+
+    .w3l_search label {
+        margin-left: 1em;
+        width: 30% !important;
+    }
+
     .view p {
         padding: 10px 10px 0px;
     }
@@ -5575,6 +5665,19 @@ input.checkbox {
     .w3ls_logo_products_left {
         width: 42%;
     }
+
+    .w3l_search {
+        float: none;
+        width: 100%;
+    }
+
+        .w3l_search #search {
+            width: 95%;
+        }
+
+        .w3l_search label {
+            width: 34% !important;
+        }
 
     .w3l_search input[type="submit"] {
         background: url(../images/img-sp.png) no-repeat 11px 3px #FA1818;

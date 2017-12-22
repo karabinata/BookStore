@@ -61,7 +61,6 @@ namespace BookStore.Web.Areas.Books.Controllers
                     model.AuthorNames,
                     model.PublisherName,
                     model.Category,
-                    model.IsNew,
                     model.PublicationYear,
                     model.Price,
                     model.Condition,
@@ -73,7 +72,7 @@ namespace BookStore.Web.Areas.Books.Controllers
                 );
 
             TempData.AddSuccessMessage($"Книгата със заглавие {model.Title} е добавена успешно.");
-            return View();
+            return RedirectToAction(nameof(ItemsController.Details), new { controller = "Items", Id = bookId});
         }
     }
 }

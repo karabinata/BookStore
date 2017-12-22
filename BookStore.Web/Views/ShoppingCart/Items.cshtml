@@ -6,121 +6,127 @@
 
 <div class="w3l_banner_nav_right">
     <div class="privacy about">
-        <h3>Кош<span>ница</span></h3>
+        @if (Model.Items.Count() > 0)
+        {
+            <h3>Кош<span>ница</span></h3>
 
-        <div class="checkout-right">
-            <h4>Количката ви съдържа: <span>@Model.Items.Sum(i => i.Quantity) Продукта</span></h4>
-            <table class="timetable_sub">
-                <thead>
-                    <tr>
-                        <th>&#8470;</th>
-                        <th>Снимка</th>
-                        <th>Количество</th>
-                        <th>Заглавие</th>
-                        <th>Цена</th>
-                        <th>Премахни</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Items)
-                    {
-                        <tr class="rem1">
-                            <td class="invert">1</td>
-                            @{
-                                var imgSrc = string.Empty;
-                                if (item.CoverPicture != null)
-                                {
-                                    var base64 = Convert.ToBase64String(item.CoverPicture);
-                                    imgSrc = String.Format("data:image;base64,{0}", base64);
+            <div class="checkout-right">
+                <h4>Количката ви съдържа: <span>@Model.Items.Sum(i => i.Quantity) Продукта</span></h4>
+                <table class="timetable_sub">
+                    <thead>
+                        <tr>
+                            <th>&#8470;</th>
+                            <th>Снимка</th>
+                            <th>Количество</th>
+                            <th>Заглавие</th>
+                            <th>Цена</th>
+                            <th>Премахни</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr class="rem1">
+                                <td class="invert">1</td>
+                                @{
+                                    var imgSrc = string.Empty;
+                                    if (item.CoverPicture != null)
+                                    {
+                                        var base64 = Convert.ToBase64String(item.CoverPicture);
+                                        imgSrc = String.Format("data:image;base64,{0}", base64);
+                                    }
+                                    else
+                                    {
+                                        imgSrc = "/images/no-image.png";
+                                    }
+                                    <td class="invert-image"><a asp-area="Books" asp-controller="Items" asp-action="Details" asp-route-id="@item.Id"><img src="@imgSrc" alt="@item.Title" class="img-responsive" style="width: 80px; height:100px;"></a></td>
                                 }
-                                else
-                                {
-                                    imgSrc = "/images/no-image.png";
-                                }
-                                <td class="invert-image"><a asp-area="Books" asp-controller="Items" asp-action="Details" asp-route-id="@item.Id"><img src="@imgSrc" alt="@item.Title" class="img-responsive" style="width: 80px; height:100px;"></a></td>
-                            }
-                            <td class="invert">
-                                <div class="quantity">
-                                    <div class="quantity-select">
-                                        <a asp-action="DecreaseItemQuantity" asp-route-id="@item.Id"><div class="entry value-minus">&nbsp;</div></a>
+                                <td class="invert">
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                            <a asp-action="DecreaseItemQuantity" asp-route-id="@item.Id"><div class="entry value-minus">&nbsp;</div></a>
                                             <div class="entry value"><span>@item.Quantity</span></div>
                                             <a asp-action="IncreaseItemQuantity" asp-route-id="@item.Id"><div class="entry value-plus active">&nbsp;</div></a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="invert"><a asp-area="Books" asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></td>
+                                </td>
+                                <td class="invert"><a asp-area="Books" asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></td>
 
-                            <td class="invert">@((item.Quantity * item.Price).ToBgnPrice())</td>
-                            <td class="invert">
-                                <div class="rem text-center">
-                                    <form asp-action="RemoveFromCart" asp-route-id="@item.Id">
-                                        <button type="submit" class="btn btn-sm btn-danger">Премахни от кошницата</button>.
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                     }
-                </tbody>
-            </table>
-        </div>
-        <div class="checkout-left">
-            <div class="col-md-4 checkout-left-basket">
-                <form asp-area="" asp-controller="ShoppingCart" asp-action="FinishOrder" method="post">
-                    <input type="submit" class="btn btn-sm btn-success" value="Поръчай"/>
-                </form>
-                <ul>
-                    @foreach (var item in Model.Items)
-                    {
-                        <li>@item.Title <i>-</i> <span>@((item.Quantity * item.Price).ToBgnPrice()) </span></li>
-                    }
-                    <li>Общо <i>-</i> <span>@Model.Items.Sum(p => p.Price * p.Quantity).ToBgnPrice()</span></li>
-                </ul>
+                                <td class="invert">@((item.Quantity * item.Price).ToBgnPrice())</td>
+                                <td class="invert">
+                                    <div class="rem text-center">
+                                        <form asp-action="RemoveFromCart" asp-route-id="@item.Id">
+                                            <button type="submit" class="btn btn-sm btn-danger">Премахни от кошницата</button>.
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                                    }
+                    </tbody>
+                </table>
             </div>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="col-md-8 address_form_agile">
-                    <h4>Добави детайли за поръчката</h4>
-                    
-                    <form asp-area="Orders" asp-controller="Orders" asp-action="UpdateUserOrderInfo" method="post">
-                        <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                            <div class="information-wrapper">
-                                <div class="first-row form-group">
-                                    <div class="controls">
-                                        <label class="control-label">Име: </label>
-                                        <input class="billing-address-name form-control" type="text" name="name" value="@($"{Model.Customer.FirstName} {Model.Customer.LastName}")" />
-                                    </div>
-                                    <div class="controls">
-                                        <label class="control-label">И-мейл: </label>
-                                        <input class="billing-address-name form-control" type="text" name="name" value="@Model.Customer.Email" />
-                                    </div>
-                                    <div class="w3_agileits_card_number_grids">
-                                        <div class="w3_agileits_card_number_grid_left">
-                                            <div class="controls">
-                                                <label class="control-label">Телефонен номер:</label>
-                                                <input class="form-control" name="PhoneNumber" type="text" placeholder="Телефонен номер"/>
-                                            </div>
-                                        </div>
-                                        <div class="w3_agileits_card_number_grid_right">
-                                            <div class="controls">
-                                                <label class="control-label">Град: </label>
-                                                <input class="form-control" name="City" type="text" placeholder="Град"/>
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="controls">
-                                        <label class="control-label">Адрес: </label>
-                                        <input class="form-control" name="Address" type="text" placeholder="Адрес" />
-                                    </div>
-                                </div>
-                                <input type="submit" class="btn btn-sm btn-success" value="Доставка до този адрес" />
-                            </div>
-                        </section>
+            <div class="checkout-left">
+                <div class="col-md-4 checkout-left-basket">
+                    <form asp-area="" asp-controller="ShoppingCart" asp-action="FinishOrder" method="post">
+                        <input type="submit" class="btn btn-sm btn-success" value="Поръчай" />
                     </form>
+                    <ul>
+                        @foreach (var item in Model.Items)
+                        {
+                            <li>@item.Title <i>-</i> <span>@((item.Quantity * item.Price).ToBgnPrice()) </span></li>
+                        }
+                        <li>Общо <i>-</i> <span>@Model.Items.Sum(p => p.Price * p.Quantity).ToBgnPrice()</span></li>
+                    </ul>
                 </div>
-            }
-            <div class="clearfix"></div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="col-md-8 address_form_agile">
+                        <h4>Добави детайли за поръчката</h4>
 
-        </div>
+                        <form asp-area="Orders" asp-controller="Orders" asp-action="UpdateUserOrderInfo" method="post">
+                            <section class="creditly-wrapper wthree, w3_agileits_wrapper">
+                                <div class="information-wrapper">
+                                    <div class="first-row form-group">
+                                        <div class="controls">
+                                            <label class="control-label">Име: </label>
+                                            <input class="billing-address-name form-control" type="text" name="name" value="@($"{Model.Customer.FirstName} {Model.Customer.LastName}")" />
+                                        </div>
+                                        <div class="controls">
+                                            <label class="control-label">И-мейл: </label>
+                                            <input class="billing-address-name form-control" type="text" name="name" value="@Model.Customer.Email" />
+                                        </div>
+                                        <div class="w3_agileits_card_number_grids">
+                                            <div class="w3_agileits_card_number_grid_left">
+                                                <div class="controls">
+                                                    <label class="control-label">Телефонен номер:</label>
+                                                    <input class="form-control" name="PhoneNumber" type="text" placeholder="Телефонен номер" />
+                                                </div>
+                                            </div>
+                                            <div class="w3_agileits_card_number_grid_right">
+                                                <div class="controls">
+                                                    <label class="control-label">Град: </label>
+                                                    <input class="form-control" name="City" type="text" placeholder="Град" />
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="controls">
+                                            <label class="control-label">Адрес: </label>
+                                            <input class="form-control" name="Address" type="text" placeholder="Адрес" />
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn-sm btn-success" value="Доставка до този адрес" />
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                }
+                <div class="clearfix"></div>
+            </div>
+         }
+         else
+         {
+            <div class="text-center">Кошницата е празна</div>
+         }
     </div>
 </div>

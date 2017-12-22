@@ -32,7 +32,7 @@ namespace BookStore.Services.Books.Implementations
 
         public async Task<IEnumerable<BookListingServiceModel>> AllAsync(
             string orderBy = "Id",
-            string orderDirection = "descending",
+            string orderDirection = "Descending",
             int page = 1,
             int pageSize = 4)
                 => await this.db
@@ -53,8 +53,13 @@ namespace BookStore.Services.Books.Implementations
                 .ProjectTo<BookListingServiceModel>()
                 .ToListAsync();
 
-        public async Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(string searchIn, string searchText = "", string orderBy = "Id",
-            string orderDirection = "descending", int page = 1, int pageSize = 4)
+        public async Task<IEnumerable<BookListingServiceModel>> SearchBookAsync(
+            string searchIn, 
+            string searchText = "", 
+            string orderBy = "Id",
+            string orderDirection = "Descending", 
+            int page = 1, 
+            int pageSize = 4)
         {
             if (searchIn == SearchInAuthors)
             {
@@ -98,7 +103,6 @@ namespace BookStore.Services.Books.Implementations
             string authorNames,
             string publisherName,
             Category category,
-            bool isNew,
             int publicationYear,
             decimal price,
             Condition condition,
@@ -125,7 +129,6 @@ namespace BookStore.Services.Books.Implementations
                 TraderId = traderId,
                 PublisherId = publisherId,
                 Category = category,
-                IsNew = isNew,
                 PublicationYear = publicationYear,
                 Price = price,
                 Condition = condition,
@@ -219,7 +222,6 @@ namespace BookStore.Services.Books.Implementations
 
             book.Title = title;
             book.Category = category;
-            book.IsNew = isNew;
             book.PublicationYear = publicationYear;
             book.Price = price;
             book.Condition = condition;
@@ -232,6 +234,14 @@ namespace BookStore.Services.Books.Implementations
 
             return true;
         }
+
+        public async Task<IEnumerable<LastThreeBookServiceModel>> LastThreeBooksAsync()
+            => await this.db
+                .Books
+                .OrderByDescending(b => b.Id)
+                .Take(3)
+                .ProjectTo<LastThreeBookServiceModel>()
+                .ToListAsync();
 
         public async Task<bool> DeteleteAsync(string userId, int bookId)
         {
@@ -250,9 +260,6 @@ namespace BookStore.Services.Books.Implementations
 
             return true;
         }
-
-        public async Task<int> TotalAsync()
-            => await this.db.Books.CountAsync();
 
         public async Task<bool> ExistsAsync(string userId, int bookId)
             => await this.db
@@ -284,10 +291,24 @@ namespace BookStore.Services.Books.Implementations
         }
 
         public async Task<string> FindBookTraderAsync(int bookId)
+        {
+            var book = this.db.Books.Find(bookId);
+
+            if (book == null)
+            {
+                return null;
+            }
+
+            return book.TraderId;
+        }
+
+        public async Task<int> TotalAsync()
+            => await this.db.Books.CountAsync();
+
+        public async Task<int> TotalByUserAsync(string userId)
             => await this.db
                 .Books
-                .Where(b => b.Id == bookId)
-                .Select(b => b.TraderId)
-                .FirstOrDefaultAsync();
+                .Where(b => b.TraderId == userId)
+                .CountAsync();
     }
 }

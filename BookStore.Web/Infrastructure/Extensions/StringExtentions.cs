@@ -5,8 +5,6 @@
         private const string NumberFormat = "F2";
 
         public static string ToBgnPrice(this decimal priceText)
-        {
-            return $"{priceText.ToString(NumberFormat)} лв.";
-        }
+            => $"{priceText.ToString(NumberFormat)} лв.";
     }
 }
